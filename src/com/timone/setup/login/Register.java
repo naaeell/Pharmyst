@@ -4,11 +4,8 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.timone.main.MainAdmin;
 import net.miginfocom.swing.MigLayout;
 import com.timone.setup.component.PasswordStrengthStatus;
-import com.timone.setup.manager.FormsManager;
-import raven.toast.Notifications;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Register extends JPanel {
     
@@ -28,12 +25,15 @@ public class Register extends JPanel {
             // Menginstansiasi objek menu jika belum diinstansiasi sebelumnya
             if (menu == null) {
                 menu = new MainAdmin();
+                // Menempatkan frame di tengah layar
+                menu.setLocationRelativeTo(null);
             }
 
             // Menampilkan menu
             menu.setVisible(true);
             ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
         });
+
         
         passwordStrengthStatus = new PasswordStrengthStatus();
 

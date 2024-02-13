@@ -1,13 +1,13 @@
 package com.timone.setup.manager;
 
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
-import com.timone.setup.main.Application;
+import com.timone.setup.main.start;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class FormsManager {
-    private Application application;
+    private start application;
     private static FormsManager instance;
 
     public static FormsManager getInstance() {
@@ -21,7 +21,7 @@ public class FormsManager {
 
     }
 
-    public void initApplication(Application application) {
+    public void initApplication(start application) {
         this.application = application;
     }
 

@@ -9,9 +9,9 @@ import raven.toast.Notifications;
 import javax.swing.*;
 import java.awt.*;
 
-public class Application extends JFrame {
+public class start extends JFrame {
 
-    public Application() {
+    public start() {
         init();
     }
 
@@ -30,6 +30,6 @@ public class Application extends JFrame {
         FlatLaf.registerCustomDefaultsSource("raven.themes");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
         FlatMacDarkLaf.setup();
-        EventQueue.invokeLater(() -> new Application().setVisible(true));
+        EventQueue.invokeLater(() -> new start().setVisible(true));
     }
 }

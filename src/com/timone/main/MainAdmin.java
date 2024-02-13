@@ -7,6 +7,7 @@ package com.timone.main;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 /**
  *
@@ -150,7 +151,7 @@ public class MainAdmin extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    FlatMacDarkLaf.setup();
+    FlatMacLightLaf.setup();
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
             MainAdmin home = new MainAdmin();
