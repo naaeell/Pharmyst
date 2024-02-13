@@ -51,7 +51,7 @@ public class PasswordStrengthStatus extends JPanel {
         } else {
             label.setVisible(true);
             if (type == 1) {
-                label.setText("Too weak");
+                label.setText("Weak");
             } else if (type == 2) {
                 label.setText("Medium");
             } else {
