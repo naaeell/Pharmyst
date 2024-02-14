@@ -9,9 +9,9 @@ import raven.toast.Notifications;
 import javax.swing.*;
 import java.awt.*;
 
-public class start extends JFrame {
+public class startSetup extends JFrame {
 
-    public start() {
+    public startSetup() {
         init();
     }
 
@@ -22,7 +22,7 @@ public class start extends JFrame {
         setLocationRelativeTo(null);
         setContentPane(new Setup());
         Notifications.getInstance().setJFrame(this);
-        FormsManager.getInstance().initApplication(this);
+        FormsManager.getInstance().initSetup(this);
     }
 
     public static void main(String[] args) {
@@ -30,6 +30,6 @@ public class start extends JFrame {
         FlatLaf.registerCustomDefaultsSource("raven.themes");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
         FlatMacDarkLaf.setup();
-        EventQueue.invokeLater(() -> new start().setVisible(true));
+        EventQueue.invokeLater(() -> new startSetup().setVisible(true));
     }
 }

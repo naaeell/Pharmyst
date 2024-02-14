@@ -53,7 +53,6 @@ public class Login extends JPanel {
         panel.add(txtPassword);
         panel.add(chRememberMe, "grow 0");
         panel.add(cmdLogin, "gapy 10");
-        panel.add(createSignupLabel(), "gapy 10");
         add(panel);
     }
 

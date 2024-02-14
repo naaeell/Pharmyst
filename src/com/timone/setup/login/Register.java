@@ -1,7 +1,7 @@
 package com.timone.setup.login;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import com.timone.main.MainAdmin;
+import com.timone.menu.dashboard.MainAdmin;
 import net.miginfocom.swing.MigLayout;
 import com.timone.setup.component.PasswordStrengthStatus;
 
