@@ -1,6 +1,7 @@
 package com.timone.setup.login;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.timone.menu.dashboard.MainAdmin;
 import com.timone.setup.manager.FormsManager;
 import net.miginfocom.swing.MigLayout;
 
@@ -8,12 +9,27 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Login extends JPanel {
-
+    
+    public static MainAdmin menu;
+    
     public Login() {
         init();
+        cmdLogin.addActionListener(e -> {
+            // Menginstansiasi objek menu jika belum diinstansiasi sebelumnya
+            if (menu == null) {
+                menu = new MainAdmin();
+                // Menempatkan frame di tengah layar
+                menu.setLocationRelativeTo(null);
+            }
+
+            // Menampilkan menu
+            menu.setVisible(true);
+            ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
+        });
     }
 
     private void init() {
+        UIManager.put( "TextComponent.arc", 10 );
         setLayout(new MigLayout("fill,insets 20", "[center]", "[center]"));
         txtUsername = new JTextField();
         txtPassword = new JPasswordField();
@@ -33,6 +49,7 @@ public class Login extends JPanel {
                 "borderWidth:0;" +
                 "focusWidth:0;" +
                 "innerFocusWidth:0");
+        
 
         txtUsername.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter your username or email");
         txtPassword.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter your password");
@@ -55,7 +72,9 @@ public class Login extends JPanel {
         panel.add(cmdLogin, "gapy 10");
         add(panel);
     }
-
+    
+    
+    
     private Component createSignupLabel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         panel.putClientProperty(FlatClientProperties.STYLE, "" +

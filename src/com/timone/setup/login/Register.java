@@ -15,6 +15,7 @@ public class Register extends JPanel {
     }
 
     private void init() {
+        UIManager.put( "TextComponent.arc", 10 );
         setLayout(new MigLayout("fill,insets 20", "[center]", "[center]"));
         txtName = new JTextField();
         txtUsername = new JTextField();
