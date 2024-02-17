@@ -20,9 +20,9 @@ public class Setup extends JPanel {
      * Creates new form Setup
      */
     public Setup() {
-        UIManager.put("TextComponent.arc", 10);
-        UIManager.put("Button.arc", 999);
+        
         initComponents();
+        jButton2.putClientProperty( "JButton.buttonType", "roundRect" );
         jButton1.putClientProperty(FlatClientProperties.STYLE,
             "[light]background: shade(@background,20%);" +
             "[dark]background: tint(@background,30%);");
@@ -142,6 +142,7 @@ public class Setup extends JPanel {
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(150, Short.MAX_VALUE))
         );
+        
     }// </editor-fold>                        
 
                                          
