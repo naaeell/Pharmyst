@@ -21,16 +21,7 @@ public class Rfid extends javax.swing.JPanel {
         listenToRFID();
         
         jButton2.addActionListener(e -> {
-            // Menginstansiasi objek menu jika belum diinstansiasi sebelumnya
-            if (logIn == null) {
-                logIn = new startLogin();
-                // Menempatkan frame di tengah layar
-                logIn.setLocationRelativeTo(null);
-            }
-
-            // Menampilkan menu
-            logIn.setVisible(true);
-            ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
+            FormsManager.getInstance().showFormLogin(new Login());
         });
     }
 
