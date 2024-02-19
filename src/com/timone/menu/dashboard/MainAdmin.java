@@ -17,6 +17,7 @@ import javax.swing.UIManager;
 public class MainAdmin extends javax.swing.JFrame {
     
     public static startLogin login;
+    
             
     public MainAdmin() {
         UIManager.put( "TextComponent.arc", 10 );
@@ -465,14 +466,14 @@ public class MainAdmin extends javax.swing.JFrame {
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -518,17 +519,16 @@ public class MainAdmin extends javax.swing.JFrame {
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to switch accounts?", "Switch Accounts", JOptionPane.YES_NO_OPTION);
-    
-        if (confirm == JOptionPane.YES_OPTION) {
-            if (login == null) {
-                login = new startLogin();
-                // Menempatkan frame di tengah layar
-                login.setLocationRelativeTo(null);
-            }
 
-            // Menampilkan frame login
-            login.setVisible(true);
-            this.dispose();
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                // Jalankan metode main dari kelas startLogin
+                startLogin.main(new String[0]);
+                this.dispose();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                // Tangani jika terjadi kesalahan saat menjalankan main
+            }
         }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 

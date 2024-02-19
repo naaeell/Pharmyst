@@ -260,7 +260,7 @@
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="jPanel10" max="32767" attributes="0"/>
                   <Component id="jPanel11" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jPanel12" alignment="1" pref="395" max="32767" attributes="0"/>
+                  <Component id="jPanel12" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
           </Group>
@@ -295,16 +295,16 @@
                       <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="35" pref="35" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel2" min="-2" pref="24" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jTabbedPane1" min="-2" pref="281" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jPanel12" alignment="1" min="-2" pref="316" max="-2" attributes="0"/>
+                  <Component id="jPanel12" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

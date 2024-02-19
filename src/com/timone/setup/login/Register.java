@@ -4,12 +4,16 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.timone.menu.dashboard.MainAdmin;
 import net.miginfocom.swing.MigLayout;
 import com.timone.setup.component.PasswordStrengthStatus;
+import static com.timone.setup.login.Login.menu;
+import com.timone.setup.main.startLogin;
+import com.timone.setup.manager.FormsManager;
 
 import javax.swing.*;
 
 public class Register extends JPanel {
     
-    public static MainAdmin menu;
+    public static startLogin Login;
+    
     public Register() {
         init();
     }
@@ -24,14 +28,14 @@ public class Register extends JPanel {
 
         cmdRegister.addActionListener(e -> {
             // Menginstansiasi objek menu jika belum diinstansiasi sebelumnya
-            if (menu == null) {
-                menu = new MainAdmin();
+            if (Login == null) {
+                Login = new startLogin();
                 // Menempatkan frame di tengah layar
-                menu.setLocationRelativeTo(null);
+                Login.setLocationRelativeTo(null);
             }
 
             // Menampilkan menu
-            menu.setVisible(true);
+            Login.setVisible(true);
             ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
         });
 

@@ -4,7 +4,6 @@
  */
 package com.timone.setup.login;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import com.timone.setup.manager.FormsManager;
 
 /**
@@ -90,11 +89,11 @@ public class Agreement extends javax.swing.JPanel {
     }// </editor-fold>                        
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {  
-        FormsManager.getInstance().showForm(new Register());
+        FormsManager.getInstance().showFormSetup(new Register());
     }                                        
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {    
-        FormsManager.getInstance().showForm(new Setup());
+        FormsManager.getInstance().showFormSetup(new Setup());
     }                                        
 
 

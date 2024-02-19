@@ -8,7 +8,6 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.timone.setup.manager.FormsManager;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 /**
  *
@@ -148,7 +147,7 @@ public class Setup extends JPanel {
                                          
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {  
-        FormsManager.getInstance().showForm(new Agreement());
+        FormsManager.getInstance().showFormSetup(new Agreement());
     }                                        
 
 

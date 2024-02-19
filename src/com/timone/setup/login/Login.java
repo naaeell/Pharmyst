@@ -2,6 +2,7 @@ package com.timone.setup.login;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.timone.menu.dashboard.MainAdmin;
+import com.timone.setup.main.startRfid;
 import com.timone.setup.manager.FormsManager;
 import net.miginfocom.swing.MigLayout;
 
@@ -11,6 +12,8 @@ import java.awt.*;
 public class Login extends JPanel {
     
     public static MainAdmin menu;
+    public static Login logIn;
+    public static startRfid rfid;
     
     public Login() {
         init();
@@ -68,8 +71,9 @@ public class Login extends JPanel {
         panel.add(txtUsername);
         panel.add(new JLabel("Password"), "gapy 8");
         panel.add(txtPassword);
-        panel.add(chRememberMe, "grow 0");
-        panel.add(cmdLogin, "gapy 10");
+        //panel.add(chRememberMe, "grow 0");
+        panel.add(cmdLogin, "gapy 35");
+        panel.add(createSignupLabel(), "gapy 8");
         add(panel);
     }
     
@@ -79,20 +83,20 @@ public class Login extends JPanel {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         panel.putClientProperty(FlatClientProperties.STYLE, "" +
                 "background:null");
-        JButton cmdRegister = new JButton("<html><a href=\"#\">Sign up</a></html>");
-        cmdRegister.putClientProperty(FlatClientProperties.STYLE, "" +
+        JButton cmdRfid = new JButton("<html><a href=\"#\" style=\"text-decoration: none;\">RFID</a></html>");
+        cmdRfid.putClientProperty(FlatClientProperties.STYLE, "" +
                 "border:3,3,3,3");
-        cmdRegister.setContentAreaFilled(false);
-        cmdRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        cmdRegister.addActionListener(e -> {
-            FormsManager.getInstance().showForm(new Register());
+        cmdRfid.setContentAreaFilled(false);
+        cmdRfid.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        cmdRfid.addActionListener(e -> {
+            FormsManager.getInstance().showFormLogin(new Rfid());
         });
-        JLabel label = new JLabel("Don't have an account ?");
+        JLabel label = new JLabel("Continue using ");
         label.putClientProperty(FlatClientProperties.STYLE, "" +
                 "[light]foreground:lighten(@foreground,30%);" +
                 "[dark]foreground:darken(@foreground,30%)");
         panel.add(label);
-        panel.add(cmdRegister);
+        panel.add(cmdRfid);
         return panel;
     }
 
