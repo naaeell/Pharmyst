@@ -3,15 +3,17 @@ package com.timone.setup.main;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.timone.setup.login.Rfid;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import com.timone.setup.login.Activation;
+import com.timone.setup.login.Login;
 import com.timone.setup.manager.FormsManager;
 import raven.toast.Notifications;
 import javax.swing.*;
 import java.awt.*;
 
-public class startRfid extends JFrame {
+public class startLogin extends JFrame {
 
-    public startRfid() {
+    public startLogin() {
         init();
     }
 
@@ -20,9 +22,9 @@ public class startRfid extends JFrame {
         setSize(new Dimension(440, 514));
         setResizable(false);
         setLocationRelativeTo(null);
-        setContentPane(new Rfid());
+        setContentPane(new Activation());
         Notifications.getInstance().setJFrame(this);
-        FormsManager.getInstance().initRfid(this);
+        FormsManager.getInstance().initLogin(this);
     }
 
     public static void main(String[] args) {
@@ -30,6 +32,6 @@ public class startRfid extends JFrame {
         FlatLaf.registerCustomDefaultsSource("raven.themes");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
         FlatMacDarkLaf.setup();
-        EventQueue.invokeLater(() -> new startRfid().setVisible(true));
+        EventQueue.invokeLater(() -> new startLogin().setVisible(true));
     }
 }
