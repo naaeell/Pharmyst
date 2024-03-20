@@ -32,7 +32,7 @@ public class formConnectionDatabase extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Form Appearance");
+        jLabel1.setText("Form database connection");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -41,7 +41,7 @@ public class formConnectionDatabase extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(359, 359, 359)
                 .addComponent(jLabel1)
-                .addContainerGap(411, Short.MAX_VALUE))
+                .addContainerGap(364, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

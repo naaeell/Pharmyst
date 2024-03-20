@@ -2,18 +2,21 @@ package com.timone.setup.login;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.timone.menu.dashboard.MainAdmin;
-import com.timone.setup.main.startRfid;
+import static com.timone.setup.login.Activation.openWebpage;
 import com.timone.setup.manager.FormsManager;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Login extends JPanel {
     
     public static MainAdmin menu;
     public static Login logIn;
-    public static startRfid rfid;
     
     public Login() {
         init();
@@ -36,7 +39,7 @@ public class Login extends JPanel {
         setLayout(new MigLayout("fill,insets 20", "[center]", "[center]"));
         txtUsername = new JTextField();
         txtPassword = new JPasswordField();
-        chRememberMe = new JCheckBox("Remember me");
+        chrfid = new JCheckBox("Enable RFID login");
         cmdLogin = new JButton("Login");
         JPanel panel = new JPanel(new MigLayout("wrap,fillx,insets 45 30 45 30", "fill,250:280"));
         panel.putClientProperty(FlatClientProperties.STYLE, "" +
@@ -71,38 +74,23 @@ public class Login extends JPanel {
         panel.add(txtUsername);
         panel.add(new JLabel("Password"), "gapy 8");
         panel.add(txtPassword);
-        //panel.add(chRememberMe, "grow 0");
-        panel.add(cmdLogin, "gapy 35");
-        panel.add(createSignupLabel(), "gapy 8");
+        panel.add(rfid(), "gapy 8");
+        panel.add(cmdLogin, "gapy 15");
+
         add(panel);
     }
     
-    
-    
-    private Component createSignupLabel() {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+    private Component rfid() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         panel.putClientProperty(FlatClientProperties.STYLE, "" +
                 "background:null");
-        JButton cmdRfid = new JButton("<html><a href=\"#\" style=\"text-decoration: none;\">RFID</a></html>");
-        cmdRfid.putClientProperty(FlatClientProperties.STYLE, "" +
-                "border:3,3,3,3");
-        cmdRfid.setContentAreaFilled(false);
-        cmdRfid.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        cmdRfid.addActionListener(e -> {
-            FormsManager.getInstance().showFormLogin(new Rfid());
-        });
-        JLabel label = new JLabel("Continue using ");
-        label.putClientProperty(FlatClientProperties.STYLE, "" +
-                "[light]foreground:lighten(@foreground,30%);" +
-                "[dark]foreground:darken(@foreground,30%)");
-        panel.add(label);
-        panel.add(cmdRfid);
+        
+        panel.add(chrfid, "grow 0");
         return panel;
     }
 
-
     private JTextField txtUsername;
     private JPasswordField txtPassword;
-    private JCheckBox chRememberMe;
+    private JCheckBox chrfid;
     private JButton cmdLogin;
 }

@@ -1,18 +1,16 @@
 package com.timone.setup.login;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import com.timone.menu.dashboard.MainAdmin;
 import net.miginfocom.swing.MigLayout;
 import com.timone.setup.component.PasswordStrengthStatus;
-import static com.timone.setup.login.Login.menu;
-import com.timone.setup.main.startLogin;
+import com.timone.setup.main.startApp;
 import com.timone.setup.manager.FormsManager;
 
 import javax.swing.*;
 
 public class Register extends JPanel {
     
-    public static startLogin Login;
+    public static startApp Login;
     
     public Register() {
         init();
@@ -27,16 +25,7 @@ public class Register extends JPanel {
         cmdRegister = new JButton("Submit");
 
         cmdRegister.addActionListener(e -> {
-            // Menginstansiasi objek menu jika belum diinstansiasi sebelumnya
-            if (Login == null) {
-                Login = new startLogin();
-                // Menempatkan frame di tengah layar
-                Login.setLocationRelativeTo(null);
-            }
-
-            // Menampilkan menu
-            Login.setVisible(true);
-            ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
+            FormsManager.getInstance().showForm(new Login());
         });
 
         

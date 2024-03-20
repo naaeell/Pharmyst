@@ -3,8 +3,6 @@ package com.timone.setup.main;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
-import com.timone.setup.login.Activation;
 import com.timone.setup.login.Login;
 import com.timone.setup.manager.FormsManager;
 import raven.toast.Notifications;
@@ -22,7 +20,7 @@ public class startLogin extends JFrame {
         setSize(new Dimension(440, 514));
         setResizable(false);
         setLocationRelativeTo(null);
-        setContentPane(new Activation());
+        setContentPane(new Login());
         Notifications.getInstance().setJFrame(this);
         FormsManager.getInstance().initLogin(this);
     }

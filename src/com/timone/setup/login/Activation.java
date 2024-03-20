@@ -2,7 +2,7 @@ package com.timone.setup.login;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.timone.menu.dashboard.MainAdmin;
-import com.timone.setup.main.startRfid;
+import com.timone.setup.manager.FormsManager;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -21,32 +21,11 @@ public class Activation extends JPanel {
 
     public static MainAdmin menu;
     public static Activation logIn;
-    public static startRfid rfid;
 
     public Activation() {
         init();
         cmdActivate.addActionListener(e -> {
-            String name = txtName.getText();
-            String productKey = txtPD.getText();
-
-            if (isValidLicense(name, productKey)) {
-                // Menampilkan informasi lisensi
-                String licenseDetails = getLicenseDetails(productKey);
-                JOptionPane.showMessageDialog(this, licenseDetails, "License Information", JOptionPane.INFORMATION_MESSAGE);
-
-                // Menginstansiasi objek menu jika belum diinstansiasi sebelumnya
-                if (menu == null) {
-                    menu = new MainAdmin();
-                    // Menempatkan frame di tengah layar
-                    menu.setLocationRelativeTo(null);
-                }
-
-                // Menampilkan menu
-                menu.setVisible(true);
-                ((JFrame) SwingUtilities.getWindowAncestor(this)).dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid license details!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            FormsManager.getInstance().showForm(new Register());
         });
     }
 
@@ -169,7 +148,7 @@ public class Activation extends JPanel {
             }
         });
 
-        JLabel label = new JLabel("for more information ");
+        JLabel label = new JLabel("for more information");
         label.putClientProperty(FlatClientProperties.STYLE, "" +
                 "[light]foreground:lighten(@foreground,30%);" +
                 "[dark]foreground:darken(@foreground,30%)");
