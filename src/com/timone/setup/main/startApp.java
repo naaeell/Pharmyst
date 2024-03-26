@@ -29,7 +29,7 @@ public class startApp extends JFrame {
 
     public static void main(String[] args) {
         FlatRobotoFont.install();
-        FlatLaf.registerCustomDefaultsSource("raven.themes");
+        FlatLaf.registerCustomDefaultsSource("timone.themes");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
         FlatMacDarkLaf.setup();
         EventQueue.invokeLater(() -> new startApp().setVisible(true));
