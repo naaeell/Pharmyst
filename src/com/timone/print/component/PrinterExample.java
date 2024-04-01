@@ -54,7 +54,7 @@ public class PrinterExample implements Printable {
         int y = 20; // starting y coordinate
 
         // Draw separator line
-        String separator = "----------------------------------------\n"; // Length of separator matches the width of the paper
+        String separator = "--------------------------------------\n"; // Length of separator matches the width of the paper
         g.drawString(separator, x, y);
         y += 10;
 
@@ -78,9 +78,9 @@ public class PrinterExample implements Printable {
                 itemName = itemName.substring(0, 16);
             }
             g.drawString(itemName, x, y);
-            g.drawString(String.format("%7.2f", prices[i]), x + 100, y); // Original price
-            g.drawString("x" + quantities[i], x + 140, y);
-            g.drawString(String.format("%7.2f", prices[i] * quantities[i]), x + 160, y); // Total price
+            g.drawString(String.format("%7.2f", prices[i]), x + 98, y); // Original price
+            g.drawString("x" + quantities[i], x + 138, y);
+            g.drawString(String.format("%7.2f", prices[i] * quantities[i]), x + 158, y); // Total price
             y += 10;
             // If the item name was trimmed, print the remaining part on the next line
             if (items[i].length() > 16) {
@@ -97,16 +97,16 @@ public class PrinterExample implements Printable {
         for (int i = 0; i < itemCount; i++) {
             total += prices[i] * quantities[i];
         }
-        g.drawString(String.format("%7.2f", total), x + 160, y);
+        g.drawString(String.format("%7.2f", total), x + 158, y);
         y += 20;
         g.drawString("Payment Type: ", x, y);
         g.drawString(paymentType, x + 160, y);
         y += 10;
         g.drawString("Payment Amount: ", x, y);
-        g.drawString(String.format("%7.2f", paymentAmount), x + 160, y);
+        g.drawString(String.format("%7.2f", paymentAmount), x + 158, y);
         y += 10;
         g.drawString("Change: ", x, y);
-        g.drawString(String.format("%7.2f", paymentAmount - total), x + 160, y);
+        g.drawString(String.format("%7.2f", paymentAmount - total), x + 158, y);
         y += 35;
         g.drawString(separator, x, y);
 
