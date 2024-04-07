@@ -28,17 +28,17 @@ public class testing {
             // Menampilkan hasil query
             while (resultSet.next()) {
                 // Mendapatkan nilai dari setiap kolom dalam baris
-                String kodeBarang = resultSet.getString("kode barang");
-                String namaBarang = resultSet.getString("nama barang");
-                int kategoriObat = resultSet.getInt("kategori obat");
+                String kodeBarang = resultSet.getString("kode_barang");
+                String namaBarang = resultSet.getString("nama_barang");
+                /*int kategoriObat = resultSet.getInt("kategori obat");
                 int bentukObat = resultSet.getInt("bentuk obat");
                 int satuanObat = resultSet.getInt("satuan obat");
-                String kadaluwarsa = resultSet.getString("kadaluwarsa");
+                String kadaluwarsa = resultSet.getString("kadaluwarsa");*/
                 int kuantitas = resultSet.getInt("kuantitas");
-                int harga = resultSet.getInt("harga");
+                //int harga = resultSet.getInt("harga");
 
                 // Menampilkan nilai dari setiap kolom
-                System.out.println(kodeBarang + " " + namaBarang + " " + kategoriObat + " " + bentukObat + " " + satuanObat + " " + kadaluwarsa + " " + kuantitas + " " + harga);
+                System.out.println(kodeBarang + " " + namaBarang + " " + /* kategoriObat + " " + bentukObat + " " + satuanObat + " " + kadaluwarsa + " " + */ kuantitas /* + " " + harga*/);
             }
 
             // Menutup koneksi dan statement
