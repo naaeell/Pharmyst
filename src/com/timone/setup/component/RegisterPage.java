@@ -6,7 +6,7 @@ package com.timone.setup.component;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.timone.main.admin.AdminForm;
+import com.timone.main.admin.mainAdmin;
 import javax.swing.UIManager;
 
 /**

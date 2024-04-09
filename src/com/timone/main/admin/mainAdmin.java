@@ -7,30 +7,38 @@ package com.timone.main.admin;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.timone.main.admin.component.formDefault;
+import com.timone.connection.DBConnection;
+import com.timone.main.admin.component.formReport;
+import com.timone.main.admin.distributor.formAddDistributor;
+import com.timone.main.admin.operational.formAddOperational;
+import com.timone.main.admin.purchase.formAddPurchase;
+import com.timone.main.admin.worker.formAddWorker;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Fadel
  */
-public class AdminForm extends javax.swing.JFrame {
+public class mainAdmin extends javax.swing.JFrame {
     
     
 
     
             
-    public AdminForm() {
+    public mainAdmin() {
         
         UIManager.put( "TextComponent.arc", 10 );
         initComponents();
-        
-        
+        InventoryTable();
+        SalesTable();
+        PurchaseTable();
+        DistributorTable();
+        WorkerTable();
         
     }
 
@@ -152,15 +160,13 @@ public class AdminForm extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Kode Barang", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Exp", "Qty", "Harga (pcs)"
             }
         ));
         jTable1.setDoubleBuffered(true);
-        jTable1.setFocusable(false);
-        jTable1.setRequestFocusEnabled(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 opsi(evt);
@@ -195,6 +201,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton2.setFocusPainted(false);
         jButton2.setFocusable(false);
         jButton2.setRequestFocusEnabled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton17.setIcon(new FlatSVGIcon("com/timone/icon/svg/info.svg", 1.3f));
         jButton17.setBorderPainted(false);
@@ -376,6 +387,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton9.setFocusPainted(false);
         jButton9.setFocusable(false);
         jButton9.setRequestFocusEnabled(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton29.setIcon(new FlatSVGIcon("com/timone/icon/svg/info.svg", 1.3f));
         jButton29.setBorderPainted(false);
@@ -517,13 +533,13 @@ public class AdminForm extends javax.swing.JFrame {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Kode Pemesanan", "Tanggal Pemesanan", "Kode Barang", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Qty", "Harga Total"
+                "Kode Pemesanan", "Tanggal Pemesanan", "Distributor", "Kode Barang", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Jumlah Pembelian", "Harga Total"
             }
         ));
         jScrollPane3.setViewportView(jTable3);
@@ -545,6 +561,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton35.setFocusPainted(false);
         jButton35.setFocusable(false);
         jButton35.setRequestFocusEnabled(false);
+        jButton35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton35ActionPerformed(evt);
+            }
+        });
 
         jButton36.setIcon(new FlatSVGIcon("com/timone/icon/svg/refresh.svg", 1.5f));
         jButton36.setBorderPainted(false);
@@ -552,6 +573,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton36.setFocusPainted(false);
         jButton36.setFocusable(false);
         jButton36.setRequestFocusEnabled(false);
+        jButton36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton36ActionPerformed(evt);
+            }
+        });
 
         jButton37.setIcon(new FlatSVGIcon("com/timone/icon/svg/report.svg", 1.3f));
         jButton37.setBorderPainted(false);
@@ -559,6 +585,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton37.setFocusPainted(false);
         jButton37.setFocusable(false);
         jButton37.setRequestFocusEnabled(false);
+        jButton37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton37ActionPerformed(evt);
+            }
+        });
 
         jButton52.setIcon(new FlatSVGIcon("com/timone/icon/svg/info.svg", 1.3f));
         jButton52.setBorderPainted(false);
@@ -733,6 +764,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton38.setFocusPainted(false);
         jButton38.setFocusable(false);
         jButton38.setRequestFocusEnabled(false);
+        jButton38.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton38ActionPerformed(evt);
+            }
+        });
 
         jButton39.setIcon(new FlatSVGIcon("com/timone/icon/svg/refresh.svg", 1.5f));
         jButton39.setBorderPainted(false);
@@ -740,6 +776,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton39.setFocusPainted(false);
         jButton39.setFocusable(false);
         jButton39.setRequestFocusEnabled(false);
+        jButton39.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton39ActionPerformed(evt);
+            }
+        });
 
         jButton40.setIcon(new FlatSVGIcon("com/timone/icon/svg/add.svg", 1.6f));
         jButton40.setBorderPainted(false);
@@ -747,6 +788,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton40.setFocusPainted(false);
         jButton40.setFocusable(false);
         jButton40.setRequestFocusEnabled(false);
+        jButton40.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton40ActionPerformed(evt);
+            }
+        });
 
         jButton59.setIcon(new FlatSVGIcon("com/timone/icon/svg/info.svg", 1.3f));
         jButton59.setBorderPainted(false);
@@ -925,6 +971,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton41.setFocusPainted(false);
         jButton41.setFocusable(false);
         jButton41.setRequestFocusEnabled(false);
+        jButton41.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton41ActionPerformed(evt);
+            }
+        });
 
         jButton42.setIcon(new FlatSVGIcon("com/timone/icon/svg/refresh.svg", 1.5f));
         jButton42.setBorderPainted(false);
@@ -939,6 +990,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton43.setFocusPainted(false);
         jButton43.setFocusable(false);
         jButton43.setRequestFocusEnabled(false);
+        jButton43.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton43ActionPerformed(evt);
+            }
+        });
 
         jButton66.setIcon(new FlatSVGIcon("com/timone/icon/svg/info.svg", 1.3f));
         jButton66.setBorderPainted(false);
@@ -1083,13 +1139,10 @@ public class AdminForm extends javax.swing.JFrame {
 
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Nama", "Email", "Username", "Password", "Rfid", "Akses"
+                "Nama", "Email", "Username", "Password", "Rfid"
             }
         ));
         jScrollPane5.setViewportView(jTable5);
@@ -1111,6 +1164,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton45.setFocusPainted(false);
         jButton45.setFocusable(false);
         jButton45.setRequestFocusEnabled(false);
+        jButton45.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton45ActionPerformed(evt);
+            }
+        });
 
         jButton46.setIcon(new FlatSVGIcon("com/timone/icon/svg/refresh.svg", 1.5f));
         jButton46.setBorderPainted(false);
@@ -1118,6 +1176,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton46.setFocusPainted(false);
         jButton46.setFocusable(false);
         jButton46.setRequestFocusEnabled(false);
+        jButton46.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton46ActionPerformed(evt);
+            }
+        });
 
         jButton47.setIcon(new FlatSVGIcon("com/timone/icon/svg/add.svg", 1.6f));
         jButton47.setBorderPainted(false);
@@ -1125,6 +1188,11 @@ public class AdminForm extends javax.swing.JFrame {
         jButton47.setFocusPainted(false);
         jButton47.setFocusable(false);
         jButton47.setRequestFocusEnabled(false);
+        jButton47.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton47ActionPerformed(evt);
+            }
+        });
 
         jTable9.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1327,7 +1395,7 @@ public class AdminForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        formReport.main(new String[]{});
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -1335,34 +1403,11 @@ public class AdminForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        formDefault.main(new String[]{});
+        formReport.main(new String[]{});
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void opsi(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opsi
-        if (SwingUtilities.isRightMouseButton(evt)) { // Jika klik kanan
-            int row = jTable1.rowAtPoint(evt.getPoint());
-            int col = jTable1.columnAtPoint(evt.getPoint());
-            if (row >= 0 && col >= 0 && jTable1.getValueAt(row, col) == null) { // Jika sel kosong
-                JPopupMenu popupMenu = new JPopupMenu();
-                JMenuItem menuItem = new JMenuItem("Opsi 1");
-                menuItem.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tambahkan aksi untuk opsi 1 di sini
-                    }
-                });
-                popupMenu.add(menuItem);
-
-                menuItem = new JMenuItem("Opsi 2");
-                menuItem.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tambahkan aksi untuk opsi 2 di sini
-                    }
-                });
-                popupMenu.add(menuItem);
-
-                popupMenu.show(jTable1, evt.getX(), evt.getY());
-            }
-        }
+        
     }//GEN-LAST:event_opsi
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
@@ -1532,15 +1577,285 @@ public class AdminForm extends javax.swing.JFrame {
     private void jButton79ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton79ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton79ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       InventoryTable();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        SalesTable();
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
+        PurchaseTable();
+    }//GEN-LAST:event_jButton36ActionPerformed
+
+    private void jButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton39ActionPerformed
+        DistributorTable();
+    }//GEN-LAST:event_jButton39ActionPerformed
+
+    private void jButton46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton46ActionPerformed
+        WorkerTable();
+    }//GEN-LAST:event_jButton46ActionPerformed
+
+    private void jButton45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton45ActionPerformed
+        formReport.main(new String[]{});
+    }//GEN-LAST:event_jButton45ActionPerformed
+
+    private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
+        formReport.main(new String[]{});
+    }//GEN-LAST:event_jButton37ActionPerformed
+
+    private void jButton38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton38ActionPerformed
+        formReport.main(new String[]{});
+    }//GEN-LAST:event_jButton38ActionPerformed
+
+    private void jButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton41ActionPerformed
+        formReport.main(new String[]{});
+    }//GEN-LAST:event_jButton41ActionPerformed
+
+    private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
+        formAddPurchase.main(new String[]{});
+    }//GEN-LAST:event_jButton35ActionPerformed
+
+    private void jButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton40ActionPerformed
+        formAddDistributor.main(new String[]{});
+    }//GEN-LAST:event_jButton40ActionPerformed
+
+    private void jButton43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton43ActionPerformed
+        formAddOperational.main(new String[]{});
+    }//GEN-LAST:event_jButton43ActionPerformed
+
+    private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
+        formAddWorker.main(new String[]{});
+    }//GEN-LAST:event_jButton47ActionPerformed
     
+    private void InventoryTable() {
+    try {
+        // Mendapatkan koneksi ke database dari kelas DBConnection
+        Connection conn = DBConnection.getConnection();
+
+        // Membuat statement SQL untuk mengambil data dari tabel barang dengan JOIN
+        String sql = "SELECT barang.kode_barang, barang.nama_barang, kategori_obat.nama_kategori, bentuk_obat.nama_bentuk_obat, barang.satuan_obat, barang.kadaluarsa, barang.kuantitas, barang.harga_pcs " +
+                     "FROM barang " +
+                     "INNER JOIN kategori_obat ON barang.kode_kategori_obat = kategori_obat.kode_kategori_obat " +
+                     "INNER JOIN bentuk_obat ON barang.kode_bentuk_obat = bentuk_obat.kode_bentuk_obat";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        // Mendapatkan model tabel yang ada
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        // Menghapus semua baris yang sudah ada dari model tabel
+        model.setRowCount(0);
+
+        // Memproses hasil kueri dan menambahkannya ke model tabel
+        while (rs.next()) {
+            Object[] row = {
+                    rs.getString("kode_barang"),
+                    rs.getString("nama_barang"),
+                    rs.getString("nama_kategori"),
+                    rs.getString("nama_bentuk_obat"),
+                    rs.getString("satuan_obat"),
+                    rs.getDate("kadaluarsa"),
+                    rs.getInt("kuantitas"),
+                    rs.getInt("harga_pcs")
+            };
+            model.addRow(row);
+        }
+
+        // Menutup koneksi
+        rs.close();
+        stmt.close();
+        conn.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+    private void SalesTable() {
+    try {
+        // Mendapatkan koneksi ke database dari kelas DBConnection
+        Connection conn = DBConnection.getConnection();
+
+        // Membuat statement SQL untuk mengambil data penjualan
+        String sql = "SELECT penjualan.kode_penjualan, penjualan.tanggal_transaksi, karyawan.username, penjualan.kode_barang, barang.nama_barang, penjualan.barang_terjual, penjualan.laba_pcs, penjualan.laba_total " +
+                     "FROM penjualan " +
+                     "INNER JOIN barang ON penjualan.kode_barang = barang.kode_barang " +
+                     "INNER JOIN karyawan ON penjualan.kode_user = karyawan.kode_user";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        // Mendapatkan model tabel yang ada
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+        // Menghapus semua baris yang sudah ada dari model tabel
+        model.setRowCount(0);
+
+        // Memproses hasil kueri dan menambahkannya ke model tabel
+        while (rs.next()) {
+            Object[] row = {
+                    rs.getString("kode_penjualan"),
+                    rs.getDate("tanggal_transaksi"),
+                    rs.getString("username"),
+                    rs.getString("kode_barang"),
+                    rs.getString("nama_barang"),
+                    rs.getInt("barang_terjual"),
+                    rs.getInt("laba_pcs"),
+                    rs.getInt("laba_total")
+            };
+            model.addRow(row);
+        }
+
+        // Menutup koneksi
+        rs.close();
+        stmt.close();
+        conn.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+   
+    private void PurchaseTable() {
+    try {
+        // Mendapatkan koneksi ke database dari kelas DBConnection
+        Connection conn = DBConnection.getConnection();
+
+        // Membuat statement SQL untuk mengambil data pembelian
+        String sql = "SELECT " +
+                     "pembelian.kode_pemesanan, " +
+                     "pembelian.tanggal_pemesanan, " +
+                     "distributor.nama_distributor, " +
+                     "pembelian.kode_barang, " +
+                     "barang.nama_barang, " +
+                     "kategori_obat.nama_kategori, " +
+                     "bentuk_obat.nama_bentuk_obat, " +
+                     "barang.satuan_obat, " +
+                     "barang.kuantitas, " +
+                     "pembelian.harga_total " +
+                     "FROM pembelian " +
+                     "INNER JOIN barang ON pembelian.kode_barang = barang.kode_barang " +
+                     "INNER JOIN distributor ON pembelian.kode_distributor = distributor.kode_distributor " +
+                     "INNER JOIN kategori_obat ON barang.kode_kategori_obat = kategori_obat.kode_kategori_obat " +
+                     "INNER JOIN bentuk_obat ON barang.kode_bentuk_obat = bentuk_obat.kode_bentuk_obat";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        // Mendapatkan model tabel yang ada
+        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+
+        // Menghapus semua baris yang sudah ada dari model tabel
+        model.setRowCount(0);
+
+        // Memproses hasil kueri dan menambahkannya ke model tabel
+        while (rs.next()) {
+            Object[] row = {
+                    rs.getString("kode_pemesanan"),
+                    rs.getDate("tanggal_pemesanan"),
+                    rs.getString("nama_distributor"),
+                    rs.getString("kode_barang"),
+                    rs.getString("nama_barang"),
+                    rs.getString("nama_kategori"),
+                    rs.getString("nama_bentuk_obat"),
+                    rs.getString("satuan_obat"),
+                    rs.getInt("kuantitas"),
+                    rs.getInt("harga_total")
+            };
+            model.addRow(row);
+        }
+
+        // Menutup koneksi
+        rs.close();
+        stmt.close();
+        conn.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
     
+    private void DistributorTable() {
+    try {
+        // Mendapatkan koneksi ke database dari kelas DBConnection
+        Connection conn = DBConnection.getConnection();
+
+        // Membuat statement SQL untuk mengambil data distributor
+        String sql = "SELECT kode_distributor, nama_distributor, alamat, kontak_utama, email, nomor_utama FROM distributor";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        // Mendapatkan model tabel yang ada
+        DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
+
+        // Menghapus semua baris yang sudah ada dari model tabel
+        model.setRowCount(0);
+
+        // Memproses hasil kueri dan menambahkannya ke model tabel
+        while (rs.next()) {
+            Object[] row = {
+                    rs.getString("kode_distributor"),
+                    rs.getString("nama_distributor"),
+                    rs.getString("alamat"),
+                    rs.getString("kontak_utama"),
+                    rs.getString("email"),
+                    rs.getString("nomor_utama")
+            };
+            model.addRow(row);
+        }
+
+        // Menutup koneksi
+        rs.close();
+        stmt.close();
+        conn.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+    
+    private void WorkerTable() {
+    try {
+        // Mendapatkan koneksi ke database dari kelas DBConnection
+        Connection conn = DBConnection.getConnection();
+
+        // Membuat statement SQL untuk mengambil data karyawan
+        String sql = "SELECT nama, email, username, password, rfid FROM karyawan";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        // Mendapatkan model tabel yang ada
+        DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
+
+        // Menghapus semua baris yang sudah ada dari model tabel
+        model.setRowCount(0);
+
+        // Memproses hasil kueri dan menambahkannya ke model tabel
+        while (rs.next()) {
+            Object[] row = {
+                    rs.getString("nama"),
+                    rs.getString("email"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    rs.getString("rfid")
+            };
+            model.addRow(row);
+        }
+
+        // Menutup koneksi
+        rs.close();
+        stmt.close();
+        conn.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
     
     public static void main(String args[]) {
         // Tetapkan tampilan FlatLaf sebelum membuat jendela
         FlatMacDarkLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AdminForm home = new AdminForm();
+                mainAdmin home = new mainAdmin();
                 home.setLocationRelativeTo(null); // Memposisikan jendela di tengah layar
                 
                 home.setVisible(true);

@@ -6,8 +6,17 @@ package com.timone.setup.component;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.timone.main.admin.AdminForm;
+import com.timone.connection.DBConnection;
+import com.timone.main.admin.mainAdmin;
 import javax.swing.UIManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -24,7 +33,22 @@ public class LoginPage extends javax.swing.JFrame {
         UIManager.put("TextComponent.arc", 10);
         initComponents();
         setLocationRelativeTo(null);
-        
+        // Menambahkan ActionListener ke JTextField
+    jTextField1.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            jPasswordField1.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
+        }
+    });
+
+    // Menambahkan ActionListener ke JPasswordField
+    jPasswordField1.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Memanggil metode checkCredentials() saat tombol "Enter" ditekan pada JPasswordField
+            checkPassword();
+        }
+    });
     }
 
     /**
@@ -114,14 +138,51 @@ public class LoginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AdminForm.main(new String[]{});
-        this.dispose();
+        checkPassword();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         RfidPage.main(new String[]{});
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+    
+    private void checkPassword() {
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+
+    try {
+        conn = DBConnection.getConnection();
+        String query = "SELECT * FROM karyawan WHERE username = ? AND password = ?";
+        pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, jTextField1.getText()); // Mengambil nilai username dari JTextField
+        pstmt.setString(2, new String(jPasswordField1.getPassword())); // Mengambil nilai password dari JPasswordField
+        rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            // Jika username dan password cocok, buka MainAdmin
+            mainAdmin.main(new String[]{});
+            this.dispose();
+        } else {
+            // Jika username atau password tidak cocok, reset field
+            jTextField1.setText("");
+            jPasswordField1.setText("");
+            JOptionPane.showMessageDialog(this, "Username atau Password salah", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat memeriksa kredensial.", "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        // Tutup semua sumber daya
+        try {
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+}
     
     /**
      * @param args the command line arguments

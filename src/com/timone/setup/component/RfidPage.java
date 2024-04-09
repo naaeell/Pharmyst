@@ -7,7 +7,7 @@ package com.timone.setup.component;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.timone.connection.DBConnection;
-import com.timone.main.admin.AdminForm;
+import com.timone.main.admin.mainAdmin;
 import javax.swing.UIManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -47,11 +47,7 @@ public class RfidPage extends javax.swing.JFrame {
             public void keyReleased(KeyEvent e) {
                 // Ketika tombol dilepas, cek kode RFID
                 rfidCode = String.valueOf(jPasswordField1.getPassword());
-                try {
-                    checkRFID();
-                } catch (SQLException ex) {
-                    Logger.getLogger(RfidPage.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                checkRFID();
             }
         });
     }
@@ -118,40 +114,42 @@ public class RfidPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void checkRFID() throws SQLException {
-        Connection conn = DBConnection.getConnection();
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+    private void checkRFID() {
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
 
+    try {
+        conn = DBConnection.getConnection();
+        String query = "SELECT * FROM karyawan WHERE rfid = ?";
+        pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, rfidCode);
+        rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            // Jika kode RFID ditemukan di tabel karyawan, buka MainAdmin
+            mainAdmin.main(new String[]{});
+            this.dispose();
+        } else {
+            // Jika kode RFID tidak ditemukan, reset field
+            jPasswordField1.setText("");
+            JOptionPane.showMessageDialog(this, "Akses tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat memeriksa kode RFID.", "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        // Tutup semua sumber daya
         try {
-            String query = "SELECT * FROM rfid WHERE kode_rfid = ?";
-            pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, rfidCode);
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                // Jika kode RFID ditemukan di database, buka MainAdmin
-                AdminForm.main(new String[]{});
-                this.dispose();
-            } else {
-                // Jika kode RFID tidak ditemukan, reset field
-                jPasswordField1.setText("");
-                JOptionPane.showMessageDialog(this, "Akses tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat memeriksa kode RFID.", "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            // Tutup semua sumber daya
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
+}
+
     
     /**
      * @param args the command line arguments

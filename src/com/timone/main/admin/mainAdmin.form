@@ -148,7 +148,7 @@
                     <Component class="javax.swing.JTable" name="jTable1">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="8" rowCount="1">
+                          <Table columnCount="8" rowCount="0">
                             <Column editable="true" title="Kode Barang" type="java.lang.Object"/>
                             <Column editable="true" title="Nama Barang" type="java.lang.Object"/>
                             <Column editable="true" title="Kategori" type="java.lang.Object"/>
@@ -204,8 +204,6 @@
                           </TableColumnModel>
                         </Property>
                         <Property name="doubleBuffered" type="boolean" value="true"/>
-                        <Property name="focusable" type="boolean" value="false"/>
-                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -272,6 +270,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton2.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/refresh.svg&quot;, 1.5f));"/>
                   </AuxValues>
@@ -578,6 +579,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton9.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/refresh.svg&quot;, 1.5f));"/>
                   </AuxValues>
@@ -773,20 +777,26 @@
                     <Component class="javax.swing.JTable" name="jTable3">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="9" rowCount="4">
+                          <Table columnCount="10" rowCount="4">
                             <Column editable="true" title="Kode Pemesanan" type="java.lang.Object"/>
                             <Column editable="true" title="Tanggal Pemesanan" type="java.lang.Object"/>
+                            <Column editable="true" title="Distributor" type="java.lang.Object"/>
                             <Column editable="true" title="Kode Barang" type="java.lang.Object"/>
                             <Column editable="true" title="Nama Barang" type="java.lang.Object"/>
                             <Column editable="true" title="Kategori" type="java.lang.Object"/>
                             <Column editable="true" title="Bentuk" type="java.lang.Object"/>
                             <Column editable="true" title="Satuan" type="java.lang.Object"/>
-                            <Column editable="true" title="Qty" type="java.lang.Object"/>
+                            <Column editable="true" title="Jumlah Pembelian" type="java.lang.Object"/>
                             <Column editable="true" title="Harga Total" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -880,6 +890,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton35ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton35.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/add.svg&quot;, 1.6f));"/>
                   </AuxValues>
@@ -892,6 +905,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton36ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton36.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/refresh.svg&quot;, 1.5f));"/>
                   </AuxValues>
@@ -904,6 +920,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton37ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton37.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/report.svg&quot;, 1.3f));"/>
                   </AuxValues>
@@ -1184,6 +1203,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton38ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton38.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/report.svg&quot;, 1.3f));"/>
                   </AuxValues>
@@ -1196,6 +1218,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton39ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton39.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/refresh.svg&quot;, 1.5f));"/>
                   </AuxValues>
@@ -1208,6 +1233,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton40ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton40.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/add.svg&quot;, 1.6f));"/>
                   </AuxValues>
@@ -1476,6 +1504,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton41ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton41.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/report.svg&quot;, 1.3f));"/>
                   </AuxValues>
@@ -1500,6 +1531,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton43ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton43.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/add.svg&quot;, 1.6f));"/>
                   </AuxValues>
@@ -1694,22 +1728,16 @@
                     <Component class="javax.swing.JTable" name="jTable5">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="6" rowCount="4">
+                          <Table columnCount="5" rowCount="0">
                             <Column editable="true" title="Nama" type="java.lang.Object"/>
                             <Column editable="true" title="Email" type="java.lang.Object"/>
                             <Column editable="true" title="Username" type="java.lang.Object"/>
                             <Column editable="true" title="Password" type="java.lang.Object"/>
                             <Column editable="true" title="Rfid" type="java.lang.Object"/>
-                            <Column editable="true" title="Akses" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
@@ -1781,6 +1809,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton45ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton45.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/report.svg&quot;, 1.3f));"/>
                   </AuxValues>
@@ -1793,6 +1824,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton46ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton46.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/refresh.svg&quot;, 1.5f));"/>
                   </AuxValues>
@@ -1805,6 +1839,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="requestFocusEnabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton47ActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton47.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/add.svg&quot;, 1.6f));"/>
                   </AuxValues>
