@@ -2,12 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.timone.setup.component;
+package com.timone.gate;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.timone.connection.DBConnection;
 import com.timone.main.admin.mainAdmin;
+import com.timone.main.cashier.CashierForm;
 import javax.swing.UIManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -15,8 +17,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -121,20 +121,36 @@ public class RfidPage extends javax.swing.JFrame {
 
     try {
         conn = DBConnection.getConnection();
-        String query = "SELECT * FROM karyawan WHERE rfid = ?";
-        pstmt = conn.prepareStatement(query);
+        
+        // Periksa tabel 'about' untuk kode RFID
+        String aboutQuery = "SELECT * FROM about WHERE rfid = ?";
+        pstmt = conn.prepareStatement(aboutQuery);
         pstmt.setString(1, rfidCode);
         rs = pstmt.executeQuery();
 
         if (rs.next()) {
-            // Jika kode RFID ditemukan di tabel karyawan, buka MainAdmin
+            // Jika kode RFID ditemukan di tabel 'about', buka MainAdmin
             mainAdmin.main(new String[]{});
             this.dispose();
-        } else {
-            // Jika kode RFID tidak ditemukan, reset field
-            jPasswordField1.setText("");
-            JOptionPane.showMessageDialog(this, "Akses tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Keluar dari metode setelah membuka MainAdmin
         }
+
+        // Periksa tabel 'karyawan' untuk kode RFID
+        String karyawanQuery = "SELECT * FROM karyawan WHERE rfid = ?";
+        pstmt = conn.prepareStatement(karyawanQuery);
+        pstmt.setString(1, rfidCode);
+        rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            // Jika kode RFID ditemukan di tabel 'karyawan', buka CashierForm
+            CashierForm.main(new String[]{});
+            this.dispose();
+            return; // Keluar dari metode setelah membuka CashierForm
+        }
+
+        // Jika kode RFID tidak ditemukan di kedua tabel
+        jPasswordField1.setText("");
+        JOptionPane.showMessageDialog(this, "Akses tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
     } catch (SQLException ex) {
         ex.printStackTrace();
         JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat memeriksa kode RFID.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -150,12 +166,13 @@ public class RfidPage extends javax.swing.JFrame {
     }
 }
 
+
     
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    FlatMacDarkLaf.setup();
+    FlatGitHubDarkIJTheme.setup();
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
             RfidPage rfidPage = new RfidPage();

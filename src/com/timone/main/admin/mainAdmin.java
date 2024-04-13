@@ -6,20 +6,31 @@ package com.timone.main.admin;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.timone.connection.DBConnection;
+import com.timone.main.admin.component.formAbout;
 import com.timone.main.admin.component.formReport;
 import com.timone.main.admin.distributor.formAddDistributor;
 import com.timone.main.admin.operational.formAddOperational;
 import com.timone.main.admin.purchase.formAddPurchase;
 import com.timone.main.admin.worker.formAddWorker;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
+import com.timone.main.admin.logic.ThemeSync;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import javax.swing.UIManager;
+import java.sql.PreparedStatement;
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.table.TableColumnModel;
 /**
  *
  * @author Fadel
@@ -38,8 +49,24 @@ public class mainAdmin extends javax.swing.JFrame {
         SalesTable();
         PurchaseTable();
         DistributorTable();
+        OperationTable();
         WorkerTable();
-        
+        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                InventoryTable();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                InventoryTable();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                InventoryTable();
+            }
+        });
     }
 
     /**
@@ -58,67 +85,42 @@ public class mainAdmin extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton24 = new javax.swing.JButton();
-        jButton25 = new javax.swing.JButton();
-        jButton26 = new javax.swing.JButton();
-        jButton27 = new javax.swing.JButton();
         jButton28 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jComboBox2 = new javax.swing.JComboBox<>();
         jTextField2 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton29 = new javax.swing.JButton();
         jButton30 = new javax.swing.JButton();
-        jButton31 = new javax.swing.JButton();
-        jButton32 = new javax.swing.JButton();
-        jButton33 = new javax.swing.JButton();
-        jButton34 = new javax.swing.JButton();
-        jButton51 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jComboBox3 = new javax.swing.JComboBox<>();
         jTextField3 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         jButton35 = new javax.swing.JButton();
         jButton36 = new javax.swing.JButton();
         jButton37 = new javax.swing.JButton();
         jButton52 = new javax.swing.JButton();
         jButton53 = new javax.swing.JButton();
-        jButton54 = new javax.swing.JButton();
-        jButton55 = new javax.swing.JButton();
-        jButton56 = new javax.swing.JButton();
-        jButton57 = new javax.swing.JButton();
-        jButton58 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         jComboBox4 = new javax.swing.JComboBox<>();
         jTextField4 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jButton38 = new javax.swing.JButton();
         jButton39 = new javax.swing.JButton();
         jButton40 = new javax.swing.JButton();
         jButton59 = new javax.swing.JButton();
         jButton60 = new javax.swing.JButton();
-        jButton61 = new javax.swing.JButton();
-        jButton62 = new javax.swing.JButton();
-        jButton63 = new javax.swing.JButton();
-        jButton64 = new javax.swing.JButton();
-        jButton65 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable6 = new javax.swing.JTable();
-        jLabel21 = new javax.swing.JLabel();
         jComboBox6 = new javax.swing.JComboBox<>();
         jTextField6 = new javax.swing.JTextField();
         jButton41 = new javax.swing.JButton();
@@ -126,16 +128,10 @@ public class mainAdmin extends javax.swing.JFrame {
         jButton43 = new javax.swing.JButton();
         jButton66 = new javax.swing.JButton();
         jButton67 = new javax.swing.JButton();
-        jButton68 = new javax.swing.JButton();
-        jButton69 = new javax.swing.JButton();
-        jButton70 = new javax.swing.JButton();
-        jButton71 = new javax.swing.JButton();
-        jButton72 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
         jComboBox5 = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jButton45 = new javax.swing.JButton();
         jButton46 = new javax.swing.JButton();
@@ -144,11 +140,6 @@ public class mainAdmin extends javax.swing.JFrame {
         jTable9 = new javax.swing.JTable();
         jButton73 = new javax.swing.JButton();
         jButton74 = new javax.swing.JButton();
-        jButton75 = new javax.swing.JButton();
-        jButton76 = new javax.swing.JButton();
-        jButton77 = new javax.swing.JButton();
-        jButton78 = new javax.swing.JButton();
-        jButton79 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -163,10 +154,13 @@ public class mainAdmin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Kode Barang", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Exp", "Qty", "Harga (pcs)"
+                "Status", "Kode Barang", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Exp", "Qty", "Harga (pcs)"
             }
         ));
         jTable1.setDoubleBuffered(true);
+        jTable1.setFocusable(false);
+        jTable1.setRequestFocusEnabled(false);
+        jTable1.setRowSelectionAllowed(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 opsi(evt);
@@ -180,8 +174,11 @@ public class mainAdmin extends javax.swing.JFrame {
 
         jTextField1.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Cari");
         jTextField1.setName(""); // NOI18N
-
-        jLabel1.setText("Sortir");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setIcon(new FlatSVGIcon("com/timone/icon/svg/report.svg", 1.3f));
         jButton1.setBorderPainted(false);
@@ -219,66 +216,6 @@ public class mainAdmin extends javax.swing.JFrame {
             }
         });
 
-        jButton18.setIcon(new FlatSVGIcon("com/timone/icon/svg/green.svg", 1.3f));
-        jButton18.setBorderPainted(false);
-        jButton18.setContentAreaFilled(false);
-        jButton18.setFocusPainted(false);
-        jButton18.setFocusable(false);
-        jButton18.setRequestFocusEnabled(false);
-        jButton18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton18ActionPerformed(evt);
-            }
-        });
-
-        jButton24.setIcon(new FlatSVGIcon("com/timone/icon/svg/orange.svg", 1.3f));
-        jButton24.setBorderPainted(false);
-        jButton24.setContentAreaFilled(false);
-        jButton24.setFocusPainted(false);
-        jButton24.setFocusable(false);
-        jButton24.setRequestFocusEnabled(false);
-        jButton24.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton24ActionPerformed(evt);
-            }
-        });
-
-        jButton25.setIcon(new FlatSVGIcon("com/timone/icon/svg/red.svg", 1.3f));
-        jButton25.setBorderPainted(false);
-        jButton25.setContentAreaFilled(false);
-        jButton25.setFocusPainted(false);
-        jButton25.setFocusable(false);
-        jButton25.setRequestFocusEnabled(false);
-        jButton25.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton25ActionPerformed(evt);
-            }
-        });
-
-        jButton26.setIcon(new FlatSVGIcon("com/timone/icon/svg/purple.svg", 1.3f));
-        jButton26.setBorderPainted(false);
-        jButton26.setContentAreaFilled(false);
-        jButton26.setFocusPainted(false);
-        jButton26.setFocusable(false);
-        jButton26.setRequestFocusEnabled(false);
-        jButton26.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton26ActionPerformed(evt);
-            }
-        });
-
-        jButton27.setIcon(new FlatSVGIcon("com/timone/icon/svg/blue.svg", 1.3f));
-        jButton27.setBorderPainted(false);
-        jButton27.setContentAreaFilled(false);
-        jButton27.setFocusPainted(false);
-        jButton27.setFocusable(false);
-        jButton27.setRequestFocusEnabled(false);
-        jButton27.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton27ActionPerformed(evt);
-            }
-        });
-
         jButton28.setIcon(new FlatSVGIcon("com/timone/icon/svg/lightdarkmode.svg", 1.3f));
         jButton28.setBorderPainted(false);
         jButton28.setContentAreaFilled(false);
@@ -304,19 +241,7 @@ public class mainAdmin extends javax.swing.JFrame {
                 .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jButton28, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -329,15 +254,9 @@ public class mainAdmin extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton27, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton28, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
@@ -366,8 +285,6 @@ public class mainAdmin extends javax.swing.JFrame {
                 jTextField2ActionPerformed(evt);
             }
         });
-
-        jLabel2.setText("Sortir");
 
         jButton7.setIcon(new FlatSVGIcon("com/timone/icon/svg/report.svg", 1.3f));
         jButton7.setBorderPainted(false);
@@ -417,66 +334,6 @@ public class mainAdmin extends javax.swing.JFrame {
             }
         });
 
-        jButton31.setIcon(new FlatSVGIcon("com/timone/icon/svg/blue.svg", 1.3f));
-        jButton31.setBorderPainted(false);
-        jButton31.setContentAreaFilled(false);
-        jButton31.setFocusPainted(false);
-        jButton31.setFocusable(false);
-        jButton31.setRequestFocusEnabled(false);
-        jButton31.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton31ActionPerformed(evt);
-            }
-        });
-
-        jButton32.setIcon(new FlatSVGIcon("com/timone/icon/svg/purple.svg", 1.3f));
-        jButton32.setBorderPainted(false);
-        jButton32.setContentAreaFilled(false);
-        jButton32.setFocusPainted(false);
-        jButton32.setFocusable(false);
-        jButton32.setRequestFocusEnabled(false);
-        jButton32.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton32ActionPerformed(evt);
-            }
-        });
-
-        jButton33.setIcon(new FlatSVGIcon("com/timone/icon/svg/red.svg", 1.3f));
-        jButton33.setBorderPainted(false);
-        jButton33.setContentAreaFilled(false);
-        jButton33.setFocusPainted(false);
-        jButton33.setFocusable(false);
-        jButton33.setRequestFocusEnabled(false);
-        jButton33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton33ActionPerformed(evt);
-            }
-        });
-
-        jButton34.setIcon(new FlatSVGIcon("com/timone/icon/svg/orange.svg", 1.3f));
-        jButton34.setBorderPainted(false);
-        jButton34.setContentAreaFilled(false);
-        jButton34.setFocusPainted(false);
-        jButton34.setFocusable(false);
-        jButton34.setRequestFocusEnabled(false);
-        jButton34.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton34ActionPerformed(evt);
-            }
-        });
-
-        jButton51.setIcon(new FlatSVGIcon("com/timone/icon/svg/green.svg", 1.3f));
-        jButton51.setBorderPainted(false);
-        jButton51.setContentAreaFilled(false);
-        jButton51.setFocusPainted(false);
-        jButton51.setFocusable(false);
-        jButton51.setRequestFocusEnabled(false);
-        jButton51.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton51ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -490,19 +347,7 @@ public class mainAdmin extends javax.swing.JFrame {
                 .addComponent(jButton29, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton51, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -514,16 +359,10 @@ public class mainAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2))
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton51, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton29, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
@@ -552,8 +391,6 @@ public class mainAdmin extends javax.swing.JFrame {
                 jTextField3ActionPerformed(evt);
             }
         });
-
-        jLabel3.setText("Sortir");
 
         jButton35.setIcon(new FlatSVGIcon("com/timone/icon/svg/add.svg", 1.6f));
         jButton35.setBorderPainted(false);
@@ -615,66 +452,6 @@ public class mainAdmin extends javax.swing.JFrame {
             }
         });
 
-        jButton54.setIcon(new FlatSVGIcon("com/timone/icon/svg/blue.svg", 1.3f));
-        jButton54.setBorderPainted(false);
-        jButton54.setContentAreaFilled(false);
-        jButton54.setFocusPainted(false);
-        jButton54.setFocusable(false);
-        jButton54.setRequestFocusEnabled(false);
-        jButton54.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton54ActionPerformed(evt);
-            }
-        });
-
-        jButton55.setIcon(new FlatSVGIcon("com/timone/icon/svg/purple.svg", 1.3f));
-        jButton55.setBorderPainted(false);
-        jButton55.setContentAreaFilled(false);
-        jButton55.setFocusPainted(false);
-        jButton55.setFocusable(false);
-        jButton55.setRequestFocusEnabled(false);
-        jButton55.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton55ActionPerformed(evt);
-            }
-        });
-
-        jButton56.setIcon(new FlatSVGIcon("com/timone/icon/svg/red.svg", 1.3f));
-        jButton56.setBorderPainted(false);
-        jButton56.setContentAreaFilled(false);
-        jButton56.setFocusPainted(false);
-        jButton56.setFocusable(false);
-        jButton56.setRequestFocusEnabled(false);
-        jButton56.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton56ActionPerformed(evt);
-            }
-        });
-
-        jButton57.setIcon(new FlatSVGIcon("com/timone/icon/svg/orange.svg", 1.3f));
-        jButton57.setBorderPainted(false);
-        jButton57.setContentAreaFilled(false);
-        jButton57.setFocusPainted(false);
-        jButton57.setFocusable(false);
-        jButton57.setRequestFocusEnabled(false);
-        jButton57.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton57ActionPerformed(evt);
-            }
-        });
-
-        jButton58.setIcon(new FlatSVGIcon("com/timone/icon/svg/green.svg", 1.3f));
-        jButton58.setBorderPainted(false);
-        jButton58.setContentAreaFilled(false);
-        jButton58.setFocusPainted(false);
-        jButton58.setFocusable(false);
-        jButton58.setRequestFocusEnabled(false);
-        jButton58.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton58ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -690,19 +467,7 @@ public class mainAdmin extends javax.swing.JFrame {
                 .addComponent(jButton52, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jButton53, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton54, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton55, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton56, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton57, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton58, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -714,19 +479,13 @@ public class mainAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jButton37, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton36, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton35, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton57, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton58, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton52, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton54, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton55, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton56, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton53, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
@@ -755,8 +514,6 @@ public class mainAdmin extends javax.swing.JFrame {
                 jTextField4ActionPerformed(evt);
             }
         });
-
-        jLabel4.setText("Sortir");
 
         jButton38.setIcon(new FlatSVGIcon("com/timone/icon/svg/report.svg", 1.3f));
         jButton38.setBorderPainted(false);
@@ -818,66 +575,6 @@ public class mainAdmin extends javax.swing.JFrame {
             }
         });
 
-        jButton61.setIcon(new FlatSVGIcon("com/timone/icon/svg/blue.svg", 1.3f));
-        jButton61.setBorderPainted(false);
-        jButton61.setContentAreaFilled(false);
-        jButton61.setFocusPainted(false);
-        jButton61.setFocusable(false);
-        jButton61.setRequestFocusEnabled(false);
-        jButton61.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton61ActionPerformed(evt);
-            }
-        });
-
-        jButton62.setIcon(new FlatSVGIcon("com/timone/icon/svg/purple.svg", 1.3f));
-        jButton62.setBorderPainted(false);
-        jButton62.setContentAreaFilled(false);
-        jButton62.setFocusPainted(false);
-        jButton62.setFocusable(false);
-        jButton62.setRequestFocusEnabled(false);
-        jButton62.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton62ActionPerformed(evt);
-            }
-        });
-
-        jButton63.setIcon(new FlatSVGIcon("com/timone/icon/svg/red.svg", 1.3f));
-        jButton63.setBorderPainted(false);
-        jButton63.setContentAreaFilled(false);
-        jButton63.setFocusPainted(false);
-        jButton63.setFocusable(false);
-        jButton63.setRequestFocusEnabled(false);
-        jButton63.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton63ActionPerformed(evt);
-            }
-        });
-
-        jButton64.setIcon(new FlatSVGIcon("com/timone/icon/svg/orange.svg", 1.3f));
-        jButton64.setBorderPainted(false);
-        jButton64.setContentAreaFilled(false);
-        jButton64.setFocusPainted(false);
-        jButton64.setFocusable(false);
-        jButton64.setRequestFocusEnabled(false);
-        jButton64.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton64ActionPerformed(evt);
-            }
-        });
-
-        jButton65.setIcon(new FlatSVGIcon("com/timone/icon/svg/green.svg", 1.3f));
-        jButton65.setBorderPainted(false);
-        jButton65.setContentAreaFilled(false);
-        jButton65.setFocusPainted(false);
-        jButton65.setFocusable(false);
-        jButton65.setRequestFocusEnabled(false);
-        jButton65.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton65ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -893,19 +590,7 @@ public class mainAdmin extends javax.swing.JFrame {
                 .addComponent(jButton59, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jButton60, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton61, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton62, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton63, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton64, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton65, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -917,19 +602,13 @@ public class mainAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jButton38, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton39, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton40, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton64, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton65, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton59, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton61, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton62, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton63, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton60, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
@@ -942,7 +621,7 @@ public class mainAdmin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tanggal", "Deskripsi", "Jenis Biaya", "Total Biaya"
+                "Nama Biaya", "Tanggal", "Deskripsi", "Total Biaya"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -955,8 +634,6 @@ public class mainAdmin extends javax.swing.JFrame {
         });
         jTable6.getTableHeader().setReorderingAllowed(false);
         jScrollPane7.setViewportView(jTable6);
-
-        jLabel21.setText("Sortir");
 
         jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Default", "Terbaru Ditambahkan", "Terlama Ditambahkan", "Biaya Tertinggi", "Biaya Terendah" }));
         jComboBox6.setFocusable(false);
@@ -983,6 +660,11 @@ public class mainAdmin extends javax.swing.JFrame {
         jButton42.setFocusPainted(false);
         jButton42.setFocusable(false);
         jButton42.setRequestFocusEnabled(false);
+        jButton42.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton42ActionPerformed(evt);
+            }
+        });
 
         jButton43.setIcon(new FlatSVGIcon("com/timone/icon/svg/add.svg", 1.6f));
         jButton43.setBorderPainted(false);
@@ -1020,66 +702,6 @@ public class mainAdmin extends javax.swing.JFrame {
             }
         });
 
-        jButton68.setIcon(new FlatSVGIcon("com/timone/icon/svg/blue.svg", 1.3f));
-        jButton68.setBorderPainted(false);
-        jButton68.setContentAreaFilled(false);
-        jButton68.setFocusPainted(false);
-        jButton68.setFocusable(false);
-        jButton68.setRequestFocusEnabled(false);
-        jButton68.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton68ActionPerformed(evt);
-            }
-        });
-
-        jButton69.setIcon(new FlatSVGIcon("com/timone/icon/svg/purple.svg", 1.3f));
-        jButton69.setBorderPainted(false);
-        jButton69.setContentAreaFilled(false);
-        jButton69.setFocusPainted(false);
-        jButton69.setFocusable(false);
-        jButton69.setRequestFocusEnabled(false);
-        jButton69.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton69ActionPerformed(evt);
-            }
-        });
-
-        jButton70.setIcon(new FlatSVGIcon("com/timone/icon/svg/red.svg", 1.3f));
-        jButton70.setBorderPainted(false);
-        jButton70.setContentAreaFilled(false);
-        jButton70.setFocusPainted(false);
-        jButton70.setFocusable(false);
-        jButton70.setRequestFocusEnabled(false);
-        jButton70.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton70ActionPerformed(evt);
-            }
-        });
-
-        jButton71.setIcon(new FlatSVGIcon("com/timone/icon/svg/orange.svg", 1.3f));
-        jButton71.setBorderPainted(false);
-        jButton71.setContentAreaFilled(false);
-        jButton71.setFocusPainted(false);
-        jButton71.setFocusable(false);
-        jButton71.setRequestFocusEnabled(false);
-        jButton71.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton71ActionPerformed(evt);
-            }
-        });
-
-        jButton72.setIcon(new FlatSVGIcon("com/timone/icon/svg/green.svg", 1.3f));
-        jButton72.setBorderPainted(false);
-        jButton72.setContentAreaFilled(false);
-        jButton72.setFocusPainted(false);
-        jButton72.setFocusable(false);
-        jButton72.setRequestFocusEnabled(false);
-        jButton72.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton72ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -1095,19 +717,7 @@ public class mainAdmin extends javax.swing.JFrame {
                 .addComponent(jButton66, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jButton67, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton68, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton69, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton70, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton71, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton72, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel21)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1119,17 +729,11 @@ public class mainAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel21))
+                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton41, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton42, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton43, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton71, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton72, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton66, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton68, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton69, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton70, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton67, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
@@ -1148,8 +752,6 @@ public class mainAdmin extends javax.swing.JFrame {
         jScrollPane5.setViewportView(jTable5);
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Default", "Terbaru Ditambahkan", "Terlama Ditambahkan", "Aktivitas Terbaru", "Aktivitas Terlama" }));
-
-        jLabel5.setText("Sortir");
 
         jTextField5.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Cari");
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
@@ -1196,13 +798,13 @@ public class mainAdmin extends javax.swing.JFrame {
 
         jTable9.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Tanggal", "Waktu", "Nama", "Username", "Bulan", "Absen", "Total Presensi"
+                "Tanggal", "Waktu", "Nama", "Username", "Absen", "Total Presensi"
             }
         ));
         jScrollPane10.setViewportView(jTable9);
@@ -1231,66 +833,6 @@ public class mainAdmin extends javax.swing.JFrame {
             }
         });
 
-        jButton75.setIcon(new FlatSVGIcon("com/timone/icon/svg/blue.svg", 1.3f));
-        jButton75.setBorderPainted(false);
-        jButton75.setContentAreaFilled(false);
-        jButton75.setFocusPainted(false);
-        jButton75.setFocusable(false);
-        jButton75.setRequestFocusEnabled(false);
-        jButton75.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton75ActionPerformed(evt);
-            }
-        });
-
-        jButton76.setIcon(new FlatSVGIcon("com/timone/icon/svg/purple.svg", 1.3f));
-        jButton76.setBorderPainted(false);
-        jButton76.setContentAreaFilled(false);
-        jButton76.setFocusPainted(false);
-        jButton76.setFocusable(false);
-        jButton76.setRequestFocusEnabled(false);
-        jButton76.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton76ActionPerformed(evt);
-            }
-        });
-
-        jButton77.setIcon(new FlatSVGIcon("com/timone/icon/svg/red.svg", 1.3f));
-        jButton77.setBorderPainted(false);
-        jButton77.setContentAreaFilled(false);
-        jButton77.setFocusPainted(false);
-        jButton77.setFocusable(false);
-        jButton77.setRequestFocusEnabled(false);
-        jButton77.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton77ActionPerformed(evt);
-            }
-        });
-
-        jButton78.setIcon(new FlatSVGIcon("com/timone/icon/svg/orange.svg", 1.3f));
-        jButton78.setBorderPainted(false);
-        jButton78.setContentAreaFilled(false);
-        jButton78.setFocusPainted(false);
-        jButton78.setFocusable(false);
-        jButton78.setRequestFocusEnabled(false);
-        jButton78.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton78ActionPerformed(evt);
-            }
-        });
-
-        jButton79.setIcon(new FlatSVGIcon("com/timone/icon/svg/green.svg", 1.3f));
-        jButton79.setBorderPainted(false);
-        jButton79.setContentAreaFilled(false);
-        jButton79.setFocusPainted(false);
-        jButton79.setFocusable(false);
-        jButton79.setRequestFocusEnabled(false);
-        jButton79.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton79ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -1306,19 +848,7 @@ public class mainAdmin extends javax.swing.JFrame {
                 .addComponent(jButton73, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jButton74, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton75, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton76, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton77, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton78, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButton79, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1331,17 +861,11 @@ public class mainAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5))
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton45, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton46, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton47, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton78, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton79, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton73, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton75, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton76, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton77, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton74, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1395,7 +919,7 @@ public class mainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        formReport.main(new String[]{});
+        ThemeSync.reportThemeSync();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -1403,7 +927,7 @@ public class mainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        formReport.main(new String[]{});
+        ThemeSync.reportThemeSync();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void opsi(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opsi
@@ -1411,172 +935,52 @@ public class mainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_opsi
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        // TODO add your handling code here:
+        ThemeSync.aboutThemeSync();
     }//GEN-LAST:event_jButton17ActionPerformed
 
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton18ActionPerformed
-
-    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton24ActionPerformed
-
-    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton25ActionPerformed
-
-    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton26ActionPerformed
-
-    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton27ActionPerformed
-
     private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
-        // TODO add your handling code here:
+        ThemeSync.themeChanger();
     }//GEN-LAST:event_jButton28ActionPerformed
 
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
-        // TODO add your handling code here:
+        ThemeSync.aboutThemeSync();
     }//GEN-LAST:event_jButton29ActionPerformed
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
-        // TODO add your handling code here:
+        ThemeSync.themeChanger();
     }//GEN-LAST:event_jButton30ActionPerformed
 
-    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton31ActionPerformed
-
-    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton32ActionPerformed
-
-    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton33ActionPerformed
-
-    private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton34ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton34ActionPerformed
-
-    private void jButton51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton51ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton51ActionPerformed
-
     private void jButton52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton52ActionPerformed
-        // TODO add your handling code here:
+        ThemeSync.aboutThemeSync();
     }//GEN-LAST:event_jButton52ActionPerformed
 
     private void jButton53ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton53ActionPerformed
-        // TODO add your handling code here:
+        ThemeSync.themeChanger();
     }//GEN-LAST:event_jButton53ActionPerformed
 
-    private void jButton54ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton54ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton54ActionPerformed
-
-    private void jButton55ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton55ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton55ActionPerformed
-
-    private void jButton56ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton56ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton56ActionPerformed
-
-    private void jButton57ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton57ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton57ActionPerformed
-
-    private void jButton58ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton58ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton58ActionPerformed
-
     private void jButton59ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton59ActionPerformed
-        // TODO add your handling code here:
+        ThemeSync.aboutThemeSync();
     }//GEN-LAST:event_jButton59ActionPerformed
 
     private void jButton60ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton60ActionPerformed
-        // TODO add your handling code here:
+        ThemeSync.themeChanger();
     }//GEN-LAST:event_jButton60ActionPerformed
 
-    private void jButton61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton61ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton61ActionPerformed
-
-    private void jButton62ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton62ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton62ActionPerformed
-
-    private void jButton63ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton63ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton63ActionPerformed
-
-    private void jButton64ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton64ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton64ActionPerformed
-
-    private void jButton65ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton65ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton65ActionPerformed
-
     private void jButton66ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton66ActionPerformed
-        // TODO add your handling code here:
+        ThemeSync.aboutThemeSync();
     }//GEN-LAST:event_jButton66ActionPerformed
 
     private void jButton67ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton67ActionPerformed
-        // TODO add your handling code here:
+        ThemeSync.themeChanger();
     }//GEN-LAST:event_jButton67ActionPerformed
 
-    private void jButton68ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton68ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton68ActionPerformed
-
-    private void jButton69ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton69ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton69ActionPerformed
-
-    private void jButton70ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton70ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton70ActionPerformed
-
-    private void jButton71ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton71ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton71ActionPerformed
-
-    private void jButton72ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton72ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton72ActionPerformed
-
     private void jButton73ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton73ActionPerformed
-        // TODO add your handling code here:
+        ThemeSync.aboutThemeSync();
     }//GEN-LAST:event_jButton73ActionPerformed
 
     private void jButton74ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton74ActionPerformed
-        // TODO add your handling code here:
+        ThemeSync.themeChanger();
     }//GEN-LAST:event_jButton74ActionPerformed
-
-    private void jButton75ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton75ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton75ActionPerformed
-
-    private void jButton76ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton76ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton76ActionPerformed
-
-    private void jButton77ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton77ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton77ActionPerformed
-
-    private void jButton78ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton78ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton78ActionPerformed
-
-    private void jButton79ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton79ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton79ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        InventoryTable();
@@ -1599,49 +1003,78 @@ public class mainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton46ActionPerformed
 
     private void jButton45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton45ActionPerformed
-        formReport.main(new String[]{});
+        ThemeSync.reportThemeSync();
     }//GEN-LAST:event_jButton45ActionPerformed
 
     private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
-        formReport.main(new String[]{});
+        ThemeSync.reportThemeSync();
     }//GEN-LAST:event_jButton37ActionPerformed
 
     private void jButton38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton38ActionPerformed
-        formReport.main(new String[]{});
+        ThemeSync.reportThemeSync();
     }//GEN-LAST:event_jButton38ActionPerformed
 
     private void jButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton41ActionPerformed
-        formReport.main(new String[]{});
+        ThemeSync.reportThemeSync();
     }//GEN-LAST:event_jButton41ActionPerformed
 
     private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
-        formAddPurchase.main(new String[]{});
+        ThemeSync.addPurchaseThemeSync();
     }//GEN-LAST:event_jButton35ActionPerformed
 
     private void jButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton40ActionPerformed
-        formAddDistributor.main(new String[]{});
+        ThemeSync.addDistributorThemeSync();
     }//GEN-LAST:event_jButton40ActionPerformed
 
     private void jButton43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton43ActionPerformed
-        formAddOperational.main(new String[]{});
+        ThemeSync.addOperationalThemeSync();
     }//GEN-LAST:event_jButton43ActionPerformed
 
     private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
-        formAddWorker.main(new String[]{});
+        ThemeSync.addWorkerThemeSync();
     }//GEN-LAST:event_jButton47ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
+        OperationTable();
+    }//GEN-LAST:event_jButton42ActionPerformed
     
-    private void InventoryTable() {
+   private void InventoryTable() {
     try {
         // Mendapatkan koneksi ke database dari kelas DBConnection
         Connection conn = DBConnection.getConnection();
 
         // Membuat statement SQL untuk mengambil data dari tabel barang dengan JOIN
-        String sql = "SELECT barang.kode_barang, barang.nama_barang, kategori_obat.nama_kategori, bentuk_obat.nama_bentuk_obat, barang.satuan_obat, barang.kadaluarsa, barang.kuantitas, barang.harga_pcs " +
+        String sql = "SELECT barang.kode_barang, barang.nama_barang, kategori_obat.nama_kategori, bentuk_obat.nama_bentuk_obat, barang.satuan_obat, DATE_FORMAT(barang.kadaluarsa, '%d %M %Y') AS kadaluarsa, barang.kuantitas, barang.harga_pcs, " +
+                     "CASE " +
+                     "    WHEN barang.kadaluarsa <= CURDATE() THEN 'Expired (tidak dapat dijual)' " +
+                     "    WHEN barang.kadaluarsa <= CURDATE() + INTERVAL 3 MONTH THEN 'Mendekati Expired (tidak dapat dijual)' " +
+                     "    ELSE (CASE " +
+                     "              WHEN barang.kuantitas <= 0 THEN 'Stok habis' " +
+                     "              WHEN barang.kuantitas <= 15 THEN 'Stok akan habis' " +
+                     "              ELSE (CASE " +
+                     "                        WHEN barang.kadaluarsa <= CURDATE() + INTERVAL 3 MONTH THEN 'Mendekati expired (tidak dapat dijual)' " +
+                     "                        WHEN barang.kadaluarsa <= CURDATE() + INTERVAL 6 MONTH THEN 'Mendekati expired (dapat dijual)' " +
+                     "                        ELSE (CASE " +
+                     "                                  WHEN barang.kadaluarsa > CURDATE() + INTERVAL 6 MONTH THEN 'Aman' " +
+                     "                                  ELSE NULL " +
+                     "                             END) " +
+                     "                   END) " +
+                     "         END) " +
+                     "END AS status " +
                      "FROM barang " +
                      "INNER JOIN kategori_obat ON barang.kode_kategori_obat = kategori_obat.kode_kategori_obat " +
-                     "INNER JOIN bentuk_obat ON barang.kode_bentuk_obat = bentuk_obat.kode_bentuk_obat";
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+                     "INNER JOIN bentuk_obat ON barang.kode_bentuk_obat = bentuk_obat.kode_bentuk_obat " +
+                     "WHERE barang.kode_barang LIKE ? OR barang.nama_barang LIKE ? OR kategori_obat.nama_kategori LIKE ? OR bentuk_obat.nama_bentuk_obat LIKE ? OR barang.satuan_obat LIKE ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        String searchQuery = "%" + jTextField1.getText() + "%";
+        for (int i = 1; i <= 5; i++) {
+            stmt.setString(i, searchQuery);
+        }
+        ResultSet rs = stmt.executeQuery();
 
         // Mendapatkan model tabel yang ada
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -1651,18 +1084,37 @@ public class mainAdmin extends javax.swing.JFrame {
 
         // Memproses hasil kueri dan menambahkannya ke model tabel
         while (rs.next()) {
+            // Menentukan status berdasarkan tanggal kadaluarsa
+            String status = rs.getString("status");
+            if (status.equals("Expired (tidak dapat dijual)") || status.equals("Mendekati Expired (tidak dapat dijual)")) {
+                // Jika sudah expired, kita tetapkan statusnya terlebih dahulu
+                // Kemudian kita lanjutkan ke pengecekan stok untuk status lainnya
+            } else {
+                // Jika belum expired, lanjutkan dengan pengecekan stok
+                int stok = rs.getInt("kuantitas");
+                if (stok <= 0) {
+                    status = "Stok habis";
+                } else if (stok <= 15) {
+                    status = "Stok akan habis";
+                }
+            }
+
             Object[] row = {
+                    status,
                     rs.getString("kode_barang"),
                     rs.getString("nama_barang"),
                     rs.getString("nama_kategori"),
                     rs.getString("nama_bentuk_obat"),
                     rs.getString("satuan_obat"),
-                    rs.getDate("kadaluarsa"),
+                    rs.getString("kadaluarsa"),
                     rs.getInt("kuantitas"),
                     rs.getInt("harga_pcs")
             };
             model.addRow(row);
         }
+
+        // Setelah model tabel diisi ulang, panggil method setRowColor() untuk menerapkan render warna
+        setRowColor();
 
         // Menutup koneksi
         rs.close();
@@ -1671,7 +1123,36 @@ public class mainAdmin extends javax.swing.JFrame {
     } catch (SQLException e) {
         e.printStackTrace();
     }
+   }
+
+   private void setRowColor() {
+    DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            // Mengambil nilai dari kolom status pada baris saat ini
+            String status = (String) table.getModel().getValueAt(row, 0);
+
+            // Memberikan warna berdasarkan status
+            if (status.equals("Expired (tidak dapat dijual)") || status.equals("Stok habis")) {
+                c.setBackground(Color.decode("#FF453A")); // Merah
+            } else if (status.equals("Mendekati expired (dapat dijual)") || status.equals("Mendekati Expired (tidak dapat dijual)") || status.equals("Stok akan habis")) {
+                c.setBackground(Color.decode("#FF9F0A")); // Orange
+            } else {
+                c.setBackground(table.getBackground()); // Warna default untuk status lainnya
+            }
+
+            return c;
+        }
+    };
+
+    // Mengatur renderer untuk semua kolom
+    for (int i = 0; i < jTable1.getColumnCount(); i++) {
+        jTable1.getColumnModel().getColumn(i).setCellRenderer(renderer);
+    }
 }
+
 
     private void SalesTable() {
     try {
@@ -1679,10 +1160,11 @@ public class mainAdmin extends javax.swing.JFrame {
         Connection conn = DBConnection.getConnection();
 
         // Membuat statement SQL untuk mengambil data penjualan
-        String sql = "SELECT penjualan.kode_penjualan, penjualan.tanggal_transaksi, karyawan.username, penjualan.kode_barang, barang.nama_barang, penjualan.barang_terjual, penjualan.laba_pcs, penjualan.laba_total " +
-                     "FROM penjualan " +
-                     "INNER JOIN barang ON penjualan.kode_barang = barang.kode_barang " +
-                     "INNER JOIN karyawan ON penjualan.kode_user = karyawan.kode_user";
+        String sql = "SELECT dp.kode_penjualan, p.tanggal_transaksi, k.username AS user, dp.kode_barang, b.nama_barang, dp.jumlah_terjual AS barang_terjual, dp.laba_pcs, dp.laba_total " +
+                     "FROM detail_penjualan dp " +
+                     "JOIN penjualan p ON dp.kode_penjualan = p.kode_penjualan " +
+                     "JOIN barang b ON dp.kode_barang = b.kode_barang " +
+                     "JOIN karyawan k ON p.kode_user = k.kode_user";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
 
@@ -1697,7 +1179,7 @@ public class mainAdmin extends javax.swing.JFrame {
             Object[] row = {
                     rs.getString("kode_penjualan"),
                     rs.getDate("tanggal_transaksi"),
-                    rs.getString("username"),
+                    rs.getString("user"),
                     rs.getString("kode_barang"),
                     rs.getString("nama_barang"),
                     rs.getInt("barang_terjual"),
@@ -1715,6 +1197,7 @@ public class mainAdmin extends javax.swing.JFrame {
         e.printStackTrace();
     }
 }
+
    
     private void PurchaseTable() {
     try {
@@ -1811,6 +1294,42 @@ public class mainAdmin extends javax.swing.JFrame {
     }
 }
 
+    private void OperationTable() {
+    try {
+        // Mendapatkan koneksi ke database dari kelas DBConnection
+        Connection conn = DBConnection.getConnection();
+
+        // Membuat statement SQL untuk mengambil data biaya
+        String sql = "SELECT nama_biaya, tanggal, deskripsi, total_biaya FROM operasional";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        // Mendapatkan model tabel yang ada
+        DefaultTableModel model = (DefaultTableModel) jTable6.getModel();
+
+        // Menghapus semua baris yang sudah ada dari model tabel
+        model.setRowCount(0);
+
+        // Memproses hasil kueri dan menambahkannya ke model tabel
+        while (rs.next()) {
+            Object[] row = {
+                    rs.getString("nama_biaya"),
+                    rs.getString("tanggal"),
+                    rs.getString("deskripsi"),
+                    rs.getInt("total_biaya")
+            };
+            model.addRow(row);
+        }
+
+        // Menutup koneksi
+        rs.close();
+        stmt.close();
+        conn.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
     
     private void WorkerTable() {
     try {
@@ -1850,36 +1369,25 @@ public class mainAdmin extends javax.swing.JFrame {
 }
 
     
+    
     public static void main(String args[]) {
-        // Tetapkan tampilan FlatLaf sebelum membuat jendela
-        FlatMacDarkLaf.setup();
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                mainAdmin home = new mainAdmin();
-                home.setLocationRelativeTo(null); // Memposisikan jendela di tengah layar
-                
-                home.setVisible(true);
-                
-            }
-        });
-    }
+    FlatGitHubDarkIJTheme.setup();
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            mainAdmin home = new mainAdmin();
+            home.setLocationRelativeTo(null); // Memposisikan jendela di tengah layar
+            home.setVisible(true);
+        }
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton24;
-    private javax.swing.JButton jButton25;
-    private javax.swing.JButton jButton26;
-    private javax.swing.JButton jButton27;
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton31;
-    private javax.swing.JButton jButton32;
-    private javax.swing.JButton jButton33;
-    private javax.swing.JButton jButton34;
     private javax.swing.JButton jButton35;
     private javax.swing.JButton jButton36;
     private javax.swing.JButton jButton37;
@@ -1892,36 +1400,15 @@ public class mainAdmin extends javax.swing.JFrame {
     private javax.swing.JButton jButton45;
     private javax.swing.JButton jButton46;
     private javax.swing.JButton jButton47;
-    private javax.swing.JButton jButton51;
     private javax.swing.JButton jButton52;
     private javax.swing.JButton jButton53;
-    private javax.swing.JButton jButton54;
-    private javax.swing.JButton jButton55;
-    private javax.swing.JButton jButton56;
-    private javax.swing.JButton jButton57;
-    private javax.swing.JButton jButton58;
     private javax.swing.JButton jButton59;
     private javax.swing.JButton jButton60;
-    private javax.swing.JButton jButton61;
-    private javax.swing.JButton jButton62;
-    private javax.swing.JButton jButton63;
-    private javax.swing.JButton jButton64;
-    private javax.swing.JButton jButton65;
     private javax.swing.JButton jButton66;
     private javax.swing.JButton jButton67;
-    private javax.swing.JButton jButton68;
-    private javax.swing.JButton jButton69;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton70;
-    private javax.swing.JButton jButton71;
-    private javax.swing.JButton jButton72;
     private javax.swing.JButton jButton73;
     private javax.swing.JButton jButton74;
-    private javax.swing.JButton jButton75;
-    private javax.swing.JButton jButton76;
-    private javax.swing.JButton jButton77;
-    private javax.swing.JButton jButton78;
-    private javax.swing.JButton jButton79;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -1929,12 +1416,6 @@ public class mainAdmin extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1964,5 +1445,10 @@ public class mainAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
-
+private static formReport report;
+private static formAbout about;
+private static formAddDistributor addDistributor;
+private static formAddOperational addOperational;
+private static formAddPurchase addPurchase;
+private static formAddWorker addWorker;
 }

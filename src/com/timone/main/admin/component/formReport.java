@@ -4,6 +4,7 @@
  */
 package com.timone.main.admin.component;
 
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.main.admin.distributor.*;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import javax.swing.JFrame;
@@ -31,28 +32,29 @@ public class formReport extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jLabel1.setText("Form report");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel2.setText("Laporan");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(359, 359, 359)
-                .addComponent(jLabel1)
-                .addContainerGap(442, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addComponent(jLabel2)
+                .addContainerGap(671, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(285, 285, 285)
-                .addComponent(jLabel1)
-                .addContainerGap(293, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel2)
+                .addContainerGap(531, Short.MAX_VALUE))
         );
 
         pack();
@@ -62,7 +64,7 @@ public class formReport extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        FlatMacDarkLaf.setup();
+        FlatGitHubIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 formReport form = new formReport();
@@ -73,6 +75,6 @@ public class formReport extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

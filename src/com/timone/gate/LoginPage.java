@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.timone.setup.component;
+package com.timone.gate;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.timone.connection.DBConnection;
 import com.timone.main.admin.mainAdmin;
+import com.timone.main.cashier.CashierForm;
 import javax.swing.UIManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +24,6 @@ import javax.swing.JOptionPane;
  * @author Fadel
  */
 public class LoginPage extends javax.swing.JFrame {
-    
     
     
     /**
@@ -153,22 +153,40 @@ public class LoginPage extends javax.swing.JFrame {
 
     try {
         conn = DBConnection.getConnection();
-        String query = "SELECT * FROM karyawan WHERE username = ? AND password = ?";
-        pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, jTextField1.getText()); // Mengambil nilai username dari JTextField
-        pstmt.setString(2, new String(jPasswordField1.getPassword())); // Mengambil nilai password dari JPasswordField
+        
+        // Periksa tabel 'about'
+        String aboutQuery = "SELECT * FROM about WHERE username = ? AND password = ?";
+        pstmt = conn.prepareStatement(aboutQuery);
+        pstmt.setString(1, jTextField1.getText());
+        pstmt.setString(2, new String(jPasswordField1.getPassword()));
         rs = pstmt.executeQuery();
 
         if (rs.next()) {
-            // Jika username dan password cocok, buka MainAdmin
+            // Jika username dan password cocok dengan tabel 'about', buka MainAdmin
             mainAdmin.main(new String[]{});
             this.dispose();
-        } else {
-            // Jika username atau password tidak cocok, reset field
-            jTextField1.setText("");
-            jPasswordField1.setText("");
-            JOptionPane.showMessageDialog(this, "Username atau Password salah", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Keluar dari metode setelah membuka MainAdmin
         }
+
+        // Periksa tabel 'karyawan'
+        String karyawanQuery = "SELECT * FROM karyawan WHERE username = ? AND password = ?";
+        pstmt = conn.prepareStatement(karyawanQuery);
+        pstmt.setString(1, jTextField1.getText());
+        pstmt.setString(2, new String(jPasswordField1.getPassword()));
+        rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            // Jika username dan password cocok dengan tabel 'karyawan', buka CashierForm
+            CashierForm.main(new String[]{});
+            this.dispose();
+            return; // Keluar dari metode setelah membuka CashierForm
+        }
+
+        // Jika tidak ada username dan password yang cocok
+        jTextField1.setText("");
+        jPasswordField1.setText("");
+        jTextField1.requestFocusInWindow();
+        JOptionPane.showMessageDialog(this, "Username atau Password salah", "Error", JOptionPane.ERROR_MESSAGE);
     } catch (SQLException ex) {
         ex.printStackTrace();
         JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat memeriksa kredensial.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -183,12 +201,13 @@ public class LoginPage extends javax.swing.JFrame {
         }
     }
 }
+
     
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        FlatMacDarkLaf.setup();
+        FlatGitHubDarkIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginPage().setVisible(true);

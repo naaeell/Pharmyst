@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.timone.setup.component;
+package com.timone.main.runable;
 
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.timone.gate.SetupPage;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.timone.connection.DBConnection;
+import com.timone.gate.LoginPage;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +21,7 @@ import javax.swing.JOptionPane;
 public class StartApp {
     
     public static void main(String args[]) {
-        FlatMacDarkLaf.setup();
+        FlatGitHubDarkIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -28,7 +30,7 @@ public class StartApp {
                     
                     // Membuat statement SQL untuk mengambil jumlah data dari tabel barang
                     Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM barang");
+                    ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM about");
                     rs.next();
                     int rowCount = rs.getInt("total");
                     
@@ -39,11 +41,11 @@ public class StartApp {
                     
                     // Memeriksa apakah tabel barang kosong atau tidak
                     if (rowCount == 0) {
-                        // Jika tabel kosong, luncurkan RegisterPage
-                        new RegisterPage().setVisible(true);
+                        // Jika tabel kosong, luncurkan SetupPage
+                        SetupPage.main(new String[]{});
                     } else {
                         // Jika tidak kosong, luncurkan LoginPage
-                        new LoginPage().setVisible(true);
+                        LoginPage.main(new String[]{});
                     }
                     
                 } catch (SQLException e) {
