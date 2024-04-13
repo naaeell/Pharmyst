@@ -7,12 +7,6 @@ package com.timone.main.admin;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.timone.connection.DBConnection;
-import com.timone.main.admin.component.formAbout;
-import com.timone.main.admin.component.formReport;
-import com.timone.main.admin.distributor.formAddDistributor;
-import com.timone.main.admin.operational.formAddOperational;
-import com.timone.main.admin.purchase.formAddPurchase;
-import com.timone.main.admin.worker.formAddWorker;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.timone.main.admin.logic.ThemeSync;
 import java.sql.Connection;
@@ -27,10 +21,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.table.TableColumnModel;
+import java.util.ArrayList;
 /**
  *
  * @author Fadel
@@ -1082,34 +1073,39 @@ public class mainAdmin extends javax.swing.JFrame {
         // Menghapus semua baris yang sudah ada dari model tabel
         model.setRowCount(0);
 
-        // Memproses hasil kueri dan menambahkannya ke model tabel
+        // Membuat daftar baris untuk status selain "Aman"
+        ArrayList<Object[]> nonSafeRows = new ArrayList<>();
+        ArrayList<Object[]> safeRows = new ArrayList<>();
+
+        // Memproses hasil kueri dan menambahkannya ke daftar yang sesuai
         while (rs.next()) {
             // Menentukan status berdasarkan tanggal kadaluarsa
             String status = rs.getString("status");
-            if (status.equals("Expired (tidak dapat dijual)") || status.equals("Mendekati Expired (tidak dapat dijual)")) {
-                // Jika sudah expired, kita tetapkan statusnya terlebih dahulu
-                // Kemudian kita lanjutkan ke pengecekan stok untuk status lainnya
-            } else {
-                // Jika belum expired, lanjutkan dengan pengecekan stok
-                int stok = rs.getInt("kuantitas");
-                if (stok <= 0) {
-                    status = "Stok habis";
-                } else if (stok <= 15) {
-                    status = "Stok akan habis";
-                }
-            }
-
             Object[] row = {
-                    status,
-                    rs.getString("kode_barang"),
-                    rs.getString("nama_barang"),
-                    rs.getString("nama_kategori"),
-                    rs.getString("nama_bentuk_obat"),
-                    rs.getString("satuan_obat"),
-                    rs.getString("kadaluarsa"),
-                    rs.getInt("kuantitas"),
-                    rs.getInt("harga_pcs")
+                status,
+                rs.getString("kode_barang"),
+                rs.getString("nama_barang"),
+                rs.getString("nama_kategori"),
+                rs.getString("nama_bentuk_obat"),
+                rs.getString("satuan_obat"),
+                rs.getString("kadaluarsa"),
+                rs.getInt("kuantitas"),
+                rs.getInt("harga_pcs")
             };
+            if (status.equals("Aman")) {
+                safeRows.add(row);
+            } else {
+                nonSafeRows.add(row);
+            }
+        }
+
+        // Menambahkan baris yang tidak aman terlebih dahulu
+        for (Object[] row : nonSafeRows) {
+            model.addRow(row);
+        }
+        
+        // Kemudian menambahkan baris yang aman
+        for (Object[] row : safeRows) {
             model.addRow(row);
         }
 
@@ -1123,7 +1119,7 @@ public class mainAdmin extends javax.swing.JFrame {
     } catch (SQLException e) {
         e.printStackTrace();
     }
-   }
+}
 
    private void setRowColor() {
     DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
@@ -1134,13 +1130,20 @@ public class mainAdmin extends javax.swing.JFrame {
             // Mengambil nilai dari kolom status pada baris saat ini
             String status = (String) table.getModel().getValueAt(row, 0);
 
-            // Memberikan warna berdasarkan status
+            // Memberikan warna latar belakang berdasarkan status
             if (status.equals("Expired (tidak dapat dijual)") || status.equals("Stok habis")) {
                 c.setBackground(Color.decode("#FF453A")); // Merah
             } else if (status.equals("Mendekati expired (dapat dijual)") || status.equals("Mendekati Expired (tidak dapat dijual)") || status.equals("Stok akan habis")) {
                 c.setBackground(Color.decode("#FF9F0A")); // Orange
             } else {
                 c.setBackground(table.getBackground()); // Warna default untuk status lainnya
+            }
+
+            // Memberi warna teks putih pada baris dengan status selain "Aman"
+            if (!status.equals("Aman")) {
+                c.setForeground(Color.WHITE);
+            } else {
+                c.setForeground(table.getForeground()); // Mengembalikan warna teks default jika status adalah "Aman"
             }
 
             return c;
@@ -1154,6 +1157,7 @@ public class mainAdmin extends javax.swing.JFrame {
 }
 
 
+
     private void SalesTable() {
     try {
         // Mendapatkan koneksi ke database dari kelas DBConnection
@@ -1164,7 +1168,7 @@ public class mainAdmin extends javax.swing.JFrame {
                      "FROM detail_penjualan dp " +
                      "JOIN penjualan p ON dp.kode_penjualan = p.kode_penjualan " +
                      "JOIN barang b ON dp.kode_barang = b.kode_barang " +
-                     "JOIN karyawan k ON p.kode_user = k.kode_user";
+                     "JOIN akun_karyawan k ON p.kode_user = k.kode_user";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
 
@@ -1337,7 +1341,7 @@ public class mainAdmin extends javax.swing.JFrame {
         Connection conn = DBConnection.getConnection();
 
         // Membuat statement SQL untuk mengambil data karyawan
-        String sql = "SELECT nama, email, username, password, rfid FROM karyawan";
+        String sql = "SELECT nama, email, username, password, rfid FROM akun_karyawan";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
 
@@ -1445,10 +1449,5 @@ public class mainAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
-private static formReport report;
-private static formAbout about;
-private static formAddDistributor addDistributor;
-private static formAddOperational addOperational;
-private static formAddPurchase addPurchase;
-private static formAddWorker addWorker;
+
 }

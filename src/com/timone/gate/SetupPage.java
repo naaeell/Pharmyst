@@ -397,7 +397,7 @@ public class SetupPage extends javax.swing.JFrame {
 
         try {
             // Memeriksa keberadaan username dan password yang sama
-            String checkQuery = "SELECT COUNT(*) FROM karyawan WHERE username = ? AND password = ?";
+            String checkQuery = "SELECT COUNT(*) FROM akun_karyawan WHERE username = ? AND password = ?";
             PreparedStatement checkStatement = conn.prepareStatement(checkQuery);
             checkStatement.setString(1, usernameValue);
             checkStatement.setString(2, passwordValue);

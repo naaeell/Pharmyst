@@ -136,7 +136,7 @@ public class RfidPage extends javax.swing.JFrame {
         }
 
         // Periksa tabel 'karyawan' untuk kode RFID
-        String karyawanQuery = "SELECT * FROM karyawan WHERE rfid = ?";
+        String karyawanQuery = "SELECT * FROM akun_karyawan WHERE rfid = ?";
         pstmt = conn.prepareStatement(karyawanQuery);
         pstmt.setString(1, rfidCode);
         rs = pstmt.executeQuery();

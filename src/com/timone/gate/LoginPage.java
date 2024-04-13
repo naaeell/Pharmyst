@@ -169,7 +169,7 @@ public class LoginPage extends javax.swing.JFrame {
         }
 
         // Periksa tabel 'karyawan'
-        String karyawanQuery = "SELECT * FROM karyawan WHERE username = ? AND password = ?";
+        String karyawanQuery = "SELECT * FROM akun_karyawan WHERE username = ? AND password = ?";
         pstmt = conn.prepareStatement(karyawanQuery);
         pstmt.setString(1, jTextField1.getText());
         pstmt.setString(2, new String(jPasswordField1.getPassword()));
