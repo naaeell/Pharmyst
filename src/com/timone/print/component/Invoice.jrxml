@@ -1,29 +1,273 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" language="groovy" pageWidth="226" pageHeight="510" columnWidth="164" leftMargin="31" rightMargin="31" topMargin="19" bottomMargin="19" uuid="33332c49-ba42-41e6-bde5-741d18f98bd3">
+	<property name="ireport.zoom" value="3.1384283767210084"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="311"/>
+	<queryString>
+		<![CDATA[SELECT 
+    a.nama_usaha,
+    a.no_telp_usaha,
+    a.alamat,
+    pi.kode_penjualan,
+    pi.kode_barang,
+    b.nama_barang,
+    b.harga_pcs,
+    pi.jumlah_terjual,
+    pi.total_harga,
+    pi.jumlah_harga,
+    pi.total_bayar,
+    pi.kembali,
+    ak.nama
+FROM 
+    print_invoice pi
+JOIN 
+    about a ON pi.id_about = a.id_about
+JOIN 
+    barang b ON pi.kode_barang = b.kode_barang
+JOIN 
+    penjualan p ON pi.kode_penjualan = p.kode_penjualan
+JOIN 
+    akun_karyawan ak ON p.kode_user = ak.kode_user;
+]]>
+	</queryString>
+	<field name="nama_usaha" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="no_telp_usaha" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="alamat" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kode_penjualan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kode_barang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_barang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="harga_pcs" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jumlah_terjual" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_harga" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jumlah_harga" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_bayar" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kembali" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="164" height="28" uuid="7379378c-a47d-4353-8e88-20ab5a63ee10"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="DejaVu Sans Mono" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_usaha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="28" width="164" height="28" uuid="a16f5ba1-53b5-455a-a5a7-820291669567"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alamat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="56" width="164" height="15" uuid="3b0b4258-d0f8-4ac6-9293-781776eb6e5d"/>
+				<box>
+					<pen lineStyle="Dashed"/>
+					<topPen lineStyle="Dashed"/>
+					<leftPen lineStyle="Dashed"/>
+					<bottomPen lineWidth="0.75" lineStyle="Dashed"/>
+					<rightPen lineStyle="Dashed"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_telp_usaha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="39" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="0" y="4" width="100" height="10" uuid="5c09fd73-f053-4520-a278-e3c57d7bf7b3"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="15" width="81" height="10" uuid="06c35146-a1a8-4e69-9fc3-200506a8f542"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kode_penjualan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="15" width="19" height="10" uuid="411ab348-d6e2-4227-8fce-e4393a93ad43"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="36" height="10" uuid="e49980ec-1c10-4eab-99ce-a6d4cfd0d4b4"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<text><![CDATA[Kasir : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="36" y="25" width="64" height="10" uuid="c02f0800-eb8d-47c3-af59-ae559a402a0b"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="39" width="164" height="0" uuid="4921e267-34b7-415a-bed3-b1b8e19452c2"/>
+				<box>
+					<pen lineStyle="Dashed"/>
+					<topPen lineStyle="Dashed"/>
+					<leftPen lineStyle="Dashed"/>
+					<bottomPen lineWidth="0.75" lineStyle="Dashed"/>
+					<rightPen lineStyle="Dashed"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="4" width="164" height="11" uuid="989f4872-b8a4-4cc0-9942-74b6899884c1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_barang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="15" width="19" height="17" uuid="e83d5257-7b73-45a9-b643-5490b557aa92"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jumlah_terjual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="15" width="16" height="17" uuid="8059d6bd-bfcb-4651-90d9-a40d9ee25a32"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[x]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="15" width="64" height="17" uuid="6352ced3-b5cc-4323-954b-d42c7ef70e8f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_harga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="15" width="64" height="17" uuid="94a5a815-5e44-46d3-8fe5-92e1007ebabc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{harga_pcs}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="164" height="0" uuid="a7f9bd4d-2681-4f52-8170-c437e2e9aee6"/>
+				<box>
+					<topPen lineWidth="0.75" lineStyle="Dashed"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="128" y="10" width="36" height="10" uuid="a3990310-6bbc-40b7-8b92-bf110d8ca02e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jumlah_harga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="38" width="36" height="10" uuid="f6022127-49a4-438f-bb00-5a71efbd9edb"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kembali}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="24" width="36" height="10" uuid="950c658f-8acb-493b-b457-9c0363c7b5cf"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_bayar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="10" width="100" height="10" uuid="1f8f9848-d82b-45d4-b778-2813a8cf9c3e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="24" width="100" height="10" uuid="41a1a3ba-e39a-43e4-91bb-f2899c5be3cd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<text><![CDATA[Bayar (Cash)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="38" width="100" height="10" uuid="ce350257-d65b-41a0-85d6-cee491555d46"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<text><![CDATA[kembali]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="57" width="164" height="0" uuid="d308136a-7276-4196-ba74-30465c0f7dc2"/>
+				<box>
+					<bottomPen lineWidth="0.75" lineStyle="Dashed"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="70" width="164" height="16" uuid="9ab13a22-65ba-4bd1-b650-31b3de12b6d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans Mono" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Terimakasih!]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="89" width="164" height="11" uuid="dd6fd803-b624-452f-8422-f433a73d4f75"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="8"/>
+				</textElement>
+				<text><![CDATA[Semoga sehat selalu]]></text>
+			</staticText>
+		</band>
+	</summary>
 </jasperReport>

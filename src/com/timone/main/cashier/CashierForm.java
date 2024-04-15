@@ -5,8 +5,28 @@
 package com.timone.main.cashier;
 
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.timone.connection.DBConnection;
 import com.timone.main.cashier.component.labelLogic;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.UIManager;
+import net.sf.jasperreports.engine.*;
+import java.util.Map;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author Fadel
@@ -21,6 +41,32 @@ public class CashierForm extends javax.swing.JFrame {
         
         UIManager.put( "TextComponent.arc", 10 );
         initComponents();
+        
+        jTextField1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jTextField2.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
+            }
+        });
+
+        // Menambahkan ActionListener ke JPasswordField
+        jTextField2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Memanggil metode checkCredentials() saat tombol "Enter" ditekan pada JPasswordField
+                jTextField3.requestFocusInWindow();
+            }
+        });
+        
+        jTextField3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateTable();
+                clearText();
+                JTextField jTextField11 = jTextField1;
+                jTextField11.requestFocusInWindow();
+            }
+        });
         
         
     }
@@ -51,7 +97,7 @@ public class CashierForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        jTextField3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -78,7 +124,6 @@ public class CashierForm extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7.setText("Rp 500.000");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Kode Item :");
@@ -109,6 +154,11 @@ public class CashierForm extends javax.swing.JFrame {
         jButton1.setFocusPainted(false);
         jButton1.setFocusable(false);
         jButton1.setRequestFocusEnabled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton3.setText("Refresh");
@@ -117,9 +167,16 @@ public class CashierForm extends javax.swing.JFrame {
         jButton3.setFocusPainted(false);
         jButton3.setFocusable(false);
         jButton3.setRequestFocusEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setText("Potongan (%)  :");
+
+        jTextField3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -139,7 +196,7 @@ public class CashierForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -176,25 +233,27 @@ public class CashierForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(28, 28, 28))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField2)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField1)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextField2)))
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addGap(114, 114, 114))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,9 +269,127 @@ public class CashierForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String transactionCode = labelLogic.generateTransactionCode();
+        jLabel4.setText(transactionCode);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+                String reportPath = "src/com/timone/print/component/Invoice.jasper";
+                Connection conn = DBConnection.getConnection();
+                
+                HashMap<String, Object> parameters = new HashMap<>();
+                JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, conn);
+                JasperViewer viewer = new JasperViewer(print, false);
+                viewer.setVisible(true);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error displaying report", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
     
+    private void clearText(){
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        
+    }
     
-    
+   private void updateTable() {
+        // Mendapatkan nilai dari jTextField1
+        String kodeBarang = jTextField1.getText();
+
+        try {
+            // Mendapatkan koneksi ke database dari kelas DBConnection
+            Connection conn = DBConnection.getConnection();
+
+            // Membuat query untuk mencari kode barang di database
+            String query = "SELECT kode_barang, nama_barang, satuan_obat, harga_pcs FROM barang WHERE kode_barang = ?";
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, kodeBarang);
+            ResultSet rs = pst.executeQuery();
+                
+            if (rs.next()) {
+                // Mendapatkan nilai dari jTextField2 dan jSpinner1
+                int qty = (jTextField2.getText().isEmpty()) ? 1 : Integer.parseInt(jTextField2.getText());
+                // Periksa jika nilai qty adalah 0, jangan dimasukkan ke dalam tabel
+                if (qty == 0) {
+                    return;
+                }
+
+                int potonganPersen = (jTextField3.getText().isEmpty()) ? 0 : Integer.parseInt(jTextField3.getText()); // Mengubah ke tipe int
+
+                // Mendapatkan harga per pcs dari hasil query
+                double hargaPcsDouble = rs.getDouble("harga_pcs");
+                int hargaPcs = (int) hargaPcsDouble; // Konversi ke int untuk menghilangkan .0
+
+                // Mendapatkan index baris jika kode barang sudah ada dalam tabel
+                int rowIndex = -1;
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    if (model.getValueAt(i, 1).equals(kodeBarang)) {
+                        rowIndex = i;
+                        break;
+                    }
+                }
+
+                if (rowIndex != -1) {
+                    // Jika kode barang sudah ada dalam tabel, tambahkan qty dan potongan
+                    qty += (int) model.getValueAt(rowIndex, 4);
+                    potonganPersen += (int) model.getValueAt(rowIndex, 6);
+                    model.removeRow(rowIndex);
+                }
+
+                // Menghitung total harga sebelum potongan persen
+                double totalHargaDouble = hargaPcs * qty;
+                double totalHarga = Math.round(totalHargaDouble);
+
+                // Menghitung potongan harga
+                double potonganHarga = 0;
+                if (potonganPersen != 0) {
+                    potonganHarga = totalHarga * (potonganPersen / 100.0);
+                }
+
+                // Menghitung total harga setelah potongan
+                double totalHargaSetelahPotongan = totalHarga - potonganHarga;
+
+                // Pastikan total harga tidak negatif
+                if (totalHargaSetelahPotongan < 0) {
+                    totalHargaSetelahPotongan = 0;
+                }
+
+                // Mengonversi totalHargaSetelahPotongan menjadi string tanpa desimal .0
+                String totalHargaString = String.format("%.0f", totalHargaSetelahPotongan);
+
+                // Menambahkan data ke dalam JTable1
+                Object[] row = {model.getRowCount() + 1, kodeBarang, rs.getString("nama_barang"), rs.getString("satuan_obat"), qty, hargaPcs, potonganPersen, totalHargaString};
+                model.addRow(row);
+
+                // Menjumlahkan isi kolom total harga dan menampilkannya di jLabel7 dengan tambahan "Rp" di depannya
+                double totalSemua = 0;
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    totalSemua += Double.parseDouble(model.getValueAt(i, 7).toString());
+                }
+                // Format nilai total dengan penanda rupiah menggunakan titik
+                NumberFormat formatter = new DecimalFormat("#,###");
+                String totalRupiah = "Rp " + formatter.format(totalSemua);
+                jLabel7.setText(totalRupiah);
+            } else {
+                JOptionPane.showMessageDialog(null, "Kode barang tidak ditemukan");
+            }
+
+            // Menutup koneksi, penting untuk menjaga konsistensi
+            rs.close();
+            pst.close();
+            conn.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan: " + ex.getMessage());
+        }
+    }
+
+
+
     public static void main(String args[]) {
         // Tetapkan tampilan FlatLaf sebelum membuat jendela
         FlatMacDarkLaf.setup();
@@ -242,9 +419,9 @@ public class CashierForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

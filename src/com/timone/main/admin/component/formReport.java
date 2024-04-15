@@ -4,9 +4,11 @@
  */
 package com.timone.main.admin.component;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import com.timone.main.admin.distributor.*;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 /**
@@ -21,6 +23,7 @@ public class formReport extends javax.swing.JFrame {
     public formReport() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
     }
 
     /**
@@ -33,6 +36,7 @@ public class formReport extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -40,21 +44,27 @@ public class formReport extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel2.setText("Laporan");
 
+        jLabel1.setText("Buat Laporan");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jLabel2)
-                .addContainerGap(671, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(676, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2)
-                .addContainerGap(531, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
+                .addComponent(jLabel1)
+                .addContainerGap(464, Short.MAX_VALUE))
         );
 
         pack();
@@ -63,6 +73,27 @@ public class formReport extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+    private void themeChanger(){
+        boolean isDarkTheme = FlatLaf.isLafDark();
+        // Periksa apakah tema saat ini adalah tema gelap atau terang
+        if (isDarkTheme) {
+            EventQueue.invokeLater(() -> {
+                FlatAnimatedLafChange.showSnapshot();
+                FlatGitHubIJTheme.setup(); // Mengubah ke tema terang
+                FlatLaf.updateUI();
+                FlatAnimatedLafChange.hideSnapshotWithAnimation();
+            });
+        } else {
+            EventQueue.invokeLater(() -> {
+                FlatAnimatedLafChange.showSnapshot();
+                FlatGitHubDarkIJTheme.setup(); // Mengubah ke tema gelap
+                FlatLaf.updateUI();
+                FlatAnimatedLafChange.hideSnapshotWithAnimation();
+            });
+        }
+    }
+    
     public static void main(String args[]) {
         FlatGitHubIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -75,6 +106,7 @@ public class formReport extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

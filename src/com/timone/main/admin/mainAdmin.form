@@ -89,12 +89,12 @@
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jButton2" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton17" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="jButton31" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jButton28" min="-2" pref="28" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jComboBox1" min="-2" pref="135" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton17" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jTextField1" min="-2" pref="135" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -105,13 +105,11 @@
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jButton1" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jComboBox1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jTextField1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jTextField1" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton2" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton17" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton28" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton31" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" pref="583" max="32767" attributes="0"/>
@@ -131,20 +129,45 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="9" rowCount="0">
-                            <Column editable="true" title="Status" type="java.lang.Object"/>
-                            <Column editable="true" title="Kode Barang" type="java.lang.Object"/>
-                            <Column editable="true" title="Nama Barang" type="java.lang.Object"/>
-                            <Column editable="true" title="Kategori" type="java.lang.Object"/>
-                            <Column editable="true" title="Bentuk" type="java.lang.Object"/>
-                            <Column editable="true" title="Satuan" type="java.lang.Object"/>
-                            <Column editable="true" title="Exp" type="java.lang.Object"/>
-                            <Column editable="true" title="Qty" type="java.lang.Object"/>
-                            <Column editable="true" title="Harga (pcs)" type="java.lang.Object"/>
+                            <Column editable="false" title="Status" type="java.lang.Object"/>
+                            <Column editable="false" title="Kode Barang" type="java.lang.Object"/>
+                            <Column editable="false" title="Nama Barang" type="java.lang.Object"/>
+                            <Column editable="false" title="Kategori" type="java.lang.Object"/>
+                            <Column editable="false" title="Bentuk" type="java.lang.Object"/>
+                            <Column editable="false" title="Satuan" type="java.lang.Object"/>
+                            <Column editable="false" title="Exp" type="java.lang.Object"/>
+                            <Column editable="false" title="Stok" type="java.lang.Object"/>
+                            <Column editable="false" title="Harga Jual (pcs)" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="200" minWidth="200" prefWidth="200" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="120" minWidth="120" prefWidth="120" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="90" minWidth="90" prefWidth="90" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="90" minWidth="90" prefWidth="90" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -154,32 +177,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                            <Column maxWidth="80" minWidth="80" prefWidth="80" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -191,12 +189,15 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
-                        <Property name="doubleBuffered" type="boolean" value="true"/>
                         <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="f2" green="f2" red="f2" type="rgb"/>
+                        </Property>
                         <Property name="requestFocusEnabled" type="boolean" value="false"/>
                         <Property name="rowSelectionAllowed" type="boolean" value="false"/>
+                        <Property name="showGrid" type="boolean" value="false"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -205,26 +206,6 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JComboBox" name="jComboBox1">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="7">
-                        <StringItem index="0" value="Default"/>
-                        <StringItem index="1" value="Terbaru Ditambahkan"/>
-                        <StringItem index="2" value="Terlama Ditambahkan"/>
-                        <StringItem index="3" value="Stok Tertinggi"/>
-                        <StringItem index="4" value="Stok Terendah"/>
-                        <StringItem index="5" value="Expired Terdekat"/>
-                        <StringItem index="6" value="Expired Terjauh"/>
-                      </StringArray>
-                    </Property>
-                    <Property name="focusable" type="boolean" value="false"/>
-                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
-                </Component>
                 <Component class="javax.swing.JTextField" name="jTextField1">
                   <Properties>
                     <Property name="name" type="java.lang.String" value="" noResource="true"/>
@@ -296,6 +277,21 @@
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton28.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/lightdarkmode.svg&quot;, 1.3f));"/>
                   </AuxValues>
                 </Component>
+                <Component class="javax.swing.JButton" name="jButton31">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton31ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton31.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/exit.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel4">
@@ -316,12 +312,12 @@
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jButton9" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton29" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="jButton32" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jButton30" min="-2" pref="28" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jComboBox2" min="-2" pref="135" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton29" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jTextField2" min="-2" pref="135" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -331,14 +327,12 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jComboBox2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jTextField2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jTextField2" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton7" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton9" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton29" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton30" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton32" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" pref="583" max="32767" attributes="0"/>
@@ -358,14 +352,14 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="8" rowCount="4">
-                            <Column editable="true" title="Kode Penjualan" type="java.lang.Object"/>
-                            <Column editable="true" title="Tanggal Transaksi" type="java.lang.Object"/>
-                            <Column editable="true" title="User" type="java.lang.Object"/>
-                            <Column editable="true" title="Kode Barang" type="java.lang.Object"/>
-                            <Column editable="true" title="Nama Barang" type="java.lang.Object"/>
-                            <Column editable="true" title="Barang Terjual" type="java.lang.Object"/>
-                            <Column editable="true" title="Laba (pcs)" type="java.lang.Object"/>
-                            <Column editable="true" title="Laba Total" type="java.lang.Object"/>
+                            <Column editable="false" title="Kode Penjualan" type="java.lang.Object"/>
+                            <Column editable="false" title="Tanggal Transaksi" type="java.lang.Object"/>
+                            <Column editable="false" title="User" type="java.lang.Object"/>
+                            <Column editable="false" title="Kode Barang" type="java.lang.Object"/>
+                            <Column editable="false" title="Nama Barang" type="java.lang.Object"/>
+                            <Column editable="false" title="Barang Terjual" type="java.lang.Object"/>
+                            <Column editable="false" title="Laba (pcs)" type="java.lang.Object"/>
+                            <Column editable="false" title="Laba Total" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -412,33 +406,16 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                         </Property>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JComboBox" name="jComboBox2">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="9">
-                        <StringItem index="0" value="Default"/>
-                        <StringItem index="1" value="Penjualan Terbaru"/>
-                        <StringItem index="2" value="Penjualan Terlama"/>
-                        <StringItem index="3" value="Barang Terjual Tertinggi"/>
-                        <StringItem index="4" value="Barang Terjual Terendah"/>
-                        <StringItem index="5" value="Laba / pcs Tertinggi"/>
-                        <StringItem index="6" value="Laba / pcs Terendah"/>
-                        <StringItem index="7" value="Laba Total Tertinggi"/>
-                        <StringItem index="8" value="Laba Total Terendah"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
-                </Component>
                 <Component class="javax.swing.JTextField" name="jTextField2">
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
@@ -507,6 +484,21 @@
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton30.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/lightdarkmode.svg&quot;, 1.3f));"/>
                   </AuxValues>
                 </Component>
+                <Component class="javax.swing.JButton" name="jButton32">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton32ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton32.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/exit.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel1">
@@ -529,12 +521,12 @@
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jButton35" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton52" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="jButton54" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jButton53" min="-2" pref="28" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jComboBox3" min="-2" pref="135" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton52" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jTextField3" min="-2" pref="135" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -543,20 +535,18 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jComboBox3" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jTextField3" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jTextField3" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jButton37" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="jButton36" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="jButton35" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jButton52" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="jButton53" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton37" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jButton36" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jButton35" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton52" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jButton53" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jButton54" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="jScrollPane3" pref="583" max="32767" attributes="0"/>
@@ -576,16 +566,16 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="10" rowCount="4">
-                            <Column editable="true" title="Kode Pemesanan" type="java.lang.Object"/>
-                            <Column editable="true" title="Tanggal Pemesanan" type="java.lang.Object"/>
-                            <Column editable="true" title="Distributor" type="java.lang.Object"/>
-                            <Column editable="true" title="Kode Barang" type="java.lang.Object"/>
-                            <Column editable="true" title="Nama Barang" type="java.lang.Object"/>
-                            <Column editable="true" title="Kategori" type="java.lang.Object"/>
-                            <Column editable="true" title="Bentuk" type="java.lang.Object"/>
-                            <Column editable="true" title="Satuan" type="java.lang.Object"/>
-                            <Column editable="true" title="Jumlah Pembelian" type="java.lang.Object"/>
-                            <Column editable="true" title="Harga Total" type="java.lang.Object"/>
+                            <Column editable="false" title="Kode Pemesanan" type="java.lang.Object"/>
+                            <Column editable="false" title="Tanggal Pemesanan" type="java.lang.Object"/>
+                            <Column editable="false" title="Distributor" type="java.lang.Object"/>
+                            <Column editable="false" title="Kode Barang" type="java.lang.Object"/>
+                            <Column editable="false" title="Nama Barang" type="java.lang.Object"/>
+                            <Column editable="false" title="Kategori" type="java.lang.Object"/>
+                            <Column editable="false" title="Bentuk" type="java.lang.Object"/>
+                            <Column editable="false" title="Satuan" type="java.lang.Object"/>
+                            <Column editable="false" title="Jumlah Pembelian" type="java.lang.Object"/>
+                            <Column editable="false" title="Harga Total" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -642,31 +632,16 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                         </Property>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JComboBox" name="jComboBox3">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="7">
-                        <StringItem index="0" value="Default"/>
-                        <StringItem index="1" value="Jumlah Pemesanan Tertinggi"/>
-                        <StringItem index="2" value="Jumlah Pemesanan Terendah"/>
-                        <StringItem index="3" value="Pembelian Dengan Harga Total Tertinggi"/>
-                        <StringItem index="4" value="Pembelian Dengan Harga Total Terendah"/>
-                        <StringItem index="5" value="Tanggal Pemesanan Terbaru"/>
-                        <StringItem index="6" value="Tanggal Pemesanan Terlama"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
-                </Component>
                 <Component class="javax.swing.JTextField" name="jTextField3">
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField3ActionPerformed"/>
@@ -750,6 +725,21 @@
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton53.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/lightdarkmode.svg&quot;, 1.3f));"/>
                   </AuxValues>
                 </Component>
+                <Component class="javax.swing.JButton" name="jButton54">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton54ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton54.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/exit.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel5">
@@ -772,12 +762,12 @@
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jButton40" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton59" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="jButton61" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jButton60" min="-2" pref="28" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jComboBox4" min="-2" pref="135" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton59" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jTextField4" min="-2" pref="135" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -787,19 +777,19 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jComboBox4" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jTextField4" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton38" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jButton39" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jButton40" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jTextField4" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jButton38" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jButton39" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jButton40" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jButton61" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton59" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jButton60" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jButton59" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton60" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="jScrollPane4" pref="583" max="32767" attributes="0"/>
@@ -819,12 +809,12 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="6" rowCount="4">
-                            <Column editable="true" title="Kode Distributor" type="java.lang.Object"/>
-                            <Column editable="true" title="Nama Distributor" type="java.lang.Object"/>
-                            <Column editable="true" title="Alamat" type="java.lang.Object"/>
-                            <Column editable="true" title="Kontak Person" type="java.lang.Object"/>
-                            <Column editable="true" title="Email" type="java.lang.Object"/>
-                            <Column editable="true" title="Nomor Telepon" type="java.lang.Object"/>
+                            <Column editable="false" title="Kode Distributor" type="java.lang.Object"/>
+                            <Column editable="false" title="Nama Distributor" type="java.lang.Object"/>
+                            <Column editable="false" title="Alamat" type="java.lang.Object"/>
+                            <Column editable="false" title="Kontak Person" type="java.lang.Object"/>
+                            <Column editable="false" title="Email" type="java.lang.Object"/>
+                            <Column editable="false" title="Nomor Telepon" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -861,27 +851,16 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                         </Property>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JComboBox" name="jComboBox4">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
-                        <StringItem index="0" value="Default"/>
-                        <StringItem index="1" value="Terbaru Ditambahkan"/>
-                        <StringItem index="2" value="Terlama Ditambahkan"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
-                </Component>
                 <Component class="javax.swing.JTextField" name="jTextField4">
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField4ActionPerformed"/>
@@ -965,6 +944,21 @@
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton60.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/lightdarkmode.svg&quot;, 1.3f));"/>
                   </AuxValues>
                 </Component>
+                <Component class="javax.swing.JButton" name="jButton61">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton61ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton61.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/exit.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel8">
@@ -987,12 +981,12 @@
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jButton43" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton66" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="jButton68" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jButton67" min="-2" pref="28" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jComboBox6" min="-2" pref="135" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton66" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jTextField6" min="-2" pref="135" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1002,15 +996,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jComboBox6" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jTextField6" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jTextField6" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton41" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton42" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton43" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton66" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton67" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton68" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="jScrollPane7" pref="583" max="32767" attributes="0"/>
@@ -1060,6 +1052,9 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                         </Property>
@@ -1067,24 +1062,6 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JComboBox" name="jComboBox6">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="5">
-                        <StringItem index="0" value="Default"/>
-                        <StringItem index="1" value="Terbaru Ditambahkan"/>
-                        <StringItem index="2" value="Terlama Ditambahkan"/>
-                        <StringItem index="3" value="Biaya Tertinggi"/>
-                        <StringItem index="4" value="Biaya Terendah"/>
-                      </StringArray>
-                    </Property>
-                    <Property name="focusable" type="boolean" value="false"/>
-                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
-                </Component>
                 <Component class="javax.swing.JTextField" name="jTextField6">
                   <Properties>
                     <Property name="name" type="java.lang.String" value="" noResource="true"/>
@@ -1168,6 +1145,21 @@
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton67.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/lightdarkmode.svg&quot;, 1.3f));"/>
                   </AuxValues>
                 </Component>
+                <Component class="javax.swing.JButton" name="jButton68">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton68ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton68.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/exit.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel6">
@@ -1190,12 +1182,12 @@
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jButton47" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton73" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="jButton75" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jButton74" min="-2" pref="28" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jComboBox5" min="-2" pref="135" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton73" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jTextField5" min="-2" pref="135" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane10" alignment="0" max="32767" attributes="0"/>
@@ -1206,15 +1198,13 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jComboBox5" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jTextField5" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jTextField5" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton45" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton46" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton47" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton73" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton74" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton75" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="jScrollPane5" min="-2" pref="250" max="-2" attributes="0"/>
@@ -1236,11 +1226,11 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="5" rowCount="0">
-                            <Column editable="true" title="Nama" type="java.lang.Object"/>
-                            <Column editable="true" title="Email" type="java.lang.Object"/>
-                            <Column editable="true" title="Username" type="java.lang.Object"/>
-                            <Column editable="true" title="Password" type="java.lang.Object"/>
-                            <Column editable="true" title="Rfid" type="java.lang.Object"/>
+                            <Column editable="false" title="Nama" type="java.lang.Object"/>
+                            <Column editable="false" title="Email" type="java.lang.Object"/>
+                            <Column editable="false" title="Username" type="java.lang.Object"/>
+                            <Column editable="false" title="Password" type="java.lang.Object"/>
+                            <Column editable="false" title="Rfid" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1272,29 +1262,16 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                         </Property>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JComboBox" name="jComboBox5">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="5">
-                        <StringItem index="0" value="Default"/>
-                        <StringItem index="1" value="Terbaru Ditambahkan"/>
-                        <StringItem index="2" value="Terlama Ditambahkan"/>
-                        <StringItem index="3" value="Aktivitas Terbaru"/>
-                        <StringItem index="4" value="Aktivitas Terlama"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
-                </Component>
                 <Component class="javax.swing.JTextField" name="jTextField5">
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField5ActionPerformed"/>
@@ -1358,13 +1335,12 @@
                     <Component class="javax.swing.JTable" name="jTable9">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="6" rowCount="4">
-                            <Column editable="true" title="Tanggal" type="java.lang.Object"/>
-                            <Column editable="true" title="Waktu" type="java.lang.Object"/>
-                            <Column editable="true" title="Nama" type="java.lang.Object"/>
-                            <Column editable="true" title="Username" type="java.lang.Object"/>
-                            <Column editable="true" title="Absen" type="java.lang.Object"/>
-                            <Column editable="true" title="Total Presensi" type="java.lang.Object"/>
+                          <Table columnCount="5" rowCount="4">
+                            <Column editable="false" title="Tanggal" type="java.lang.Object"/>
+                            <Column editable="false" title="Waktu" type="java.lang.Object"/>
+                            <Column editable="false" title="Nama" type="java.lang.Object"/>
+                            <Column editable="false" title="Username" type="java.lang.Object"/>
+                            <Column editable="false" title="Email" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1394,15 +1370,13 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1436,6 +1410,21 @@
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton74.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/lightdarkmode.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton75">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton75ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton75.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/exit.svg&quot;, 1.3f));"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

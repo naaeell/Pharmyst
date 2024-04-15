@@ -10,12 +10,9 @@ import com.timone.connection.DBConnection;
 import com.timone.main.admin.mainAdmin;
 import com.timone.main.cashier.CashierForm;
 import javax.swing.UIManager;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 import javax.swing.JOptionPane;
 
 
@@ -146,62 +143,74 @@ public class LoginPage extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
     
-    private void checkPassword() {
-    Connection conn = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
+    private void checkPassword(){
+        String username = jTextField1.getText(); 
+        String password = jPasswordField1.getText(); 
 
-    try {
-        conn = DBConnection.getConnection();
-        
-        // Periksa tabel 'about'
-        String aboutQuery = "SELECT * FROM about WHERE username = ? AND password = ?";
-        pstmt = conn.prepareStatement(aboutQuery);
-        pstmt.setString(1, jTextField1.getText());
-        pstmt.setString(2, new String(jPasswordField1.getPassword()));
-        rs = pstmt.executeQuery();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmtAbout = conn.prepareStatement("SELECT * FROM about WHERE username=? AND password=?");
+             PreparedStatement stmtAkun = conn.prepareStatement("SELECT kode_user FROM akun_karyawan WHERE username=? AND password=?")) {
 
-        if (rs.next()) {
-            // Jika username dan password cocok dengan tabel 'about', buka MainAdmin
-            mainAdmin.main(new String[]{});
-            this.dispose();
-            return; // Keluar dari metode setelah membuka MainAdmin
-        }
+            // Periksa tabel "about" untuk kredensial
+            stmtAbout.setString(1, username);
+            stmtAbout.setString(2, password);
+            try (ResultSet rsAbout = stmtAbout.executeQuery()) {
+                if (rsAbout.next()) {
+                    // Jika ditemukan di tabel "about", buka mainAdmin
+                    mainAdmin.main(new String[]{});
+                    this.dispose(); 
+                    return;
+                }
+            }
 
-        // Periksa tabel 'karyawan'
-        String karyawanQuery = "SELECT * FROM akun_karyawan WHERE username = ? AND password = ?";
-        pstmt = conn.prepareStatement(karyawanQuery);
-        pstmt.setString(1, jTextField1.getText());
-        pstmt.setString(2, new String(jPasswordField1.getPassword()));
-        rs = pstmt.executeQuery();
+            // Periksa tabel "akun_karyawan" untuk kredensial jika tidak ditemukan di "about"
+            stmtAkun.setString(1, username);
+            stmtAkun.setString(2, password);
+            try (ResultSet rsAkun = stmtAkun.executeQuery()) {
+                if (rsAkun.next()) {
+                    String kodeUser = rsAkun.getString("kode_user"); // Ambil kode_user dari hasil query
+                    // Jika ditemukan di tabel "akun_karyawan", buka CashierForm
+                    CashierForm.main(new String[]{});
+                    insertAbsensi(conn, kodeUser); // Masukkan log absensi menggunakan kode_user
+                    this.dispose(); 
+                    return;
+                }
+            }
 
-        if (rs.next()) {
-            // Jika username dan password cocok dengan tabel 'karyawan', buka CashierForm
-            CashierForm.main(new String[]{});
-            this.dispose();
-            return; // Keluar dari metode setelah membuka CashierForm
-        }
+            // Jika tidak ditemukan di kedua tabel, tampilkan pesan kesalahan
+            JOptionPane.showMessageDialog(this, "Username atau Password salah!");
 
-        // Jika tidak ada username dan password yang cocok
-        jTextField1.setText("");
-        jPasswordField1.setText("");
-        jTextField1.requestFocusInWindow();
-        JOptionPane.showMessageDialog(this, "Username atau Password salah", "Error", JOptionPane.ERROR_MESSAGE);
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat memeriksa kredensial.", "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        // Tutup semua sumber daya
-        try {
-            if (rs != null) rs.close();
-            if (pstmt != null) pstmt.close();
-            if (conn != null) conn.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage());
+            e.printStackTrace();
         }
     }
-}
 
+    // Metode untuk menyisipkan log absensi ke dalam tabel absensi
+    private void insertAbsensi(Connection conn, String kodeUser) throws SQLException {
+        // Periksa apakah entri absensi sudah ada untuk kode_user pada tanggal hari ini
+        boolean isAlreadyLogged = false;
+        try (PreparedStatement stmtCheckAbsensi = conn.prepareStatement("SELECT COUNT(*) FROM absensi WHERE kode_user=? AND tanggal_kehadiran=?")) {
+            stmtCheckAbsensi.setString(1, kodeUser);
+            stmtCheckAbsensi.setDate(2, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            try (ResultSet rs = stmtCheckAbsensi.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    isAlreadyLogged = count > 0;
+                }
+            }
+        }
+
+        // Jika belum ada entri absensi untuk kode_user pada tanggal hari ini, sisipkan log absensi baru
+        if (!isAlreadyLogged) {
+            try (PreparedStatement stmtInsertAbsensi = conn.prepareStatement("INSERT INTO absensi (kode_user, tanggal_kehadiran, waktu) VALUES (?, ?, ?)")) {
+                stmtInsertAbsensi.setString(1, kodeUser);
+                stmtInsertAbsensi.setDate(2, java.sql.Date.valueOf(java.time.LocalDate.now())); // Tanggal sekarang
+                stmtInsertAbsensi.setTime(3, java.sql.Time.valueOf(java.time.LocalTime.now())); // Waktu sekarang
+                stmtInsertAbsensi.executeUpdate();
+            }
+        }
+    }
     
     /**
      * @param args the command line arguments

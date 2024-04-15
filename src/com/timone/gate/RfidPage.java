@@ -6,7 +6,6 @@ package com.timone.gate;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.timone.connection.DBConnection;
 import com.timone.main.admin.mainAdmin;
 import com.timone.main.cashier.CashierForm;
@@ -131,19 +130,21 @@ public class RfidPage extends javax.swing.JFrame {
         if (rs.next()) {
             // Jika kode RFID ditemukan di tabel 'about', buka MainAdmin
             mainAdmin.main(new String[]{});
+            
             this.dispose();
             return; // Keluar dari metode setelah membuka MainAdmin
         }
 
-        // Periksa tabel 'karyawan' untuk kode RFID
+        // Periksa tabel 'akun_karyawan' untuk kode RFID
         String karyawanQuery = "SELECT * FROM akun_karyawan WHERE rfid = ?";
         pstmt = conn.prepareStatement(karyawanQuery);
         pstmt.setString(1, rfidCode);
         rs = pstmt.executeQuery();
 
         if (rs.next()) {
-            // Jika kode RFID ditemukan di tabel 'karyawan', buka CashierForm
+            // Jika kode RFID ditemukan di tabel 'akun_karyawan', buka CashierForm
             CashierForm.main(new String[]{});
+            insertAbsensi(conn, rs.getString("kode_user")); // Masukkan log absensi dengan kode_user
             this.dispose();
             return; // Keluar dari metode setelah membuka CashierForm
         }
@@ -164,8 +165,39 @@ public class RfidPage extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
+    
 }
+    private void insertAbsensi(Connection conn, String kodeUser) {
+        try {
+            // Periksa apakah entri absensi sudah ada untuk kode_user pada tanggal hari ini
+            boolean isAlreadyLogged = false;
+            String checkAbsensiQuery = "SELECT COUNT(*) FROM absensi WHERE kode_user=? AND tanggal_kehadiran=?";
+            try (PreparedStatement stmtCheckAbsensi = conn.prepareStatement(checkAbsensiQuery)) {
+                stmtCheckAbsensi.setString(1, kodeUser);
+                stmtCheckAbsensi.setDate(2, java.sql.Date.valueOf(java.time.LocalDate.now()));
+                try (ResultSet rs = stmtCheckAbsensi.executeQuery()) {
+                    if (rs.next()) {
+                        int count = rs.getInt(1);
+                        isAlreadyLogged = count > 0;
+                    }
+                }
+            }
 
+            // Jika belum ada entri absensi untuk kode_user pada tanggal hari ini, sisipkan log absensi baru
+            if (!isAlreadyLogged) {
+                String insertAbsensiQuery = "INSERT INTO absensi (kode_user, tanggal_kehadiran, waktu) VALUES (?, ?, ?)";
+                try (PreparedStatement stmtInsertAbsensi = conn.prepareStatement(insertAbsensiQuery)) {
+                    stmtInsertAbsensi.setString(1, kodeUser);
+                    stmtInsertAbsensi.setDate(2, java.sql.Date.valueOf(java.time.LocalDate.now())); // Tanggal sekarang
+                    stmtInsertAbsensi.setTime(3, java.sql.Time.valueOf(java.time.LocalTime.now())); // Waktu sekarang
+                    stmtInsertAbsensi.executeUpdate();
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menyisipkan log absensi.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     
     /**
