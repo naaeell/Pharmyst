@@ -27,8 +27,7 @@ JOIN
 JOIN 
     penjualan p ON pi.kode_penjualan = p.kode_penjualan
 JOIN 
-    akun_karyawan ak ON p.kode_user = ak.kode_user;
-]]>
+    akun_karyawan ak ON p.kode_user = ak.kode_user;]]>
 	</queryString>
 	<field name="nama_usaha" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

@@ -10,10 +10,10 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTh
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.main.admin.component.formAbout;
 import com.timone.main.admin.component.formReport;
-import com.timone.main.admin.distributor.formAddDistributor;
-import com.timone.main.admin.operational.formAddOperational;
-import com.timone.main.admin.purchase.formAddPurchase;
-import com.timone.main.admin.worker.formAddWorker;
+import com.timone.main.admin.add.formAddDistributor;
+import com.timone.main.admin.add.formAddOperational;
+import com.timone.main.admin.add.formAddPurchase;
+import com.timone.main.admin.add.formAddWorker;
 import java.awt.EventQueue;
 
 /**

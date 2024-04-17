@@ -9,6 +9,7 @@ import com.timone.connection.DBConnection;
 import com.timone.main.cashier.component.labelLogic;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.UIManager;
 import net.sf.jasperreports.engine.*;
 import java.util.Map;
@@ -161,7 +162,7 @@ public class CashierForm extends javax.swing.JFrame {
         });
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jButton3.setText("Refresh");
+        jButton3.setText("Clear");
         jButton3.setBorderPainted(false);
         jButton3.setDoubleBuffered(true);
         jButton3.setFocusPainted(false);
@@ -213,8 +214,8 @@ public class CashierForm extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(110, 110, 110))
         );
         jPanel2Layout.setVerticalGroup(
@@ -241,13 +242,13 @@ public class CashierForm extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField1)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jTextField2)))
+                                .addComponent(jTextField2)
+                                .addComponent(jTextField1)))
                         .addGap(23, 23, 23))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,16 +277,18 @@ public class CashierForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try{
-                String reportPath = "src/com/timone/print/component/Invoice.jasper";
-                Connection conn = DBConnection.getConnection();
-                
-                HashMap<String, Object> parameters = new HashMap<>();
-                JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, conn);
-                JasperViewer viewer = new JasperViewer(print, false);
-                viewer.setVisible(true);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error displaying report", "ERROR", JOptionPane.ERROR_MESSAGE);
+        try {
+            Connection conn = DBConnection.getConnection();
+            File namaFile = new File("src/com/timone/print/component/Invoice.jasper");
+            JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), null, conn);
+
+            // Cetak laporan langsung
+            JasperPrintManager.printReport(jp, true); // false berarti tidak menampilkan dialog pencetakan
+
+            // Optional: Tutup koneksi
+            conn.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error displaying report: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     

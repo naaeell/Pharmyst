@@ -722,11 +722,11 @@ public class mainAdmin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nama Biaya", "Tanggal", "Deskripsi", "Total Biaya"
+                "Nama Biaya", "Deskripsi", "Total Biaya"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1324,9 +1324,10 @@ public class mainAdmin extends javax.swing.JFrame {
                 JPopupMenu popup = new JPopupMenu();
 
                 // Tambahkan opsi yang ingin Anda tampilkan di sini
-                JMenuItem option1 = new JMenuItem("Stock Opname");
-                JMenuItem option2 = new JMenuItem("Hapus Item");
-                JMenuItem option3 = new JMenuItem("Detail Item");
+                JMenuItem option1 = new JMenuItem("Tandai stok kosong");
+                JMenuItem option2 = new JMenuItem("Update Stok");
+                JMenuItem option3 = new JMenuItem("Hapus Item");
+                JMenuItem option4 = new JMenuItem("Detail Item");
                 
                 // Tambahkan action listener untuk setiap opsi
                 option1.addActionListener(new ActionListener() {
@@ -1350,11 +1351,17 @@ public class mainAdmin extends javax.swing.JFrame {
                     }
                 });
                 
+                option4.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        // Tindakan yang akan dilakukan ketika opsi 2 dipilih
+                        System.out.println("Opsi 4 dipilih pada baris: " + rowIndex);
+                    }
+                });
                 // Tambahkan opsi ke menu popup
                 popup.add(option1);
                 popup.add(option2);
                 popup.add(option3);
-
+                popup.add(option4);
                 // Tampilkan menu popup di posisi klik mouse
                 popup.show(e.getComponent(), e.getX(), e.getY());
             }
