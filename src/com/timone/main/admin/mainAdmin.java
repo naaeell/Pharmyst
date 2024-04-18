@@ -8,6 +8,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.timone.connection.DBConnection;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.gate.LoginPage;
 import com.timone.main.admin.theme.ThemeSync;
 import java.sql.Connection;
@@ -309,11 +310,11 @@ public class mainAdmin extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Kode Penjualan", "Tanggal Transaksi", "User", "Kode Barang", "Nama Barang", "Barang Terjual", "Laba (pcs)", "Laba Total"
+                "Kode Penjualan", "Tanggal Transaksi", "User", "Kode Barang", "Nama Barang", "Barang Terjual", "Pendapatan", "L/r kotor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -857,7 +858,7 @@ public class mainAdmin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nama", "Email", "Username", "Password", "Rfid"
+                "Nama", "Username", "Password", "Email", "Kode Akses"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1892,7 +1893,7 @@ public class mainAdmin extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-    FlatGitHubDarkIJTheme.setup();
+    FlatGitHubIJTheme.setup();
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
             mainAdmin home = new mainAdmin();

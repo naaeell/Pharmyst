@@ -6,6 +6,7 @@ package com.timone.main.runable;
 
 import com.timone.gate.SetupPage;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DBConnection;
 import com.timone.gate.LoginPage;
 import java.sql.Connection;
@@ -21,7 +22,7 @@ import javax.swing.JOptionPane;
 public class StartApp {
     
     public static void main(String args[]) {
-        FlatGitHubDarkIJTheme.setup();
+        FlatGitHubIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {

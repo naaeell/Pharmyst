@@ -6,6 +6,7 @@ package com.timone.gate;
 
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DBConnection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -89,10 +90,10 @@ public class SetupPage extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel3.setText("untuk membuat akun baru.");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Nama");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Username");
 
         username.addActionListener(new java.awt.event.ActionListener() {
@@ -101,7 +102,7 @@ public class SetupPage extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Password");
 
         password.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +117,7 @@ public class SetupPage extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Kode Akses");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -133,7 +134,7 @@ public class SetupPage extends javax.swing.JFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel12.setText("Nama Usaha");
 
         namaUsaha.addActionListener(new java.awt.event.ActionListener() {
@@ -142,7 +143,7 @@ public class SetupPage extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel13.setText("Alamat");
 
         teleponUsaha.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +152,7 @@ public class SetupPage extends javax.swing.JFrame {
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel14.setText("Nomor Telepon (Bisnis)");
 
         alamat.addActionListener(new java.awt.event.ActionListener() {
@@ -172,6 +173,7 @@ public class SetupPage extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel19.setText("terisi dengan benar.");
 
+        createAccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         createAccount.setText("Buat Akun");
         createAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -277,7 +279,7 @@ public class SetupPage extends javax.swing.JFrame {
                             .addGap(0, 0, 0)
                             .addComponent(jLabel11))
                         .addComponent(jSeparator1)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         pack();
@@ -473,7 +475,7 @@ public class SetupPage extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         FlatLaf.registerCustomDefaultsSource("com.timone.theme.properties");
-        FlatGitHubDarkIJTheme.setup();
+        FlatGitHubIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 SetupPage form = new SetupPage();

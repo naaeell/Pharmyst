@@ -6,6 +6,7 @@ package com.timone.gate;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DBConnection;
 import com.timone.main.admin.mainAdmin;
 import com.timone.main.cashier.CashierForm;
@@ -204,7 +205,7 @@ public class RfidPage extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    FlatGitHubDarkIJTheme.setup();
+    FlatGitHubIJTheme.setup();
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
             RfidPage rfidPage = new RfidPage();

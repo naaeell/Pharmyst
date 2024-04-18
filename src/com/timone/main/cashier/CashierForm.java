@@ -11,22 +11,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.UIManager;
-import net.sf.jasperreports.engine.*;
-import java.util.Map;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.engine.JasperPrintManager;
 
 /**
  *
@@ -272,25 +268,46 @@ public class CashierForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String transactionCode = labelLogic.generateTransactionCode();
-        jLabel4.setText(transactionCode);
+        jLabel7.setText("");
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // Menghapus semua baris dari model tabel
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            Connection conn = DBConnection.getConnection();
-            File namaFile = new File("src/com/timone/print/component/Invoice.jasper");
-            JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), null, conn);
-
-            // Cetak laporan langsung
-            JasperPrintManager.printReport(jp, true); // false berarti tidak menampilkan dialog pencetakan
-
-            // Optional: Tutup koneksi
-            conn.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error displaying report: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
+        printButton();
     }//GEN-LAST:event_jButton1ActionPerformed
+    
+    private void printButton(){
+        // Meminta pengguna memasukkan nilai menggunakan JOptionPane
+        String nilaiStr = JOptionPane.showInputDialog( "Bayar :");
+
+        // Konversi nilai string ke tipe data yang sesuai (misalnya integer)
+        try {
+            int nilai = Integer.parseInt(nilaiStr);
+
+            // Menampilkan nilai yang dimasukkan pengguna menggunakan JOptionPane
+            JOptionPane.showMessageDialog(null, "Kembalian : " + nilai);
+
+            // Menjalankan kode cetak laporan
+            try {
+                Connection conn = DBConnection.getConnection();
+                File namaFile = new File("src/com/timone/print/component/Invoice.jasper");
+                JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), null, conn);
+
+                // Cetak laporan langsung
+                JasperPrintManager.printReport(jp, true); // false berarti tidak menampilkan dialog pencetakan
+
+                // Optional: Tutup koneksi
+                conn.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error displaying report: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            // Tangani jika pengguna memasukkan nilai yang tidak valid
+            JOptionPane.showMessageDialog(null, "Masukkan nilai yang valid.");
+        }
+    }
     
     private void clearText(){
         jTextField1.setText("");
