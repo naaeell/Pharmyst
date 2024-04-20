@@ -6,7 +6,6 @@ package com.timone.main.cashier;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DBConnection;
-import com.timone.main.cashier.component.labelLogic;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -25,7 +24,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
@@ -54,112 +52,7 @@ public class CashierForm extends javax.swing.JFrame {
         
         UIManager.put( "TextComponent.arc", 10 );
         initComponents();
-        
-        // Menambahkan ActionListener ke JTextField1
-        jTextField1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jTextField2.requestFocusInWindow();
-            }
-        });
-
-        // Menambahkan ActionListener ke JTextField2
-        jTextField2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                formLogic();
-                jTextField1.setText("");
-                jTextField2.setText("");
-                jTextField3.setText("");
-                jTextField1.requestFocusInWindow();
-            }
-        });
-
-        // Menambahkan ActionListener ke JTextField3
-        jTextField3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    uploadData();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CashierForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-
-        // Menambahkan DocumentListener ke JTextField3
-        Document document = jTextField3.getDocument();
-        document.addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                calculateChange();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                calculateChange();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                // Plain text components don't fire these events
-            }
-        });
-
-        // Menambahkan filter untuk jTextField1 agar hanya menerima huruf dan angka
-        ((AbstractDocument) jTextField1.getDocument()).setDocumentFilter(new DocumentFilter() {
-            Pattern pattern = Pattern.compile("^[a-zA-Z0-9]*$");
-
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                String newText = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
-                if (pattern.matcher(newText).matches()) {
-                    super.replace(fb, offset, length, text, attrs);
-                }
-            }
-        });
-
-        // Menambahkan filter untuk jTextField2 agar hanya menerima angka
-        ((AbstractDocument) jTextField2.getDocument()).setDocumentFilter(new DocumentFilter() {
-            Pattern pattern = Pattern.compile("\\d*");
-
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                String newText = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
-                if (pattern.matcher(newText).matches()) {
-                    super.replace(fb, offset, length, text, attrs);
-                }
-            }
-        });
-
-        // Menambahkan filter untuk jTextField3 agar hanya menerima angka
-        ((AbstractDocument) jTextField3.getDocument()).setDocumentFilter(new DocumentFilter() {
-            Pattern pattern = Pattern.compile("\\d*");
-
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                String newText = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
-                if (pattern.matcher(newText).matches()) {
-                    super.replace(fb, offset, length, text, attrs);
-                }
-            }
-        });
-        
-        // Di bagian inisialisasi komponen Anda
-        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        tableModel.addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                if (tableModel.getRowCount() == 0) {
-                    jTextField3.setEnabled(false);
-                } else {
-                    jTextField3.setEnabled(true);
-                }
-            }
-        });
-
-        // Set jTextField3 menjadi defaultnya disabled
-        jTextField3.setEnabled(false);
+        initEvent();
     }
 
     /**
@@ -203,12 +96,10 @@ public class CashierForm extends javax.swing.JFrame {
         jLabel3.setText("Kasir :");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        String transactionCode = labelLogic.generateTransactionCode();
-        jLabel4.setText(transactionCode);
+        jLabel4.setText(generateTransactionCode());
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        String currentDateTime = labelLogic.getCurrentDateTime();
-        jLabel5.setText(currentDateTime);
+        jLabel5.setText(getCurrentDateTime());
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
@@ -374,6 +265,114 @@ public class CashierForm extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         clearText();
     }//GEN-LAST:event_jButton3ActionPerformed
+    
+    private void initEvent(){
+        // Menambahkan ActionListener ke JTextField1
+        jTextField1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jTextField2.requestFocusInWindow();
+            }
+        });
+
+        // Menambahkan ActionListener ke JTextField2
+        jTextField2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                formLogic();
+                jTextField1.setText("");
+                jTextField2.setText("");
+                jTextField3.setText("");
+                jTextField1.requestFocusInWindow();
+            }
+        });
+
+        // Menambahkan ActionListener ke JTextField3
+        jTextField3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    uploadData();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CashierForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+        // Menambahkan DocumentListener ke JTextField3
+        Document document = jTextField3.getDocument();
+        document.addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                calculateChange();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                calculateChange();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // Plain text components don't fire these events
+            }
+        });
+
+        // Menambahkan filter untuk jTextField1 agar hanya menerima huruf dan angka
+        ((AbstractDocument) jTextField1.getDocument()).setDocumentFilter(new DocumentFilter() {
+            Pattern pattern = Pattern.compile("^[a-zA-Z0-9]*$");
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                String newText = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
+                if (pattern.matcher(newText).matches()) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+
+        // Menambahkan filter untuk jTextField2 agar hanya menerima angka
+        ((AbstractDocument) jTextField2.getDocument()).setDocumentFilter(new DocumentFilter() {
+            Pattern pattern = Pattern.compile("\\d*");
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                String newText = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
+                if (pattern.matcher(newText).matches()) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+
+        // Menambahkan filter untuk jTextField3 agar hanya menerima angka
+        ((AbstractDocument) jTextField3.getDocument()).setDocumentFilter(new DocumentFilter() {
+            Pattern pattern = Pattern.compile("\\d*");
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                String newText = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
+                if (pattern.matcher(newText).matches()) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+        
+        // Di bagian inisialisasi komponen Anda
+        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+        tableModel.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (tableModel.getRowCount() == 0) {
+                    jTextField3.setEnabled(false);
+                } else {
+                    jTextField3.setEnabled(true);
+                }
+            }
+        });
+
+        // Set jTextField3 menjadi defaultnya disabled
+        jTextField3.setEnabled(false);
+    }
     
     public void uploadData() throws SQLException {
         Connection conn = DBConnection.getConnection();
@@ -591,7 +590,7 @@ public class CashierForm extends javax.swing.JFrame {
         jLabel7.setText("Total    Rp 0");
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0); // Menghapus semua baris dari model tabel
-        String transactionCode = labelLogic.generateTransactionCode();
+        String transactionCode = generateTransactionCode();
         jLabel4.setText(transactionCode);
     }
     
@@ -616,7 +615,7 @@ public class CashierForm extends javax.swing.JFrame {
     //buat nampilin tanggal
     public static String getCurrentDateTime() {
         LocalDate now = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         return now.format(formatter);
     }
     
@@ -703,9 +702,6 @@ public class CashierForm extends javax.swing.JFrame {
         }
     }
 
-
-
-
   // Add method for change calculation
   private void calculateChange() {
         try {
@@ -731,7 +727,6 @@ public class CashierForm extends javax.swing.JFrame {
             jLabel7.setText(totalRupiah);
         }
     }
-
 
 
     public static void main(String args[]) {
