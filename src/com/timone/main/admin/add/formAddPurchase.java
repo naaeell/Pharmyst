@@ -6,6 +6,7 @@ package com.timone.main.admin.add;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -403,13 +404,21 @@ public class formAddPurchase extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
+        if (jCheckBox1.isSelected()) {
+            jTextField1.setText(generateKode());
+            jTextField1.setEnabled(false);
+        } else {
+            jTextField1.requestFocusInWindow();
+            jTextField1.setText("");
+            jTextField1.setEnabled(true);
+        }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         if (jCheckBox2.isSelected()) {
             jTextField7.requestFocusInWindow();
             jTextField7.setEnabled(true);
+            jTextField6.setText(generateKode());
             jTextField6.setEnabled(false);
             jTextField6.setText("");
         } else {
@@ -424,7 +433,21 @@ public class formAddPurchase extends javax.swing.JFrame {
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
+    
+    public static String generateKode() {
+        String prefix = "PB";
+        StringBuilder sb = new StringBuilder(prefix);
 
+        // generate 10 karakter numerik
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            // buat limit biar bisa generate hanya dari 0 dan 9
+            char digit = (char) (random.nextInt(10) + '0');
+            sb.append(digit);
+        }
+        return sb.toString();
+    }
+    
     /**
      * @param args the command line arguments
      */

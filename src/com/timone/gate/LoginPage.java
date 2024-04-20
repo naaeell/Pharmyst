@@ -147,10 +147,12 @@ public class LoginPage extends javax.swing.JFrame {
     private void checkPassword(){
         String username = jTextField1.getText(); 
         String password = jPasswordField1.getText(); 
+        String kodeUser = null; // Variabel untuk menyimpan kode_user
+        String nama = null; // Variabel untuk menyimpan nama pengguna
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmtAbout = conn.prepareStatement("SELECT * FROM about WHERE username=? AND password=?");
-             PreparedStatement stmtAkun = conn.prepareStatement("SELECT kode_user FROM akun_karyawan WHERE username=? AND password=?")) {
+             PreparedStatement stmtAkun = conn.prepareStatement("SELECT kode_user, nama FROM akun_karyawan WHERE username=? AND password=?")) {
 
             // Periksa tabel "about" untuk kredensial
             stmtAbout.setString(1, username);
@@ -169,9 +171,13 @@ public class LoginPage extends javax.swing.JFrame {
             stmtAkun.setString(2, password);
             try (ResultSet rsAkun = stmtAkun.executeQuery()) {
                 if (rsAkun.next()) {
-                    String kodeUser = rsAkun.getString("kode_user"); // Ambil kode_user dari hasil query
+                    kodeUser = rsAkun.getString("kode_user"); // Ambil kode_user dari hasil query
+                    nama = rsAkun.getString("nama"); // Ambil nama dari hasil query
                     // Jika ditemukan di tabel "akun_karyawan", buka CashierForm
-                    CashierForm.main(new String[]{});
+                    CashierForm cashierForm = new CashierForm();
+                    cashierForm.setNama(nama); // Set nama pengguna di CashierForm
+                    cashierForm.setLocationRelativeTo(null);
+                    cashierForm.setVisible(true); // Pastikan CashierForm ditampilkan setelah semua pengaturan selesai
                     insertAbsensi(conn, kodeUser); // Masukkan log absensi menggunakan kode_user
                     this.dispose(); 
                     return;

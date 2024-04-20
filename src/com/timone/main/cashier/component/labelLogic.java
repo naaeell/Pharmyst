@@ -14,7 +14,6 @@ import java.util.Random;
  */
 public class labelLogic {
     
-    //logic buat generate kode transaksi
     public static String generateTransactionCode() {
         String prefix = "TR";
         StringBuilder sb = new StringBuilder(prefix);
@@ -28,13 +27,14 @@ public class labelLogic {
         }
         return sb.toString();
     }
-    
-    
+
     //buat nampilin tanggal
     public static String getCurrentDateTime() {
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return now.format(formatter);
     }
+
+    
     
 }

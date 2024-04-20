@@ -4,6 +4,7 @@
  */
 package com.timone.main.admin.add;
 
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -271,7 +272,7 @@ public class formAddWorker extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        FlatMacDarkLaf.setup();
+        FlatGitHubIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 formAddWorker form = new formAddWorker();

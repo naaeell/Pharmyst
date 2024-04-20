@@ -115,59 +115,63 @@ public class RfidPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void checkRFID() {
-    Connection conn = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
-    try {
-        conn = DBConnection.getConnection();
-        
-        // Periksa tabel 'about' untuk kode RFID
-        String aboutQuery = "SELECT * FROM about WHERE rfid = ?";
-        pstmt = conn.prepareStatement(aboutQuery);
-        pstmt.setString(1, rfidCode);
-        rs = pstmt.executeQuery();
-
-        if (rs.next()) {
-            // Jika kode RFID ditemukan di tabel 'about', buka MainAdmin
-            mainAdmin.main(new String[]{});
-            
-            this.dispose();
-            return; // Keluar dari metode setelah membuka MainAdmin
-        }
-
-        // Periksa tabel 'akun_karyawan' untuk kode RFID
-        String karyawanQuery = "SELECT * FROM akun_karyawan WHERE rfid = ?";
-        pstmt = conn.prepareStatement(karyawanQuery);
-        pstmt.setString(1, rfidCode);
-        rs = pstmt.executeQuery();
-
-        if (rs.next()) {
-            // Jika kode RFID ditemukan di tabel 'akun_karyawan', buka CashierForm
-            CashierForm.main(new String[]{});
-            insertAbsensi(conn, rs.getString("kode_user")); // Masukkan log absensi dengan kode_user
-            this.dispose();
-            return; // Keluar dari metode setelah membuka CashierForm
-        }
-
-        // Jika kode RFID tidak ditemukan di kedua tabel
-        jPasswordField1.setText("");
-        JOptionPane.showMessageDialog(this, "Akses tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat memeriksa kode RFID.", "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        // Tutup semua sumber daya
         try {
-            if (rs != null) rs.close();
-            if (pstmt != null) pstmt.close();
-            if (conn != null) conn.close();
+            conn = DBConnection.getConnection();
+
+            // Periksa tabel 'about' untuk kode RFID
+            String aboutQuery = "SELECT * FROM about WHERE rfid = ?";
+            pstmt = conn.prepareStatement(aboutQuery);
+            pstmt.setString(1, rfidCode);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                // Jika kode RFID ditemukan di tabel 'about', buka MainAdmin
+                mainAdmin.main(new String[]{});
+
+                this.dispose();
+                return; // Keluar dari metode setelah membuka MainAdmin
+            }
+
+            // Periksa tabel 'akun_karyawan' untuk kode RFID
+            String karyawanQuery = "SELECT kode_user, nama FROM akun_karyawan WHERE rfid = ?";
+            pstmt = conn.prepareStatement(karyawanQuery);
+            pstmt.setString(1, rfidCode);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String kodeUser = rs.getString("kode_user");
+                String nama = rs.getString("nama");
+
+                // Jika kode RFID ditemukan di tabel 'akun_karyawan', buka CashierForm
+                CashierForm cashierForm = new CashierForm();
+                cashierForm.setNama(nama); // Set nama pengguna di CashierForm
+                cashierForm.setLocationRelativeTo(null);
+                cashierForm.setVisible(true); // Pastikan CashierForm ditampilkan setelah semua pengaturan selesai
+                insertAbsensi(conn, kodeUser); // Masukkan log absensi menggunakan kode_user
+                this.dispose();
+                return; // Keluar dari metode setelah membuka CashierForm
+            }
+
+            // Jika kode RFID tidak ditemukan di kedua tabel
+            JOptionPane.showMessageDialog(this, "Akses tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat memeriksa kode RFID.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            // Tutup semua sumber daya
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
-    
-}
     private void insertAbsensi(Connection conn, String kodeUser) {
         try {
             // Periksa apakah entri absensi sudah ada untuk kode_user pada tanggal hari ini

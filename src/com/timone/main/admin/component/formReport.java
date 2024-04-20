@@ -75,26 +75,6 @@ public class formReport extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     
-    private void themeChanger(){
-        boolean isDarkTheme = FlatLaf.isLafDark();
-        // Periksa apakah tema saat ini adalah tema gelap atau terang
-        if (isDarkTheme) {
-            EventQueue.invokeLater(() -> {
-                FlatAnimatedLafChange.showSnapshot();
-                FlatGitHubIJTheme.setup(); // Mengubah ke tema terang
-                FlatLaf.updateUI();
-                FlatAnimatedLafChange.hideSnapshotWithAnimation();
-            });
-        } else {
-            EventQueue.invokeLater(() -> {
-                FlatAnimatedLafChange.showSnapshot();
-                FlatGitHubDarkIJTheme.setup(); // Mengubah ke tema gelap
-                FlatLaf.updateUI();
-                FlatAnimatedLafChange.hideSnapshotWithAnimation();
-            });
-        }
-    }
-    
     public static void main(String args[]) {
         FlatGitHubIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
