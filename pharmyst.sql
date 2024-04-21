@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 16, 2024 at 07:37 AM
+-- Generation Time: Apr 21, 2024 at 01:51 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -28,22 +28,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `about` (
-  `id_about` int NOT NULL,
-  `nama_pemilik` varchar(20) COLLATE utf8mb4_bin NOT NULL,
+  `id_about` varchar(8) COLLATE utf8mb4_bin NOT NULL,
+  `nama_pemilik` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `nama_usaha` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `no_telp_usaha` varchar(20) COLLATE utf8mb4_bin NOT NULL,
+  `no_telp_usaha` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `alamat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `username` varchar(50) COLLATE utf8mb4_bin NOT NULL,
-  `password` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `rfid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
---
--- Dumping data for table `about`
---
-
-INSERT INTO `about` (`id_about`, `nama_pemilik`, `nama_usaha`, `no_telp_usaha`, `alamat`, `username`, `password`, `rfid`) VALUES
-(1223123, 'Fadel', 'Apotek Dewata', '081515278601', 'Jl. Kaca Piring No.46, Gebang Tengah, Gebang, Kec. Patrang, Kabupaten Jember, Jawa Timur 68117', 'Fadel', '123', '123');
 
 -- --------------------------------------------------------
 
@@ -52,19 +45,10 @@ INSERT INTO `about` (`id_about`, `nama_pemilik`, `nama_usaha`, `no_telp_usaha`, 
 --
 
 CREATE TABLE `absensi` (
-  `kode_user` char(15) COLLATE utf8mb4_bin NOT NULL,
+  `kode_user` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `tanggal_kehadiran` date NOT NULL,
   `waktu` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
---
--- Dumping data for table `absensi`
---
-
-INSERT INTO `absensi` (`kode_user`, `tanggal_kehadiran`, `waktu`) VALUES
-('82039485', '2024-04-14', '06:51:11'),
-('203984756', '2024-04-15', '18:32:32'),
-('82039485', '2024-04-15', '21:09:25');
 
 -- --------------------------------------------------------
 
@@ -81,14 +65,6 @@ CREATE TABLE `akun_karyawan` (
   `rfid` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
---
--- Dumping data for table `akun_karyawan`
---
-
-INSERT INTO `akun_karyawan` (`kode_user`, `username`, `password`, `nama`, `email`, `rfid`) VALUES
-('203984756', 'farel', '123', 'farel', 'farel@gmail.com', '234523452'),
-('82039485', 'fadel', 'abc123', 'fadel', 'fadel@email.com', '9834769283745');
-
 -- --------------------------------------------------------
 
 --
@@ -98,26 +74,13 @@ INSERT INTO `akun_karyawan` (`kode_user`, `username`, `password`, `nama`, `email
 CREATE TABLE `barang` (
   `kode_barang` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `nama_barang` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `satuan_obat` varchar(25) COLLATE utf8mb4_bin NOT NULL,
+  `satuan_obat` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `kadaluarsa` date NOT NULL,
   `kuantitas` int NOT NULL,
   `harga_pcs` int NOT NULL,
   `kode_bentuk_obat` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `kode_kategori_obat` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
---
--- Dumping data for table `barang`
---
-
-INSERT INTO `barang` (`kode_barang`, `nama_barang`, `satuan_obat`, `kadaluarsa`, `kuantitas`, `harga_pcs`, `kode_bentuk_obat`, `kode_kategori_obat`) VALUES
-('BRG202983745', 'obat sakit perut', '40', '2024-11-22', 0, 20000, '09823459', '8974369'),
-('BRG2345235', 'apel hijau', '50', '2024-11-14', 30, 20000, '09823459', '8974369'),
-('BRG23894', 'jambu', '56', '2024-05-02', 0, 25000, '09823459', '8974369'),
-('BRG29830457', 'semangka', '34', '2025-01-17', 10, 25000, '09823459', '8974369'),
-('BRG64765476', 'odading', '30', '2024-08-23', 20, 25000, '09823459', '8974369'),
-('BRG8876978', 'obat meriang', '80', '2023-11-17', 0, 250000, '09823459', '8974369'),
-('BRG9084726', 'awple', '50', '2024-06-13', 20, 500000, '09823459', '8974369');
 
 -- --------------------------------------------------------
 
@@ -135,7 +98,16 @@ CREATE TABLE `bentuk_obat` (
 --
 
 INSERT INTO `bentuk_obat` (`kode_bentuk_obat`, `nama_bentuk_obat`) VALUES
-('09823459', 'tablet');
+('BTK134679', 'Tablet'),
+('BTK215487', 'Obat oles'),
+('BTK2486297', 'Obat tetes'),
+('BTK253614', 'Kapsul'),
+('BTK316497', 'Obat cair'),
+('BTK319575', 'Obat suntik'),
+('BTK369814', 'Supositoria'),
+('BTK649758', 'Tablet bukal atau sublingual'),
+('BTK659814', 'Implan atau obat tempel'),
+('BTK976848', 'Inhaler');
 
 -- --------------------------------------------------------
 
@@ -144,8 +116,8 @@ INSERT INTO `bentuk_obat` (`kode_bentuk_obat`, `nama_bentuk_obat`) VALUES
 --
 
 CREATE TABLE `detail_penjualan` (
-  `kode_penjualan` char(15) COLLATE utf8mb4_bin NOT NULL,
-  `kode_barang` char(15) COLLATE utf8mb4_bin NOT NULL,
+  `kode_penjualan` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `kode_barang` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `jumlah_terjual` int NOT NULL,
   `total_harga` int NOT NULL,
   `laba_pcs` int NOT NULL,
@@ -153,13 +125,22 @@ CREATE TABLE `detail_penjualan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Dumping data for table `detail_penjualan`
+-- Triggers `detail_penjualan`
 --
-
-INSERT INTO `detail_penjualan` (`kode_penjualan`, `kode_barang`, `jumlah_terjual`, `total_harga`, `laba_pcs`, `laba_total`) VALUES
-('PJ234577', 'BRG2345235', 20, 250000, 2000, 35000),
-('PJ2390845', 'BRG29830457', 60, 650000, 90000, 80000),
-('PJ234577', 'BRG23894', 20, 250000, 500, 40000);
+DELIMITER $$
+CREATE TRIGGER `update_stok` AFTER INSERT ON `detail_penjualan` FOR EACH ROW BEGIN
+    DECLARE sold_qty INT;
+    
+    -- Ambil jumlah terjual dari data yang baru saja dimasukkan
+    SET sold_qty = NEW.jumlah_terjual;
+    
+    -- Kurangi kuantitas barang dari tabel barang
+    UPDATE barang
+    SET kuantitas = kuantitas - sold_qty
+    WHERE kode_barang = NEW.kode_barang;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -170,7 +151,7 @@ INSERT INTO `detail_penjualan` (`kode_penjualan`, `kode_barang`, `jumlah_terjual
 CREATE TABLE `distributor` (
   `kode_distributor` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `nama_distributor` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `alamat` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `kontak_utama` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `nomor_utama` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `email` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
@@ -181,7 +162,11 @@ CREATE TABLE `distributor` (
 --
 
 INSERT INTO `distributor` (`kode_distributor`, `nama_distributor`, `alamat`, `kontak_utama`, `nomor_utama`, `email`) VALUES
-('7145683', 'medika pratama', 'jalan cendana', 'yudi', '081222222222', 'medikapratama@email.com');
+('DB134679', 'PT. Antar Mitra Sembada', 'Pos Pengumben Raya No. 8 Kebon Jeruk Jakarta Barat 11560. DKI Jakarta - INDONESIA', 'Budi setiawan', '05310330', 'contacus@ams.co.id'),
+('DB215487', 'PT. Anugrah Argon Medika', 'Titan Center lantai 3, Jalan Boulevard Bintaro Blok B7/B1 No. 05, Bintaro Jaya Sektor 7 Tangerang 15424, Indonesia', 'Hadi setiadi', '081314691338', 'care@anugrah-argon.com'),
+('DB235689', 'PT. Anugerah Pharmindo Lestari', 'World Trade Center (WTC) 1 Building, 15th Floor, Jl. Jend. Sudirman Kav. 29 - 30, Jakarta 12920, Indonesia', 'Denny Fikri', '02121684084', 'didik.haryadi@aplcare.com'),
+('DB251436', 'PT. Bina San Prima', 'Jl. Tamansari No. 12 Bandung', 'Herman suherman', '0224207725', 'obd_secr@binasanprima.com'),
+('DB475869', 'PT. Distriversa Buanamas', 'Jl. Rawaterate I No.6, RW.9, Rw. Terate,\r\nKec. Cakung, Kota Jakarta Timur,\r\nDaerah Khusus Ibukota Jakarta 13920', 'Gibran hermawan', '02146829788', 'cs@tokodbm.com');
 
 -- --------------------------------------------------------
 
@@ -199,7 +184,31 @@ CREATE TABLE `kategori_obat` (
 --
 
 INSERT INTO `kategori_obat` (`kode_kategori_obat`, `nama_kategori`) VALUES
-('8974369', 'depresan');
+('KTR124578', 'Antasida'),
+('KTR235689', 'Analgesik'),
+('KTR253614', 'Anticemas'),
+('KTR259746', 'Anti-emetik'),
+('KTR312556', 'Ekspektoran'),
+('KTR346857', 'Antijamur'),
+('KTR482615', 'Antikonvulsan'),
+('KTR524469', 'Antineoplastik'),
+('KTR562147', 'Antivirus'),
+('KTR629537', 'Antihistamin'),
+('KTR634582', 'Antipiretik'),
+('KTR639584', 'Dekongestan'),
+('KTR6548899', 'Sitotoksik'),
+('KTR663398', 'Antipsikotik'),
+('KTR685724', 'Antidiare'),
+('KTR784596', 'Antikoagulan dan trombolitik'),
+('KTR789654', 'Anti-inflamasi'),
+('KTR789954', 'Obat tidur'),
+('KTR856326', 'Beta-blocker'),
+('KTR952648', 'Antibiotik'),
+('KTR976513', 'Antihipertensi'),
+('KTR978564', 'Bronkodilator'),
+('KTR984523', 'Anti-aritmia'),
+('KTR987562', 'Antidepresan'),
+('KTR987855', 'Kortikosteroid');
 
 -- --------------------------------------------------------
 
@@ -208,13 +217,14 @@ INSERT INTO `kategori_obat` (`kode_kategori_obat`, `nama_kategori`) VALUES
 --
 
 CREATE TABLE `laporan` (
-  `kode_laporan` char(15) COLLATE utf8mb4_bin NOT NULL,
+  `kode_laporan` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `kode_operasional` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `id_about` varchar(8) COLLATE utf8mb4_bin NOT NULL,
   `penjualan_bersih` int NOT NULL,
-  `persediaan_awal` int NOT NULL,
+  `harga_pokok_penjualan` int NOT NULL,
   `pembelian_bersih` int NOT NULL,
   `persediaan_akhir` int NOT NULL,
-  `laba_kotor_penjualan` int NOT NULL,
-  `kode_operasional` char(15) COLLATE utf8mb4_bin NOT NULL,
+  `laba_kotor` int NOT NULL,
   `laba_bersih` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -226,18 +236,10 @@ CREATE TABLE `laporan` (
 
 CREATE TABLE `operasional` (
   `kode_operasional` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `nama_biaya` varchar(60) COLLATE utf8mb4_bin NOT NULL,
-  `tanggal` date NOT NULL,
+  `nama_biaya` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `deskripsi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `total_biaya` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
---
--- Dumping data for table `operasional`
---
-
-INSERT INTO `operasional` (`kode_operasional`, `nama_biaya`, `tanggal`, `deskripsi`, `total_biaya`) VALUES
-('OP23094234', 'sewa ruko', '2024-04-16', 'sewa ruko lt 12 elite full infrastruktur mewah\r\n', 2000000);
 
 -- --------------------------------------------------------
 
@@ -248,18 +250,12 @@ INSERT INTO `operasional` (`kode_operasional`, `nama_biaya`, `tanggal`, `deskrip
 CREATE TABLE `pembelian` (
   `kode_pemesanan` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `tanggal_pemesanan` date NOT NULL,
-  `harga_total` int NOT NULL,
+  `kode_distributor` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `kode_barang` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `Jumlah_pembelian` int NOT NULL,
-  `kode_distributor` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
+  `jumlah_pembelian` int NOT NULL,
+  `harga_total` int NOT NULL,
+  `laba_pcs` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
---
--- Dumping data for table `pembelian`
---
-
-INSERT INTO `pembelian` (`kode_pemesanan`, `tanggal_pemesanan`, `harga_total`, `kode_barang`, `Jumlah_pembelian`, `kode_distributor`) VALUES
-('KJ23495', '2024-04-14', 200000, 'BRG202983745', 0, '7145683');
 
 -- --------------------------------------------------------
 
@@ -270,16 +266,8 @@ INSERT INTO `pembelian` (`kode_pemesanan`, `tanggal_pemesanan`, `harga_total`, `
 CREATE TABLE `penjualan` (
   `kode_penjualan` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `tanggal_transaksi` date NOT NULL,
-  `kode_user` char(15) COLLATE utf8mb4_bin NOT NULL
+  `kode_user` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
---
--- Dumping data for table `penjualan`
---
-
-INSERT INTO `penjualan` (`kode_penjualan`, `tanggal_transaksi`, `kode_user`) VALUES
-('PJ234577', '2024-04-23', '82039485'),
-('PJ2390845', '2024-04-16', '82039485');
 
 -- --------------------------------------------------------
 
@@ -288,25 +276,15 @@ INSERT INTO `penjualan` (`kode_penjualan`, `tanggal_transaksi`, `kode_user`) VAL
 --
 
 CREATE TABLE `print_invoice` (
-  `id_about` int NOT NULL,
-  `kode_penjualan` char(15) COLLATE utf8mb4_bin NOT NULL,
-  `kode_barang` char(15) COLLATE utf8mb4_bin NOT NULL,
+  `id_about` varchar(8) COLLATE utf8mb4_bin NOT NULL,
+  `kode_penjualan` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `kode_barang` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `jumlah_terjual` int NOT NULL,
   `total_harga` int NOT NULL,
   `jumlah_harga` int NOT NULL,
   `total_bayar` int NOT NULL,
   `kembali` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
---
--- Dumping data for table `print_invoice`
---
-
-INSERT INTO `print_invoice` (`id_about`, `kode_penjualan`, `kode_barang`, `jumlah_terjual`, `total_harga`, `jumlah_harga`, `total_bayar`, `kembali`) VALUES
-(1223123, 'PJ234577', 'BRG23894', 20, 250000, 69000, 23456, 34566),
-(1223123, 'PJ234577', 'BRG2345235', 3456, 3456346, 34566, 345646, 68790879),
-(1223123, 'PJ234577', 'BRG8876978', 789060, 687096, 678969, 678969, 6799997),
-(1223123, 'PJ234577', 'BRG9084726', 456777, 45675467, 3453456, 34575467, 4854888);
 
 --
 -- Indexes for dumped tables
@@ -368,7 +346,8 @@ ALTER TABLE `kategori_obat`
 --
 ALTER TABLE `laporan`
   ADD PRIMARY KEY (`kode_laporan`),
-  ADD KEY `kode_operasional` (`kode_operasional`);
+  ADD KEY `kode_operasional` (`kode_operasional`),
+  ADD KEY `id_about` (`id_about`);
 
 --
 -- Indexes for table `operasional`
@@ -424,6 +403,13 @@ ALTER TABLE `detail_penjualan`
   ADD CONSTRAINT `detail_penjualan_ibfk_2` FOREIGN KEY (`kode_penjualan`) REFERENCES `penjualan` (`kode_penjualan`);
 
 --
+-- Constraints for table `laporan`
+--
+ALTER TABLE `laporan`
+  ADD CONSTRAINT `laporan_ibfk_2` FOREIGN KEY (`kode_operasional`) REFERENCES `operasional` (`kode_operasional`),
+  ADD CONSTRAINT `laporan_ibfk_3` FOREIGN KEY (`id_about`) REFERENCES `about` (`id_about`);
+
+--
 -- Constraints for table `pembelian`
 --
 ALTER TABLE `pembelian`
@@ -440,9 +426,9 @@ ALTER TABLE `penjualan`
 -- Constraints for table `print_invoice`
 --
 ALTER TABLE `print_invoice`
-  ADD CONSTRAINT `print_invoice_ibfk_1` FOREIGN KEY (`id_about`) REFERENCES `about` (`id_about`),
   ADD CONSTRAINT `print_invoice_ibfk_2` FOREIGN KEY (`kode_penjualan`) REFERENCES `penjualan` (`kode_penjualan`),
-  ADD CONSTRAINT `print_invoice_ibfk_3` FOREIGN KEY (`kode_barang`) REFERENCES `barang` (`kode_barang`);
+  ADD CONSTRAINT `print_invoice_ibfk_3` FOREIGN KEY (`kode_barang`) REFERENCES `barang` (`kode_barang`),
+  ADD CONSTRAINT `print_invoice_ibfk_4` FOREIGN KEY (`id_about`) REFERENCES `about` (`id_about`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
