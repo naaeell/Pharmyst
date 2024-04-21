@@ -9,7 +9,7 @@ import com.timone.gate.*;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import com.timone.connection.DBConnection;
+import com.timone.connection.DbConnection;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -29,12 +29,12 @@ import java.sql.ResultSet;
  *
  * @author Fadel
  */
-public class formAbout extends javax.swing.JFrame {
+public class FormAbout extends javax.swing.JFrame {
 
     /**
      * Creates new form formSetting
      */
-    public formAbout() {
+    public FormAbout() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         focusSet();        
@@ -513,7 +513,7 @@ public class formAbout extends javax.swing.JFrame {
         try {
             InsertAbout();
         } catch (SQLException ex) {
-            Logger.getLogger(formAbout.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormAbout.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
     }//GEN-LAST:event_createAccountActionPerformed
@@ -588,7 +588,7 @@ public class formAbout extends javax.swing.JFrame {
             try {
                 InsertAbout();
             } catch (SQLException ex) {
-                Logger.getLogger(formAbout.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormAbout.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         }
@@ -607,8 +607,8 @@ public class formAbout extends javax.swing.JFrame {
     String passwordValue = new String(password.getPassword()); // Password sebaiknya diambil sebagai char array
     String rfidValue = new String(rfid.getPassword()); // Juga untuk kode akses
 
-    // Mendapatkan koneksi ke database dari kelas DBConnection
-    Connection conn = DBConnection.getConnection();
+    // Mendapatkan koneksi ke database dari kelas DbConnection
+    Connection conn = DbConnection.getConnection();
 
     if (conn != null) {
         ResultSet resultSet = null; // Declare ResultSet here
@@ -640,7 +640,7 @@ public class formAbout extends javax.swing.JFrame {
                         try {
                             InsertAbout();
                         } catch (SQLException ex) {
-                            Logger.getLogger(formAbout.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(FormAbout.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
                     }
@@ -694,7 +694,7 @@ public class formAbout extends javax.swing.JFrame {
         FlatGitHubIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                formAbout form = new formAbout();
+                FormAbout form = new FormAbout();
                 form.setLocationRelativeTo(null); // Memposisikan jendela di tengah layar
                 form.setVisible(true);
             }

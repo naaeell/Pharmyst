@@ -15,12 +15,12 @@ import javax.swing.JFrame;
  *
  * @author Fadel
  */
-public class formReport extends javax.swing.JFrame {
+public class FormReport extends javax.swing.JFrame {
 
     /**
      * Creates new form formSetting
      */
-    public formReport() {
+    public FormReport() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
@@ -79,7 +79,7 @@ public class formReport extends javax.swing.JFrame {
         FlatGitHubIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                formReport form = new formReport();
+                FormReport form = new FormReport();
                 form.setLocationRelativeTo(null); // Memposisikan jendela di tengah layar
                 form.setVisible(true);
             }

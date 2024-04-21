@@ -16,18 +16,18 @@ import java.util.Date;
 public class PrinterExample implements Printable {
 
     // Data for the receipt
-    private String[] items;
-    private double[] prices;
-    private int[] quantities;
-    private int itemCount;
-    private String cashierName;
+    private final String[] items;
+    private final double[] prices;
+    private final int[] quantities;
+    private final int itemCount;
+    private final String cashierName;
 
     // Receipt information
-    private String minimarketName = "Apotek Dewata";
-    private String address = "Gebang kota jember";
-    private String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
-    private String paymentType = "Cash";
-    private double paymentAmount = 500.00;
+    private final String minimarketName = "Apotek Dewata";
+    private final String address = "Gebang kota jember";
+    private final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+    private final String paymentType = "Cash";
+    private final double paymentAmount = 500.00;
 
     public PrinterExample(String[] items, double[] prices, int[] quantities, int itemCount, String cashierName) {
         this.items = items;

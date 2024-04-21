@@ -8,12 +8,12 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import com.timone.main.admin.component.formAbout;
-import com.timone.main.admin.component.formReport;
-import com.timone.main.admin.add.formAddDistributor;
-import com.timone.main.admin.add.formAddOperational;
-import com.timone.main.admin.add.formAddPurchase;
-import com.timone.main.admin.add.formAddWorker;
+import com.timone.main.admin.component.FormAbout;
+import com.timone.main.admin.component.FormReport;
+import com.timone.main.admin.add.FormAddDistributor;
+import com.timone.main.admin.add.FormAddOperational;
+import com.timone.main.admin.add.FormAddPurchase;
+import com.timone.main.admin.add.FormAddWorker;
 import java.awt.EventQueue;
 
 /**
@@ -21,16 +21,16 @@ import java.awt.EventQueue;
  * @author Fadel
  */
 public class ThemeSync {
-    private static formReport report;
-    private static formAbout about;
-    private static formAddDistributor addDistributor;
-    private static formAddOperational addOperational;
-    private static formAddPurchase addPurchase;
-    private static formAddWorker addWorker;
+    private static FormReport report;
+    private static FormAbout about;
+    private static FormAddDistributor addDistributor;
+    private static FormAddOperational addOperational;
+    private static FormAddPurchase addPurchase;
+    private static FormAddWorker addWorker;
 
     public static void reportThemeSync() {
         if (report == null) {
-            report = new formReport();
+            report = new FormReport();
             report.setLocationRelativeTo(null);
         }
         report.setVisible(true);
@@ -38,7 +38,7 @@ public class ThemeSync {
 
     public static void aboutThemeSync() {
         if (about == null) {
-            about = new formAbout();
+            about = new FormAbout();
             about.setLocationRelativeTo(null);
         }
         about.setVisible(true);
@@ -46,7 +46,7 @@ public class ThemeSync {
 
     public static void addDistributorThemeSync() {
         if (addDistributor == null) {
-            addDistributor = new formAddDistributor();
+            addDistributor = new FormAddDistributor();
             addDistributor.setLocationRelativeTo(null);
         }
         addDistributor.setVisible(true);
@@ -54,7 +54,7 @@ public class ThemeSync {
 
     public static void addOperationalThemeSync() {
         if (addOperational == null) {
-            addOperational = new formAddOperational();
+            addOperational = new FormAddOperational();
             addOperational.setLocationRelativeTo(null);
         }
         addOperational.setVisible(true);
@@ -62,7 +62,7 @@ public class ThemeSync {
 
     public static void addPurchaseThemeSync() {
         if (addPurchase == null) {
-            addPurchase = new formAddPurchase();
+            addPurchase = new FormAddPurchase();
             addPurchase.setLocationRelativeTo(null);
         }
         addPurchase.setVisible(true);
@@ -70,7 +70,7 @@ public class ThemeSync {
 
     public static void addWorkerThemeSync() {
         if (addWorker == null) {
-            addWorker = new formAddWorker();
+            addWorker = new FormAddWorker();
             addWorker.setLocationRelativeTo(null);
         }
         addWorker.setVisible(true);

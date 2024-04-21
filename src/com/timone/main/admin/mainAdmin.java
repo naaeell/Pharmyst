@@ -4,65 +4,52 @@
  */
 package com.timone.main.admin;
 
+import com.timone.main.admin.tableLogic.WorkerLogic;
+import com.timone.main.admin.tableLogic.AttendanceLogic;
+import com.timone.main.admin.tableLogic.DistributorLogic;
+import com.timone.main.admin.tableLogic.InventoryLogic;
+import com.timone.main.admin.tableLogic.SalesLogic;
+import com.timone.main.admin.tableLogic.OperationalLogic;
+import com.timone.main.admin.tableLogic.PurchaseLogic;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.timone.connection.DBConnection;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.gate.LoginPage;
 import com.timone.main.admin.theme.ThemeSync;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.UIManager;
-import java.sql.PreparedStatement;
-import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 /**
  *
  * @author Fadel
  */
-public class mainAdmin extends javax.swing.JFrame {
-    
-    
-
-    
-            
-    public mainAdmin() {
+public class MainAdmin extends javax.swing.JFrame {
+         
+    public MainAdmin() {
         
         UIManager.put( "TextComponent.arc", 10 );
         initComponents();
-        InventoryTable();
-        SalesTable();
-        PurchaseTable();
-        DistributorTable();
-        OperationTable();
-        WorkerTable();
-        AbsenTable();
+        InventoryLogic.inventoryTable(jTable1, jTextField1);
+        SalesLogic.salesTable(jTable2);
+        PurchaseLogic.PurchaseTable(jTable3);
+        DistributorLogic.DistributorTable(jTable4);
+        OperationalLogic.OperationTable(jTable6);
+        WorkerLogic.WorkerTable(jTable5);
+        AttendanceLogic.AbsenTable(jTable9);
         jTextField1.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                InventoryTable();
+                InventoryLogic.inventoryTable(jTable1, jTextField1);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                InventoryTable();
+                InventoryLogic.inventoryTable(jTable1, jTextField1);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                InventoryTable();
+                InventoryLogic.inventoryTable(jTable1, jTextField1);
             }
         });
     }
@@ -310,11 +297,11 @@ public class mainAdmin extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Kode Penjualan", "Tanggal Transaksi", "User", "Kode Barang", "Nama Barang", "Barang Terjual", "Pendapatan", "L/r kotor"
+                "Kode Penjualan", "Tanggal Transaksi", "Kasir", "Kode Barang", "Nama Barang", "Barang Terjual", "Laba pcs", "Pendapatan"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1128,24 +1115,24 @@ public class mainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton74ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       InventoryTable();
+       InventoryLogic.inventoryTable(jTable1, jTextField1);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        SalesTable();
+        SalesLogic.salesTable(jTable2);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
-        PurchaseTable();
+        PurchaseLogic.PurchaseTable(jTable3);
     }//GEN-LAST:event_jButton36ActionPerformed
 
     private void jButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton39ActionPerformed
-        DistributorTable();
+        DistributorLogic.DistributorTable(jTable4);
     }//GEN-LAST:event_jButton39ActionPerformed
 
     private void jButton46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton46ActionPerformed
-        WorkerTable();
-        AbsenTable();
+        WorkerLogic.WorkerTable(jTable5);
+        AttendanceLogic.AbsenTable(jTable9);
     }//GEN-LAST:event_jButton46ActionPerformed
 
     private void jButton45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton45ActionPerformed
@@ -1185,7 +1172,7 @@ public class mainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
-        OperationTable();
+        OperationalLogic.OperationTable(jTable6);
     }//GEN-LAST:event_jButton42ActionPerformed
 
     private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
@@ -1217,686 +1204,12 @@ public class mainAdmin extends javax.swing.JFrame {
         LoginPage.main(new String[]{});
         this.dispose();
     }//GEN-LAST:event_jButton75ActionPerformed
-   
-    
-    
-    private void InventoryTable() {
-     try {
-         // Mendapatkan koneksi ke database dari kelas DBConnection
-         Connection conn = DBConnection.getConnection();
-
-         // Membuat statement SQL untuk mengambil data dari tabel barang dengan JOIN
-         String sql = "SELECT barang.kode_barang, barang.nama_barang, kategori_obat.nama_kategori, bentuk_obat.nama_bentuk_obat, barang.satuan_obat, DATE_FORMAT(barang.kadaluarsa, '%d %M %Y') AS kadaluarsa, barang.kuantitas, barang.harga_pcs, " +
-                      "CASE " +
-                      "    WHEN barang.kadaluarsa <= CURDATE() THEN 'Expired' " +
-                      "    WHEN barang.kadaluarsa <= CURDATE() + INTERVAL 3 MONTH THEN 'Mendekati Expired' " +
-                      "    ELSE (CASE " +
-                      "              WHEN barang.kuantitas <= 0 THEN 'Stok habis' " +
-                      "              WHEN barang.kuantitas <= 15 THEN 'Stok akan habis' " +
-                      "              ELSE (CASE " +
-                      "                        WHEN barang.kadaluarsa <= CURDATE() + INTERVAL 3 MONTH THEN 'Mendekati expired' " +
-                      "                        WHEN barang.kadaluarsa <= CURDATE() + INTERVAL 6 MONTH THEN 'Expired dalam 6 bulan' " +
-                      "                        ELSE (CASE " +
-                      "                                  WHEN barang.kadaluarsa > CURDATE() + INTERVAL 6 MONTH THEN 'Aman' " +
-                      "                                  ELSE NULL " +
-                      "                             END) " +
-                      "                   END) " +
-                      "         END) " +
-                      "END AS status " +
-                      "FROM barang " +
-                      "INNER JOIN kategori_obat ON barang.kode_kategori_obat = kategori_obat.kode_kategori_obat " +
-                      "INNER JOIN bentuk_obat ON barang.kode_bentuk_obat = bentuk_obat.kode_bentuk_obat " +
-                      "WHERE barang.kode_barang LIKE ? OR barang.nama_barang LIKE ? OR kategori_obat.nama_kategori LIKE ? OR bentuk_obat.nama_bentuk_obat LIKE ? OR barang.satuan_obat LIKE ?";
-         PreparedStatement stmt = conn.prepareStatement(sql);
-         String searchQuery = "%" + jTextField1.getText() + "%";
-         for (int i = 1; i <= 5; i++) {
-             stmt.setString(i, searchQuery);
-         }
-         ResultSet rs = stmt.executeQuery();
-
-         // Mendapatkan model tabel yang ada
-         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-
-         // Menghapus semua baris yang sudah ada dari model tabel
-         model.setRowCount(0);
-
-         // Membuat daftar baris untuk status selain "Aman"
-         ArrayList<Object[]> nonSafeRows = new ArrayList<>();
-         ArrayList<Object[]> safeRows = new ArrayList<>();
-
-         // Memproses hasil kueri dan menambahkannya ke daftar yang sesuai
-         while (rs.next()) {
-             // Menentukan status berdasarkan tanggal kadaluarsa
-             String status = rs.getString("status");
-             Object[] row = {
-                 status,
-                 rs.getString("kode_barang"),
-                 rs.getString("nama_barang"),
-                 rs.getString("nama_kategori"),
-                 rs.getString("nama_bentuk_obat"),
-                 rs.getString("satuan_obat"),
-                 rs.getString("kadaluarsa"),
-                 rs.getInt("kuantitas"),
-                 rs.getInt("harga_pcs")
-             };
-             if (status.equals("Aman")) {
-                 safeRows.add(row);
-             } else {
-                 nonSafeRows.add(row);
-             }
-         }
-
-         // Menambahkan baris yang tidak aman terlebih dahulu
-         for (Object[] row : nonSafeRows) {
-             model.addRow(row);
-         }
-
-         // Kemudian menambahkan baris yang aman
-         for (Object[] row : safeRows) {
-             model.addRow(row);
-         }
-
-         // Setelah model tabel diisi ulang, panggil method setRowColor() untuk menerapkan render warna
-         setRowColor();
-
-         // Menutup koneksi
-         rs.close();
-         stmt.close();
-         conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-     
-        jTable1.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            int r = jTable1.rowAtPoint(e.getPoint());
-            if (r >= 0 && r < jTable1.getRowCount()) {
-                jTable1.setRowSelectionInterval(r, r);
-            } else {
-                jTable1.clearSelection();
-            }
-
-            int rowIndex = jTable1.getSelectedRow();
-            if (rowIndex < 0)
-                return;
-
-            if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
-                JPopupMenu popup = new JPopupMenu();
-
-                // Tambahkan opsi yang ingin Anda tampilkan di sini
-                JMenuItem option1 = new JMenuItem("Tandai stok kosong");
-                JMenuItem option2 = new JMenuItem("Update Stok");
-                JMenuItem option3 = new JMenuItem("Hapus Item");
-                JMenuItem option4 = new JMenuItem("Detail Item");
-                
-                // Tambahkan action listener untuk setiap opsi
-                option1.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 1 dipilih
-                        System.out.println("Opsi 1 dipilih pada baris: " + rowIndex);
-                    }
-                });
-
-                option2.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 2 dipilih
-                        System.out.println("Opsi 2 dipilih pada baris: " + rowIndex);
-                    }
-                });
-                
-                option3.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 2 dipilih
-                        System.out.println("Opsi 3 dipilih pada baris: " + rowIndex);
-                    }
-                });
-                
-                option4.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 2 dipilih
-                        System.out.println("Opsi 4 dipilih pada baris: " + rowIndex);
-                    }
-                });
-                // Tambahkan opsi ke menu popup
-                popup.add(option1);
-                popup.add(option2);
-                popup.add(option3);
-                popup.add(option4);
-                // Tampilkan menu popup di posisi klik mouse
-                popup.show(e.getComponent(), e.getX(), e.getY());
-            }
-        }
-    });
-    }
-
-   private void setRowColor() {
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                // Mengambil nilai dari kolom status pada baris saat ini
-                String status = (String) table.getModel().getValueAt(row, 0);
-
-                // Memberikan warna latar belakang berdasarkan status
-                if (status.equals("Expired") || status.equals("Mendekati Expired") || status.equals("Stok habis")) {
-                    c.setBackground(Color.decode("#ff6961")); // Merah
-                } else if (status.equals("Expired dalam 6 bulan") || status.equals("Stok akan habis")) {
-                    c.setBackground(Color.decode("#ff964f")); // Orange
-                } else {
-                    c.setBackground(table.getBackground()); // Warna default untuk status lainnya
-                }
-
-                // Memberi warna teks putih pada baris dengan status selain "Aman"
-                if (!status.equals("Aman")) {
-                    c.setForeground(Color.WHITE);
-                } else {
-                    c.setForeground(table.getForeground()); // Mengembalikan warna teks default jika status adalah "Aman"
-                }
-
-                return c;
-            }
-        };
-
-        // Mengatur renderer untuk semua kolom
-        for (int i = 0; i < jTable1.getColumnCount(); i++) {
-            jTable1.getColumnModel().getColumn(i).setCellRenderer(renderer);
-        }
-    }
-
-
-
-    private void SalesTable() {
-        try {
-            // Mendapatkan koneksi ke database dari kelas DBConnection
-            Connection conn = DBConnection.getConnection();
-
-            // Membuat statement SQL untuk mengambil data penjualan
-            String sql = "SELECT dp.kode_penjualan, p.tanggal_transaksi, k.username AS user, dp.kode_barang, b.nama_barang, dp.jumlah_terjual AS barang_terjual, dp.laba_pcs, dp.laba_total " +
-                         "FROM detail_penjualan dp " +
-                         "JOIN penjualan p ON dp.kode_penjualan = p.kode_penjualan " +
-                         "JOIN barang b ON dp.kode_barang = b.kode_barang " +
-                         "JOIN akun_karyawan k ON p.kode_user = k.kode_user";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-
-            // Mendapatkan model tabel yang ada
-            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-
-            // Menghapus semua baris yang sudah ada dari model tabel
-            model.setRowCount(0);
-
-            // Memproses hasil kueri dan menambahkannya ke model tabel
-            while (rs.next()) {
-                Object[] row = {
-                        rs.getString("kode_penjualan"),
-                        rs.getDate("tanggal_transaksi"),
-                        rs.getString("user"),
-                        rs.getString("kode_barang"),
-                        rs.getString("nama_barang"),
-                        rs.getInt("barang_terjual"),
-                        rs.getInt("laba_pcs"),
-                        rs.getInt("laba_total")
-                };
-                model.addRow(row);
-            }
-
-            // Menutup koneksi
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        jTable2.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            int r = jTable2.rowAtPoint(e.getPoint());
-            if (r >= 0 && r < jTable2.getRowCount()) {
-                jTable2.setRowSelectionInterval(r, r);
-            } else {
-                jTable2.clearSelection();
-            }
-
-            int rowIndex = jTable2.getSelectedRow();
-            if (rowIndex < 0)
-                return;
-
-            if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
-                JPopupMenu popup = new JPopupMenu();
-
-                // Tambahkan opsi yang ingin Anda tampilkan di sini
-                JMenuItem option1 = new JMenuItem("Opsi 1");
-                JMenuItem option2 = new JMenuItem("Opsi 2");
-
-                // Tambahkan action listener untuk setiap opsi
-                option1.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 1 dipilih
-                        System.out.println("Opsi 1 dipilih pada baris: " + rowIndex);
-                    }
-                });
-
-                option2.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 2 dipilih
-                        System.out.println("Opsi 2 dipilih pada baris: " + rowIndex);
-                    }
-                });
-
-                // Tambahkan opsi ke menu popup
-                popup.add(option1);
-                popup.add(option2);
-
-                // Tampilkan menu popup di posisi klik mouse
-                popup.show(e.getComponent(), e.getX(), e.getY());
-            }
-        }
-    });
-    }
-
-   
-    private void PurchaseTable() {
-        try {
-            // Mendapatkan koneksi ke database dari kelas DBConnection
-            Connection conn = DBConnection.getConnection();
-
-            // Membuat statement SQL untuk mengambil data pembelian
-            String sql = "SELECT " +
-                         "pembelian.kode_pemesanan, " +
-                         "pembelian.tanggal_pemesanan, " +
-                         "distributor.nama_distributor, " +
-                         "pembelian.kode_barang, " +
-                         "barang.nama_barang, " +
-                         "kategori_obat.nama_kategori, " +
-                         "bentuk_obat.nama_bentuk_obat, " +
-                         "barang.satuan_obat, " +
-                         "barang.kuantitas, " +
-                         "pembelian.harga_total " +
-                         "FROM pembelian " +
-                         "INNER JOIN barang ON pembelian.kode_barang = barang.kode_barang " +
-                         "INNER JOIN distributor ON pembelian.kode_distributor = distributor.kode_distributor " +
-                         "INNER JOIN kategori_obat ON barang.kode_kategori_obat = kategori_obat.kode_kategori_obat " +
-                         "INNER JOIN bentuk_obat ON barang.kode_bentuk_obat = bentuk_obat.kode_bentuk_obat";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-
-            // Mendapatkan model tabel yang ada
-            DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
-
-            // Menghapus semua baris yang sudah ada dari model tabel
-            model.setRowCount(0);
-
-            // Memproses hasil kueri dan menambahkannya ke model tabel
-            while (rs.next()) {
-                Object[] row = {
-                        rs.getString("kode_pemesanan"),
-                        rs.getDate("tanggal_pemesanan"),
-                        rs.getString("nama_distributor"),
-                        rs.getString("kode_barang"),
-                        rs.getString("nama_barang"),
-                        rs.getString("nama_kategori"),
-                        rs.getString("nama_bentuk_obat"),
-                        rs.getString("satuan_obat"),
-                        rs.getInt("kuantitas"),
-                        rs.getInt("harga_total")
-                };
-                model.addRow(row);
-            }
-
-            // Menutup koneksi
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        jTable3.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            int r = jTable3.rowAtPoint(e.getPoint());
-            if (r >= 0 && r < jTable3.getRowCount()) {
-                jTable3.setRowSelectionInterval(r, r);
-            } else {
-                jTable3.clearSelection();
-            }
-
-            int rowIndex = jTable3.getSelectedRow();
-            if (rowIndex < 0)
-                return;
-
-            if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
-                JPopupMenu popup = new JPopupMenu();
-
-                // Tambahkan opsi yang ingin Anda tampilkan di sini
-                JMenuItem option1 = new JMenuItem("Opsi 1");
-                JMenuItem option2 = new JMenuItem("Opsi 2");
-
-                // Tambahkan action listener untuk setiap opsi
-                option1.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 1 dipilih
-                        System.out.println("Opsi 1 dipilih pada baris: " + rowIndex);
-                    }
-                });
-
-                option2.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 2 dipilih
-                        System.out.println("Opsi 2 dipilih pada baris: " + rowIndex);
-                    }
-                });
-
-                // Tambahkan opsi ke menu popup
-                popup.add(option1);
-                popup.add(option2);
-
-                // Tampilkan menu popup di posisi klik mouse
-                popup.show(e.getComponent(), e.getX(), e.getY());
-            }
-        }
-    });
-    }
-    
-    private void DistributorTable() {
-        try {
-            // Mendapatkan koneksi ke database dari kelas DBConnection
-            Connection conn = DBConnection.getConnection();
-
-            // Membuat statement SQL untuk mengambil data distributor
-            String sql = "SELECT kode_distributor, nama_distributor, alamat, kontak_utama, email, nomor_utama FROM distributor";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-
-            // Mendapatkan model tabel yang ada
-            DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
-
-            // Menghapus semua baris yang sudah ada dari model tabel
-            model.setRowCount(0);
-
-            // Memproses hasil kueri dan menambahkannya ke model tabel
-            while (rs.next()) {
-                Object[] row = {
-                        rs.getString("kode_distributor"),
-                        rs.getString("nama_distributor"),
-                        rs.getString("alamat"),
-                        rs.getString("kontak_utama"),
-                        rs.getString("email"),
-                        rs.getString("nomor_utama")
-                };
-                model.addRow(row);
-            }
-
-            // Menutup koneksi
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        jTable4.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            int r = jTable4.rowAtPoint(e.getPoint());
-            if (r >= 0 && r < jTable4.getRowCount()) {
-                jTable4.setRowSelectionInterval(r, r);
-            } else {
-                jTable4.clearSelection();
-            }
-
-            int rowIndex = jTable4.getSelectedRow();
-            if (rowIndex < 0)
-                return;
-
-            if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
-                JPopupMenu popup = new JPopupMenu();
-
-                // Tambahkan opsi yang ingin Anda tampilkan di sini
-                JMenuItem option1 = new JMenuItem("Opsi 1");
-                JMenuItem option2 = new JMenuItem("Opsi 2");
-
-                // Tambahkan action listener untuk setiap opsi
-                option1.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 1 dipilih
-                        System.out.println("Opsi 1 dipilih pada baris: " + rowIndex);
-                    }
-                });
-
-                option2.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 2 dipilih
-                        System.out.println("Opsi 2 dipilih pada baris: " + rowIndex);
-                    }
-                });
-
-                // Tambahkan opsi ke menu popup
-                popup.add(option1);
-                popup.add(option2);
-
-                // Tampilkan menu popup di posisi klik mouse
-                popup.show(e.getComponent(), e.getX(), e.getY());
-            }
-        }
-    });
-    }
-
-    private void OperationTable() {
-        try {
-            // Mendapatkan koneksi ke database dari kelas DBConnection
-            Connection conn = DBConnection.getConnection();
-
-            // Membuat statement SQL untuk mengambil data biaya
-            String sql = "SELECT nama_biaya, tanggal, deskripsi, total_biaya FROM operasional";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-
-            // Mendapatkan model tabel yang ada
-            DefaultTableModel model = (DefaultTableModel) jTable6.getModel();
-
-            // Menghapus semua baris yang sudah ada dari model tabel
-            model.setRowCount(0);
-
-            // Memproses hasil kueri dan menambahkannya ke model tabel
-            while (rs.next()) {
-                Object[] row = {
-                        rs.getString("nama_biaya"),
-                        rs.getString("tanggal"),
-                        rs.getString("deskripsi"),
-                        rs.getInt("total_biaya")
-                };
-                model.addRow(row);
-            }
-
-            // Menutup koneksi
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        jTable6.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            int r = jTable6.rowAtPoint(e.getPoint());
-            if (r >= 0 && r < jTable6.getRowCount()) {
-                jTable6.setRowSelectionInterval(r, r);
-            } else {
-                jTable6.clearSelection();
-            }
-
-            int rowIndex = jTable6.getSelectedRow();
-            if (rowIndex < 0)
-                return;
-
-            if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
-                JPopupMenu popup = new JPopupMenu();
-
-                // Tambahkan opsi yang ingin Anda tampilkan di sini
-                JMenuItem option1 = new JMenuItem("Opsi 1");
-                JMenuItem option2 = new JMenuItem("Opsi 2");
-
-                // Tambahkan action listener untuk setiap opsi
-                option1.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 1 dipilih
-                        System.out.println("Opsi 1 dipilih pada baris: " + rowIndex);
-                    }
-                });
-
-                option2.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 2 dipilih
-                        System.out.println("Opsi 2 dipilih pada baris: " + rowIndex);
-                    }
-                });
-
-                // Tambahkan opsi ke menu popup
-                popup.add(option1);
-                popup.add(option2);
-
-                // Tampilkan menu popup di posisi klik mouse
-                popup.show(e.getComponent(), e.getX(), e.getY());
-            }
-        }
-    });
-    }
-
-    
-    private void WorkerTable() {
-        try {
-            // Mendapatkan koneksi ke database dari kelas DBConnection
-            Connection conn = DBConnection.getConnection();
-
-            // Membuat statement SQL untuk mengambil data karyawan
-            String sql = "SELECT nama, email, username, password, rfid FROM akun_karyawan";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-
-            // Mendapatkan model tabel yang ada
-            DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
-
-            // Menghapus semua baris yang sudah ada dari model tabel
-            model.setRowCount(0);
-
-            // Memproses hasil kueri dan menambahkannya ke model tabel
-            while (rs.next()) {
-                Object[] row = {
-                        rs.getString("nama"),
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("rfid")
-                };
-                model.addRow(row);
-            }
-
-            // Menutup koneksi
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        jTable5.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            int r = jTable5.rowAtPoint(e.getPoint());
-            if (r >= 0 && r < jTable5.getRowCount()) {
-                jTable5.setRowSelectionInterval(r, r);
-            } else {
-                jTable5.clearSelection();
-            }
-
-            int rowIndex = jTable5.getSelectedRow();
-            if (rowIndex < 0)
-                return;
-
-            if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
-                JPopupMenu popup = new JPopupMenu();
-
-                // Tambahkan opsi yang ingin Anda tampilkan di sini
-                JMenuItem option1 = new JMenuItem("Opsi 1");
-                JMenuItem option2 = new JMenuItem("Opsi 2");
-
-                // Tambahkan action listener untuk setiap opsi
-                option1.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 1 dipilih
-                        System.out.println("Opsi 1 dipilih pada baris: " + rowIndex);
-                    }
-                });
-
-                option2.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 2 dipilih
-                        System.out.println("Opsi 2 dipilih pada baris: " + rowIndex);
-                    }
-                });
-
-                // Tambahkan opsi ke menu popup
-                popup.add(option1);
-                popup.add(option2);
-
-                // Tampilkan menu popup di posisi klik mouse
-                popup.show(e.getComponent(), e.getX(), e.getY());
-            }
-        }
-    });
-    }
-    
-    private void AbsenTable() {
-        try {
-            // Mendapatkan koneksi ke database dari kelas DBConnection
-            Connection conn = DBConnection.getConnection();
-
-            // Membuat statement SQL untuk mengambil data absen beserta nama dari tabel barang
-            String sql = "SELECT A.tanggal_kehadiran, A.waktu, B.nama AS Nama, B.username AS Username, B.email AS Email " +
-                         "FROM absensi A " +
-                         "INNER JOIN akun_karyawan B ON A.kode_user = B.kode_user " +
-                         "ORDER BY A.tanggal_kehadiran DESC"; // Menambahkan ORDER BY untuk mengurutkan berdasarkan tanggal_kehadiran secara menurun
-
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-
-            // Mendapatkan model tabel yang ada untuk jTable9
-            DefaultTableModel model = (DefaultTableModel) jTable9.getModel();
-
-            // Menghapus semua baris yang sudah ada dari model tabel jTable9
-            model.setRowCount(0);
-
-            // Memproses hasil kueri dan menambahkannya ke model tabel jTable9
-            while (rs.next()) {
-                Object[] row = {
-                        rs.getString("tanggal_kehadiran"),
-                        rs.getString("waktu"),
-                        rs.getString("Nama"), // Mengambil nama dari tabel barang menggunakan alias Nama
-                        rs.getString("Username"),
-                        rs.getString("Email")  
-                };
-                model.addRow(row);
-            }
-
-            // Menutup koneksi
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void main(String args[]) {
     FlatGitHubIJTheme.setup();
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
-            mainAdmin home = new mainAdmin();
+            MainAdmin home = new MainAdmin();
             home.setLocationRelativeTo(null); // Memposisikan jendela di tengah layar
             home.setVisible(true);
         }

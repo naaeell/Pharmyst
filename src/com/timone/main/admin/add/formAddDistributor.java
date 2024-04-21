@@ -13,12 +13,12 @@ import javax.swing.UIManager;
  *
  * @author Fadel
  */
-public class formAddDistributor extends javax.swing.JFrame {
+public class FormAddDistributor extends javax.swing.JFrame {
 
     /**
      * Creates new form formSetting
      */
-    public formAddDistributor() {
+    public FormAddDistributor() {
         UIManager.put( "TextComponent.arc", 10 );
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -298,7 +298,7 @@ public class formAddDistributor extends javax.swing.JFrame {
         FlatGitHubIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                formAddDistributor form = new formAddDistributor();
+                FormAddDistributor form = new FormAddDistributor();
                 form.setLocationRelativeTo(null); // Memposisikan jendela di tengah layar
                 form.setVisible(true);
             }

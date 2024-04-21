@@ -7,7 +7,7 @@ package com.timone.main.runable;
 import com.timone.gate.SetupPage;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import com.timone.connection.DBConnection;
+import com.timone.connection.DbConnection;
 import com.timone.gate.LoginPage;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -27,7 +27,7 @@ public class StartApp {
             public void run() {
                 try {
                     // Mendapatkan koneksi ke database
-                    Connection conn = DBConnection.getConnection();
+                    Connection conn = DbConnection.getConnection();
                     
                     // Membuat statement SQL untuk mengambil jumlah data dari tabel barang
                     Statement stmt = conn.createStatement();

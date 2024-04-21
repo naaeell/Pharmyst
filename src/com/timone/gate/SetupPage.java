@@ -7,7 +7,7 @@ package com.timone.gate;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import com.timone.connection.DBConnection;
+import com.timone.connection.DbConnection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -391,8 +391,8 @@ public class SetupPage extends javax.swing.JFrame {
     String passwordValue = new String(password.getPassword()); // Password sebaiknya diambil sebagai char array
     String rfidValue = new String(rfid.getPassword()); // Juga untuk kode akses
 
-    // Mendapatkan koneksi ke database dari kelas DBConnection
-    Connection conn = DBConnection.getConnection();
+    // Mendapatkan koneksi ke database dari kelas DbConnection
+    Connection conn = DbConnection.getConnection();
 
     if (conn != null) {
         ResultSet resultSet = null; // Declare ResultSet here

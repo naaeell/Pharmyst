@@ -13,12 +13,12 @@ import javax.swing.UIManager;
  *
  * @author Fadel
  */
-public class formAddOperational extends javax.swing.JFrame {
+public class FormAddOperational extends javax.swing.JFrame {
 
     /**
      * Creates new form formSetting
      */
-    public formAddOperational() {
+    public FormAddOperational() {
         UIManager.put( "TextComponent.arc", 10 );
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -214,7 +214,7 @@ public class formAddOperational extends javax.swing.JFrame {
         FlatGitHubIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                formAddOperational form = new formAddOperational();
+                FormAddOperational form = new FormAddOperational();
                 form.setLocationRelativeTo(null); // Memposisikan jendela di tengah layar
                 form.setVisible(true);
             }

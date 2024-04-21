@@ -7,8 +7,8 @@ package com.timone.gate;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import com.timone.connection.DBConnection;
-import com.timone.main.admin.mainAdmin;
+import com.timone.connection.DbConnection;
+import com.timone.main.admin.MainAdmin;
 import com.timone.main.cashier.CashierForm;
 import javax.swing.UIManager;
 import java.awt.event.KeyEvent;
@@ -120,7 +120,7 @@ public class RfidPage extends javax.swing.JFrame {
         ResultSet rs = null;
 
         try {
-            conn = DBConnection.getConnection();
+            conn = DbConnection.getConnection();
 
             // Periksa tabel 'about' untuk kode RFID
             String aboutQuery = "SELECT * FROM about WHERE rfid = ?";
@@ -130,7 +130,7 @@ public class RfidPage extends javax.swing.JFrame {
 
             if (rs.next()) {
                 // Jika kode RFID ditemukan di tabel 'about', buka MainAdmin
-                mainAdmin.main(new String[]{});
+                MainAdmin.main(new String[]{});
 
                 this.dispose();
                 return; // Keluar dari metode setelah membuka MainAdmin

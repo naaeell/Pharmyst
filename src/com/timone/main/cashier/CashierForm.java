@@ -5,7 +5,7 @@
 package com.timone.main.cashier;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import com.timone.connection.DBConnection;
+import com.timone.connection.DbConnection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -375,7 +375,7 @@ public class CashierForm extends javax.swing.JFrame {
     }
     
     public void uploadData() throws SQLException {
-        Connection conn = DBConnection.getConnection();
+        Connection conn = DbConnection.getConnection();
 
         if (conn == null) {
             System.out.println("Gagal mendapatkan koneksi.");
@@ -511,7 +511,7 @@ public class CashierForm extends javax.swing.JFrame {
 
     private void printInvoiceReport() {
         try {
-            Connection conn = DBConnection.getConnection();
+            Connection conn = DbConnection.getConnection();
             File namaFile = new File("src/com/timone/print/component/Invoice.jasper");
             JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), null, conn);
 
@@ -628,7 +628,7 @@ public class CashierForm extends javax.swing.JFrame {
             return;
         }
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DbConnection.getConnection();
              PreparedStatement pst = conn.prepareStatement("SELECT kode_barang, nama_barang, satuan_obat, harga_pcs, kuantitas, kadaluarsa FROM barang WHERE kode_barang = ?");
         ) {
             pst.setString(1, kodeBarang);
@@ -702,8 +702,8 @@ public class CashierForm extends javax.swing.JFrame {
         }
     }
 
-  // Add method for change calculation
-  private void calculateChange() {
+    // Metode menghitung kembaalian
+    private void calculateChange() {
         try {
             double amountPaid = Double.parseDouble(jTextField3.getText());
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();

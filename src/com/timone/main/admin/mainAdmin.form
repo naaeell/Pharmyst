@@ -354,12 +354,12 @@
                           <Table columnCount="8" rowCount="4">
                             <Column editable="false" title="Kode Penjualan" type="java.lang.Object"/>
                             <Column editable="false" title="Tanggal Transaksi" type="java.lang.Object"/>
-                            <Column editable="false" title="User" type="java.lang.Object"/>
+                            <Column editable="false" title="Kasir" type="java.lang.Object"/>
                             <Column editable="false" title="Kode Barang" type="java.lang.Object"/>
                             <Column editable="false" title="Nama Barang" type="java.lang.Object"/>
                             <Column editable="false" title="Barang Terjual" type="java.lang.Object"/>
+                            <Column editable="false" title="Laba pcs" type="java.lang.Object"/>
                             <Column editable="false" title="Pendapatan" type="java.lang.Object"/>
-                            <Column editable="true" title="L/r kotor" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

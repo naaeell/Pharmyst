@@ -13,12 +13,12 @@ import javax.swing.UIManager;
  *
  * @author Fadel
  */
-public class formAddWorker extends javax.swing.JFrame {
+public class FormAddWorker extends javax.swing.JFrame {
 
     /**
      * Creates new form formSetting
      */
-    public formAddWorker() {
+    public FormAddWorker() {
         UIManager.put( "TextComponent.arc", 10 );
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -275,7 +275,7 @@ public class formAddWorker extends javax.swing.JFrame {
         FlatGitHubIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                formAddWorker form = new formAddWorker();
+                FormAddWorker form = new FormAddWorker();
                 form.setLocationRelativeTo(null); // Memposisikan jendela di tengah layar
                 form.setVisible(true);
             }

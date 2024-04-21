@@ -7,8 +7,8 @@ package com.timone.gate;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import com.timone.connection.DBConnection;
-import com.timone.main.admin.mainAdmin;
+import com.timone.connection.DbConnection;
+import com.timone.main.admin.MainAdmin;
 import com.timone.main.cashier.CashierForm;
 import javax.swing.UIManager;
 import java.awt.event.ActionEvent;
@@ -150,7 +150,7 @@ public class LoginPage extends javax.swing.JFrame {
         String kodeUser = null; // Variabel untuk menyimpan kode_user
         String nama = null; // Variabel untuk menyimpan nama pengguna
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DbConnection.getConnection();
              PreparedStatement stmtAbout = conn.prepareStatement("SELECT * FROM about WHERE username=? AND password=?");
              PreparedStatement stmtAkun = conn.prepareStatement("SELECT kode_user, nama FROM akun_karyawan WHERE username=? AND password=?")) {
 
@@ -159,8 +159,8 @@ public class LoginPage extends javax.swing.JFrame {
             stmtAbout.setString(2, password);
             try (ResultSet rsAbout = stmtAbout.executeQuery()) {
                 if (rsAbout.next()) {
-                    // Jika ditemukan di tabel "about", buka mainAdmin
-                    mainAdmin.main(new String[]{});
+                    // Jika ditemukan di tabel "about", buka MainAdmin
+                    MainAdmin.main(new String[]{});
                     this.dispose(); 
                     return;
                 }

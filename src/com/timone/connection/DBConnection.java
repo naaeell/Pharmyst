@@ -10,7 +10,7 @@ import java.sql.SQLException;
  *
  * @author Fadel
  */
-public class DBConnection {
+public class DbConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/pharmyst";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
