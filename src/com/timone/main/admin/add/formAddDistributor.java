@@ -5,9 +5,14 @@
 package com.timone.main.admin.add;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.timone.connection.DbConnection;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -146,6 +151,11 @@ public class FormAddDistributor extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("Simpan");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -280,9 +290,11 @@ public class FormAddDistributor extends javax.swing.JFrame {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         if (jCheckBox1.isSelected()) {
-            jTextField1.setText("");
+            jTextField1.setText(generateDistributor());
             jTextField1.setEnabled(false);
         } else {
+            jTextField1.requestFocusInWindow();
+            jTextField1.setText("");
             jTextField1.setEnabled(true);
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
@@ -291,6 +303,69 @@ public class FormAddDistributor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            insertDistributor();
+        } catch (SQLException ex) {
+            Logger.getLogger(FormAddDistributor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    public void insertDistributor() throws SQLException {
+        // SQL statement untuk insert data ke tabel distributor
+        String sql = "INSERT INTO distributor (kode_distributor, nama_distributor, alamat, kontak_utama, nomor_utama, email) VALUES (?, ?, ?, ?, ?, ?)";
+
+        // Membuat koneksi database
+        java.sql.Connection connection = DbConnection.getConnection();
+        
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            // Mengambil nilai dari JTextField
+            String kodeDistributor = jTextField1.getText();
+            String namaDistributor = jTextField2.getText();
+            String alamat = jTextField3.getText();
+            String kontakUtama = jTextField4.getText();
+            String nomorUtama = jTextField5.getText();
+            String email = jTextField6.getText();
+            
+            // Mengatur parameter sesuai dengan nilai yang diambil dari JTextField
+            statement.setString(1, kodeDistributor);
+            statement.setString(2, namaDistributor);
+            statement.setString(3, alamat);
+            statement.setString(4, kontakUtama);
+            statement.setString(5, nomorUtama);
+            statement.setString(6, email);
+            
+            // Menjalankan pernyataan SQL untuk menambahkan data
+            statement.executeUpdate();
+            System.out.println("Data distributor berhasil disimpan.");
+        } catch (SQLException e) {
+            System.out.println("Terjadi kesalahan saat menyimpan data distributor: " + e.getMessage());
+        } finally {
+            try {
+                // Menutup koneksi
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Terjadi kesalahan saat menutup koneksi: " + e.getMessage());
+            }
+        }
+    }
+    
+    public static String generateDistributor() {
+        String prefix = "DB";
+        StringBuilder sb = new StringBuilder(prefix);
+
+        // generate 10 karakter numerik
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            // buat limit biar bisa generate hanya dari 0 dan 9
+            char digit = (char) (random.nextInt(10) + '0');
+            sb.append(digit);
+        }
+        return sb.toString();
+    }
+    
     /**
      * @param args the command line arguments
      */

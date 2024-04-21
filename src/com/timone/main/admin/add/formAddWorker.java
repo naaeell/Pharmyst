@@ -5,10 +5,14 @@
 package com.timone.main.admin.add;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.timone.connection.DbConnection;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
-
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Fadel
@@ -135,6 +139,11 @@ public class FormAddWorker extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("Simpan");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -268,6 +277,67 @@ public class FormAddWorker extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            insertAkunKaryawan();
+        } catch (SQLException ex) {
+            Logger.getLogger(FormAddWorker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    public void insertAkunKaryawan() throws SQLException {
+        String kodeUser = generateKodeUser();
+        String nama = jTextField1.getText();
+        String username = jTextField2.getText();
+        String password = new String(jPasswordField1.getPassword());
+        String email = jTextField3.getText();
+        String rfid = new String(jPasswordField2.getPassword());
+
+        java.sql.Connection connection = DbConnection.getConnection();
+        PreparedStatement preparedStatement = null;
+
+        try {
+            String sql = "INSERT INTO akun_karyawan (kode_user, nama, username, password, email, rfid) VALUES (?, ?, ?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, kodeUser);
+            preparedStatement.setString(2, nama);
+            preparedStatement.setString(3, username);
+            preparedStatement.setString(4, password);
+            preparedStatement.setString(5, email);
+            preparedStatement.setString(6, rfid);
+
+            preparedStatement.executeUpdate();
+            System.out.println("Data berhasil disisipkan ke dalam tabel akun_karyawan.");
+        } catch (SQLException e) {
+            System.err.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error: " + e.getMessage());
+            }
+        }
+    }
+    
+    public static String generateKodeUser() {
+        String prefix = "KRW";
+        StringBuilder sb = new StringBuilder(prefix);
+
+        // generate 10 karakter numerik
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            // buat limit biar bisa generate hanya dari 0 dan 9
+            char digit = (char) (random.nextInt(10) + '0');
+            sb.append(digit);
+        }
+        return sb.toString();
+    }
+    
     /**
      * @param args the command line arguments
      */

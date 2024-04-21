@@ -10,7 +10,12 @@ import com.timone.connection.DbConnection;
 import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JComboBox;
 
 
 /**
@@ -98,6 +103,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
         jLabel3.setText("Tanggal Pembelian");
 
         jDateChooser1.setForeground(new java.awt.Color(255, 255, 255));
+        jDateChooser1.setDateFormatString("d MMM y");
 
         jComboBox1.setMaximumRowCount(5);
 
@@ -130,6 +136,8 @@ public class FormAddPurchase extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Tanggal Expired");
 
+        jDateChooser2.setDateFormatString("d MMM y");
+
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("Jumlah Pembelian");
 
@@ -153,6 +161,11 @@ public class FormAddPurchase extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("Simpan");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel29.setText("Masukkan harga jual. Anda dapat");
 
@@ -240,82 +253,82 @@ public class FormAddPurchase extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2)
-                .addGap(40, 40, 40)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel21)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField7)
-                                    .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel29)
-                                .addGap(0, 0, 0)
-                                .addComponent(jLabel31)
-                                .addGap(0, 0, 0)
-                                .addComponent(jLabel32)
-                                .addGap(0, 0, 0)
-                                .addComponent(jLabel33)
-                                .addGap(20, 20, 20)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(115, Short.MAX_VALUE))
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
+                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel8)
+                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
+                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(32, 32, 32)
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(32, 32, 32)
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jCheckBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel21)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(38, 38, 38)
+                                    .addComponent(jLabel12)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                                        .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(16, 16, 16)
+                                    .addComponent(jLabel29)
+                                    .addGap(0, 0, 0)
+                                    .addComponent(jLabel31)
+                                    .addGap(0, 0, 0)
+                                    .addComponent(jLabel32)
+                                    .addGap(0, 0, 0)
+                                    .addComponent(jLabel33)
+                                    .addGap(30, 30, 30)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(101, Short.MAX_VALUE))))
         );
 
         pack();
@@ -323,7 +336,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         if (jCheckBox1.isSelected()) {
-            jTextField1.setText(generateKode());
+            jTextField1.setText(generatePembelian());
             jTextField1.setEnabled(false);
         } else {
             jTextField1.requestFocusInWindow();
@@ -336,7 +349,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
         if (jCheckBox2.isSelected()) {
             jTextField7.requestFocusInWindow();
             jTextField7.setEnabled(true);
-            jTextField6.setText(generateKode());
+            jTextField6.setText(generatePembelian());
             jTextField6.setEnabled(false);
             jTextField6.setText("");
         } else {
@@ -357,9 +370,21 @@ public class FormAddPurchase extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
-        // TODO add your handling code here:
+        if (jCheckBox5.isSelected()) {
+            jTextField2.setText(generateBarang());
+            jTextField2.setEnabled(false);
+        } else {
+            jTextField2.requestFocusInWindow();
+            jTextField2.setText("");
+            jTextField2.setEnabled(true);
+        }
     }//GEN-LAST:event_jCheckBox5ActionPerformed
-    
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        insertBarang();
+        insertPembelian();
+    }//GEN-LAST:event_jButton1ActionPerformed
+   
    private void ComboboxPBF() {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -468,7 +493,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
         }
     }
     
-    public static String generateKode() {
+    public static String generatePembelian() {
         String prefix = "PB";
         StringBuilder sb = new StringBuilder(prefix);
 
@@ -480,6 +505,156 @@ public class FormAddPurchase extends javax.swing.JFrame {
             sb.append(digit);
         }
         return sb.toString();
+    }
+    
+    public static String generateBarang() {
+        String prefix = "BRG";
+        StringBuilder sb = new StringBuilder(prefix);
+
+        // generate 10 karakter numerik
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            // buat limit biar bisa generate hanya dari 0 dan 9
+            char digit = (char) (random.nextInt(10) + '0');
+            sb.append(digit);
+        }
+        return sb.toString();
+    }
+    
+    // Method untuk mendapatkan kode distributor dari pilihan JComboBox
+    private String getKodeDistributorFromComboBox(JComboBox comboBox) {
+        String kodeDistributor = "";
+        String namaDistributor = comboBox.getSelectedItem().toString();
+
+        try (java.sql.Connection connection = DbConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT kode_distributor FROM distributor WHERE nama_distributor = ?")) {
+            statement.setString(1, namaDistributor);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                kodeDistributor = resultSet.getString("kode_distributor");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Gagal mengambil kode distributor: " + e.getMessage());
+        }
+
+        return kodeDistributor;
+    }
+    
+    // Method untuk mendapatkan kode distributor dari pilihan JComboBox
+    private String getKodeKategoriFromComboBox(JComboBox comboBox) {
+        String kodeKategori = "";
+        String namaKategori = comboBox.getSelectedItem().toString();
+
+        try (java.sql.Connection connection = DbConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT kode_kategori_obat FROM kategori_obat WHERE nama_kategori = ?")) {
+            statement.setString(1, namaKategori);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                kodeKategori = resultSet.getString("kode_kategori_obat");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Gagal mengambil kode distributor: " + e.getMessage());
+        }
+
+        return kodeKategori;
+    }
+    
+    // Method untuk mendapatkan kode distributor dari pilihan JComboBox
+    private String getKodeBentukFromComboBox(JComboBox comboBox) {
+        String kodeBentuk = "";
+        String namaBentuk = comboBox.getSelectedItem().toString();
+
+        try (java.sql.Connection connection = DbConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT kode_bentuk_obat FROM bentuk_obat WHERE nama_bentuk_obat = ?")) {
+            statement.setString(1, namaBentuk);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                kodeBentuk = resultSet.getString("kode_bentuk_obat");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Gagal mengambil kode distributor: " + e.getMessage());
+        }
+
+        return kodeBentuk;
+    }
+
+    // Method untuk melakukan operasi insert ke tabel pembelian
+    private void insertPembelian() {
+        String kodePemesanan = jTextField1.getText();
+        // Mendapatkan tanggal pemesanan dan format ke dalam string yang sesuai
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String tanggalPemesanan = sdf.format(jDateChooser1.getDate());
+        String kodeDistributor = getKodeDistributorFromComboBox(jComboBox1);
+        String kodeBarang = jTextField2.getText();
+        String jumlahPembelian = jTextField4.getText();
+        String hargaTotal = jTextField5.getText();
+        String labaPcs = jTextField6.getText();
+
+        // Query untuk insert data ke tabel pembelian
+        String query = "INSERT INTO pembelian (kode_pemesanan, tanggal_pemesanan, kode_distributor, kode_barang, jumlah_pembelian, harga_total, laba_pcs) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (java.sql.Connection connection = DbConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            // Set nilai parameter query
+            statement.setString(1, kodePemesanan);
+            statement.setString(2, tanggalPemesanan);
+            statement.setString(3, kodeDistributor);
+            statement.setString(4, kodeBarang);
+            statement.setString(5, jumlahPembelian);
+            statement.setString(6, hargaTotal);
+            statement.setString(7, labaPcs);
+
+            // Jalankan query
+            statement.executeUpdate();
+            System.out.println("Data pembelian berhasil ditambahkan ke database.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Gagal menambahkan data pembelian ke database: " + e.getMessage());
+        }
+    }
+
+    // Method untuk melakukan insert data ke tabel barang
+    private void insertBarang() {
+        // Ambil isian dari JTextField
+        String kodeBarang = jTextField2.getText();
+        String namaBarang = jTextField10.getText();
+        String satuanObat = jTextField3.getText();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String kadaluarsa = sdf.format(jDateChooser2.getDate());
+        String kodeKategori = getKodeKategoriFromComboBox(jComboBox3);
+        String kodeBentuk = getKodeBentukFromComboBox(jComboBox4);
+        String kuantitas = jTextField4.getText();
+        String hargaPcs = jTextField6.getText();
+
+        // Query untuk insert data ke tabel barang
+        String query = "INSERT INTO barang (kode_barang, nama_barang, satuan_obat, kadaluarsa, kode_kategori_obat, kode_bentuk_obat, kuantitas, harga_pcs) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (java.sql.Connection connection = DbConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            // Set nilai parameter query
+            statement.setString(1, kodeBarang);
+            statement.setString(2, namaBarang);
+            statement.setString(3, satuanObat);
+            statement.setString(4, kadaluarsa);
+            statement.setString(5, kodeKategori);
+            statement.setString(6, kodeBentuk);
+            statement.setString(7, kuantitas);
+            statement.setString(8, hargaPcs);
+
+            // Jalankan query
+            statement.executeUpdate();
+            System.out.println("Data barang berhasil ditambahkan ke database.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Gagal menambahkan data barang ke database: " + e.getMessage());
+        }
     }
     
     /**

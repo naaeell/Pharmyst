@@ -5,10 +5,11 @@
 package com.timone.main.admin.add;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.timone.connection.DbConnection;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
-
+import java.sql.*;
 /**
  *
  * @author Fadel
@@ -107,6 +108,11 @@ public class FormAddOperational extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("Simpan");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,6 +213,53 @@ public class FormAddOperational extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        insertOperasional();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    // Metode untuk melakukan operasi insert ke database
+    public void insertOperasional() {
+        // Mendapatkan data yang diperlukan dari UI
+        String kodeOperasional = generateOperasional();
+        String namaBiaya = jTextField1.getText();
+        String deskripsi = jTextField2.getText();
+        double totalBiaya = Double.parseDouble(jTextField3.getText());
+        
+        // Menjalankan operasi insert ke database
+        try (Connection connection = DbConnection.getConnection()) {
+            String sql = "INSERT INTO operasional (kode_operasional, nama_biaya, deskripsi, total_biaya) VALUES (?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Mengatur nilai parameter pada statement
+            statement.setString(1, kodeOperasional);
+            statement.setString(2, namaBiaya);
+            statement.setString(3, deskripsi);
+            statement.setDouble(4, totalBiaya);
+
+            // Menjalankan perintah SQL
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Data berhasil diinsert ke database.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Terjadi kesalahan dalam koneksi database: " + e.getMessage());
+        }
+    }
+    
+    public static String generateOperasional() {
+        String prefix = "OP";
+        StringBuilder sb = new StringBuilder(prefix);
+
+        // generate 10 karakter numerik
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            // buat limit biar bisa generate hanya dari 0 dan 9
+            char digit = (char) (random.nextInt(10) + '0');
+            sb.append(digit);
+        }
+        return sb.toString();
+    }
+    
     /**
      * @param args the command line arguments
      */
