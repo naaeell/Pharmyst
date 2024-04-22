@@ -283,6 +283,7 @@ public class FormAddWorker extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FormAddWorker.class.getName()).log(Level.SEVERE, null, ex);
         }
+         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
     
     public void insertAkunKaryawan() throws SQLException {
@@ -351,6 +352,8 @@ public class FormAddWorker extends javax.swing.JFrame {
             }
         });
     }
+    
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
