@@ -1,0 +1,1431 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel2">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                  <Component id="jTabbedPane1" min="-2" pref="1170" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Component id="jTabbedPane1" min="-2" pref="670" max="-2" attributes="0"/>
+                  <EmptySpace pref="60" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+          <Properties>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Default Cursor"/>
+            </Property>
+            <Property name="doubleBuffered" type="boolean" value="true"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="16" style="1"/>
+            </Property>
+            <Property name="name" type="java.lang.String" value="" noResource="true"/>
+          </Properties>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="jPanel3">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Barang">
+                    <Property name="tabTitle" type="java.lang.String" value="Barang"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane1" pref="1170" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jButton1" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton2" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jButton31" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton28" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton17" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jTextField1" min="-2" pref="135" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jButton1" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jTextField1" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton2" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton17" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton28" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton31" min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" pref="583" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="jTable1">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="9" rowCount="0">
+                            <Column editable="false" title="Status" type="java.lang.Object"/>
+                            <Column editable="false" title="Kode Barang" type="java.lang.Object"/>
+                            <Column editable="false" title="Nama Barang" type="java.lang.Object"/>
+                            <Column editable="false" title="Kategori" type="java.lang.Object"/>
+                            <Column editable="false" title="Bentuk" type="java.lang.Object"/>
+                            <Column editable="false" title="Satuan" type="java.lang.Object"/>
+                            <Column editable="false" title="Exp" type="java.lang.Object"/>
+                            <Column editable="false" title="Stok" type="java.lang.Object"/>
+                            <Column editable="false" title="Harga Jual (pcs)" type="java.lang.Object"/>
+                          </Table>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0">
+                            <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="200" minWidth="200" prefWidth="200" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="120" minWidth="120" prefWidth="120" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="90" minWidth="90" prefWidth="90" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="90" minWidth="90" prefWidth="90" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="80" minWidth="80" prefWidth="80" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                          </TableColumnModel>
+                        </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="f2" green="f2" red="f2" type="rgb"/>
+                        </Property>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
+                        <Property name="showGrid" type="boolean" value="false"/>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="opsi"/>
+                      </Events>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JTextField" name="jTextField1">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="" noResource="true"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField1.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, &quot;Cari&quot;);"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton1">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton1.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/report.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton2">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton2.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/refresh.svg&quot;, 1.5f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton17">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton17ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton17.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/info.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton28">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton28ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton28.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/lightdarkmode.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton31">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton31ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton31.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/exit.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel4">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Penjualan">
+                    <Property name="tabTitle" type="java.lang.String" value="Penjualan"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane2" pref="1170" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jButton7" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton9" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jButton32" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton30" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton29" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jTextField2" min="-2" pref="135" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jTextField2" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton7" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton9" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton29" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton30" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton32" min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" pref="583" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="jTable2">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="8" rowCount="4">
+                            <Column editable="false" title="Kode Penjualan" type="java.lang.Object"/>
+                            <Column editable="false" title="Tanggal Transaksi" type="java.lang.Object"/>
+                            <Column editable="false" title="Kasir" type="java.lang.Object"/>
+                            <Column editable="false" title="Kode Barang" type="java.lang.Object"/>
+                            <Column editable="false" title="Nama Barang" type="java.lang.Object"/>
+                            <Column editable="false" title="Barang Terjual" type="java.lang.Object"/>
+                            <Column editable="false" title="Laba pcs" type="java.lang.Object"/>
+                            <Column editable="false" title="Pendapatan" type="java.lang.Object"/>
+                          </Table>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                          </TableColumnModel>
+                        </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JTextField" name="jTextField2">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField2.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, &quot;Cari&quot;);"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton7">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton7.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/report.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton9">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton9.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/refresh.svg&quot;, 1.5f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton29">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton29ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton29.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/info.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton30">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton30ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton30.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/lightdarkmode.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton32">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton32ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton32.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/exit.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel1">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Pembelian">
+                    <Property name="tabTitle" type="java.lang.String" value="Pembelian"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane3" pref="1170" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jButton37" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton36" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton35" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jButton54" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton53" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton52" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jTextField3" min="-2" pref="135" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jTextField3" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jButton37" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="jButton36" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="jButton35" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jButton52" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="jButton53" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jButton54" min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="jScrollPane3" pref="583" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="jTable3">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="10" rowCount="4">
+                            <Column editable="false" title="Kode Pemesanan" type="java.lang.Object"/>
+                            <Column editable="false" title="Tanggal Pemesanan" type="java.lang.Object"/>
+                            <Column editable="false" title="Distributor" type="java.lang.Object"/>
+                            <Column editable="false" title="Kode Barang" type="java.lang.Object"/>
+                            <Column editable="false" title="Nama Barang" type="java.lang.Object"/>
+                            <Column editable="false" title="Kategori" type="java.lang.Object"/>
+                            <Column editable="false" title="Bentuk" type="java.lang.Object"/>
+                            <Column editable="false" title="Satuan" type="java.lang.Object"/>
+                            <Column editable="false" title="Jumlah Pembelian" type="java.lang.Object"/>
+                            <Column editable="false" title="Harga Total" type="java.lang.Object"/>
+                          </Table>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                          </TableColumnModel>
+                        </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JTextField" name="jTextField3">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField3ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField3.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, &quot;Cari&quot;);"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton35">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton35ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton35.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/add.svg&quot;, 1.6f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton36">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton36ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton36.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/refresh.svg&quot;, 1.5f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton37">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton37ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton37.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/report.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton52">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton52ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton52.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/info.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton53">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton53ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton53.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/lightdarkmode.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton54">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton54ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton54.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/exit.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel5">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Distributor">
+                    <Property name="tabTitle" type="java.lang.String" value="Distributor"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane4" pref="1170" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jButton38" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton39" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton40" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jButton61" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton60" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton59" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jTextField4" min="-2" pref="135" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jTextField4" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jButton38" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jButton39" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jButton40" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jButton61" min="-2" pref="28" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jButton59" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton60" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="jScrollPane4" pref="583" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="jTable4">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="6" rowCount="4">
+                            <Column editable="false" title="Kode Distributor" type="java.lang.Object"/>
+                            <Column editable="false" title="Nama Distributor" type="java.lang.Object"/>
+                            <Column editable="false" title="Alamat" type="java.lang.Object"/>
+                            <Column editable="false" title="Kontak Person" type="java.lang.Object"/>
+                            <Column editable="false" title="Email" type="java.lang.Object"/>
+                            <Column editable="false" title="Nomor Telepon" type="java.lang.Object"/>
+                          </Table>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                          </TableColumnModel>
+                        </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JTextField" name="jTextField4">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField4ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField4.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, &quot;Cari&quot;);"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton38">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton38ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton38.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/report.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton39">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton39ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton39.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/refresh.svg&quot;, 1.5f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton40">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton40ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton40.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/add.svg&quot;, 1.6f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton59">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton59ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton59.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/info.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton60">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton60ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton60.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/lightdarkmode.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton61">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton61ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton61.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/exit.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel8">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Operasional">
+                    <Property name="tabTitle" type="java.lang.String" value="Operasional"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane7" pref="1170" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jButton41" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton42" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton43" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jButton68" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton67" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton66" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jTextField6" min="-2" pref="135" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jTextField6" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton41" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton42" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton43" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton66" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton67" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton68" min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="jScrollPane7" pref="583" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane7">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="jTable6">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="3" rowCount="0">
+                            <Column editable="false" title="Nama Biaya" type="java.lang.Object"/>
+                            <Column editable="false" title="Deskripsi" type="java.lang.Object"/>
+                            <Column editable="false" title="Total Biaya" type="java.lang.Object"/>
+                          </Table>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                          </TableColumnModel>
+                        </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JTextField" name="jTextField6">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="" noResource="true"/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField6.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, &quot;Cari&quot;);"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton41">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton41ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton41.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/report.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton42">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton42ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton42.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/refresh.svg&quot;, 1.5f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton43">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton43ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton43.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/add.svg&quot;, 1.6f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton66">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton66ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton66.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/info.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton67">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton67ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton67.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/lightdarkmode.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton68">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton68ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton68.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/exit.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel6">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Karyawan">
+                    <Property name="tabTitle" type="java.lang.String" value="Karyawan"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane5" pref="1170" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jButton45" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton46" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton47" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jButton75" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton74" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jButton73" min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jTextField5" min="-2" pref="135" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jScrollPane10" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jTextField5" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton45" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton46" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton47" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton73" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton74" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jButton75" min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="jScrollPane5" min="-2" pref="250" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jScrollPane10" pref="315" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane5">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="jTable5">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="5" rowCount="0">
+                            <Column editable="false" title="Nama" type="java.lang.Object"/>
+                            <Column editable="false" title="Username" type="java.lang.Object"/>
+                            <Column editable="false" title="Password" type="java.lang.Object"/>
+                            <Column editable="false" title="Email" type="java.lang.Object"/>
+                            <Column editable="false" title="Kode Akses" type="java.lang.Object"/>
+                          </Table>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                          </TableColumnModel>
+                        </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JTextField" name="jTextField5">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField5ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField5.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, &quot;Cari&quot;);"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton45">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton45ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton45.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/report.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton46">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton46ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton46.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/refresh.svg&quot;, 1.5f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton47">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton47ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton47.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/add.svg&quot;, 1.6f));"/>
+                  </AuxValues>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane10">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="jTable9">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="5" rowCount="4">
+                            <Column editable="false" title="Tanggal" type="java.lang.Object"/>
+                            <Column editable="false" title="Waktu" type="java.lang.Object"/>
+                            <Column editable="false" title="Nama" type="java.lang.Object"/>
+                            <Column editable="false" title="Username" type="java.lang.Object"/>
+                            <Column editable="false" title="Email" type="java.lang.Object"/>
+                          </Table>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                          </TableColumnModel>
+                        </Property>
+                        <Property name="focusable" type="boolean" value="false"/>
+                        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JButton" name="jButton73">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton73ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton73.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/info.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton74">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton74ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton74.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/lightdarkmode.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton75">
+                  <Properties>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton75ActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jButton75.setIcon(new FlatSVGIcon(&quot;com/timone/icon/svg/exit.svg&quot;, 1.3f));"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
+            </Container>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
