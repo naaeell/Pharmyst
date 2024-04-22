@@ -41,15 +41,19 @@ public class RfidPage extends javax.swing.JFrame {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    // Jika tombol Enter ditekan, cek kode RFID
+                    rfidCode = String.valueOf(jPasswordField1.getPassword());
+                    checkRFID();
+                }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                // Ketika tombol dilepas, cek kode RFID
-                rfidCode = String.valueOf(jPasswordField1.getPassword());
-                checkRFID();
+                // Tidak perlu aksi apa pun saat tombol dilepas
             }
         });
+
     }
 
     /**

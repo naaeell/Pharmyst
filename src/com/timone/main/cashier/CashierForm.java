@@ -232,9 +232,9 @@ public class CashierForm extends javax.swing.JFrame {
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)))
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(120, 120, 120))
@@ -291,6 +291,7 @@ public class CashierForm extends javax.swing.JFrame {
         jTextField3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 try {
                     uploadData();
                 } catch (SQLException ex) {
@@ -487,7 +488,7 @@ public class CashierForm extends javax.swing.JFrame {
                     // Simpan ke tabel print_invoice
                     String query = "INSERT INTO print_invoice (id_about, kode_penjualan, kode_barang, jumlah_terjual, total_harga, jumlah_harga, total_bayar, kembali) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement statement = conn.prepareStatement(query);
-                    statement.setInt(1, getIdAboutFromDatabase(conn));
+                    statement.setString(1, getIdAboutFromDatabase(conn));
                     statement.setString(2, kodePenjualan);
                     statement.setString(3, kodeBarang);
                     statement.setInt(4, qty);
@@ -546,8 +547,8 @@ public class CashierForm extends javax.swing.JFrame {
         return hargaPcs;
     }
 
-    private int getIdAboutFromDatabase(Connection conn) {
-        int idAbout = -1; // Inisialisasi dengan nilai default
+    private String getIdAboutFromDatabase(Connection conn) {
+        String result = ""; // Inisialisasi dengan string kosong
 
         try {
             // Buat query SQL untuk mengambil id_about dari tabel about
@@ -559,16 +560,18 @@ public class CashierForm extends javax.swing.JFrame {
 
             // Jika hasil query tidak kosong, ambil nilai id_about
             if (resultSet.next()) {
-                idAbout = resultSet.getInt("id_about");
+                String idAbout = resultSet.getString("id_about");
+                result = String.valueOf(idAbout); // Konversi nilai integer ke string
             } else {
-                System.out.println("Tidak ada id_about yang sesuai ditemukan dalam database.");
+                result = "Tidak ada id_about yang sesuai ditemukan dalam database.";
             }
         } catch (SQLException e) {
-            System.out.println("Terjadi kesalahan SQL saat mengambil id_about: " + e.getMessage());
+            result = "Terjadi kesalahan SQL saat mengambil id_about: " + e.getMessage();
         }
 
-        return idAbout;
+        return result;
     }
+
 
     
     private double getLabaPcs(Connection conn, String kodeBarang) throws SQLException {

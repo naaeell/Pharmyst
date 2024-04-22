@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" language="groovy" pageWidth="226" pageHeight="510" columnWidth="164" leftMargin="31" rightMargin="31" topMargin="19" bottomMargin="19" uuid="33332c49-ba42-41e6-bde5-741d18f98bd3">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" language="groovy" pageWidth="226" pageHeight="850" columnWidth="188" leftMargin="19" rightMargin="19" topMargin="0" bottomMargin="0" uuid="33332c49-ba42-41e6-bde5-741d18f98bd3">
 	<property name="ireport.zoom" value="3.1384283767210084"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="311"/>
+	<property name="ireport.y" value="329"/>
 	<queryString>
 		<![CDATA[SELECT 
     a.nama_usaha,
@@ -193,7 +193,7 @@ JOIN
 		</band>
 	</detail>
 	<summary>
-		<band height="101" splitType="Stretch">
+		<band height="160" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="164" height="0" uuid="a7f9bd4d-2681-4f52-8170-c437e2e9aee6"/>
 				<box>
@@ -261,8 +261,11 @@ JOIN
 				<text><![CDATA[Terimakasih!]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="89" width="164" height="11" uuid="dd6fd803-b624-452f-8422-f433a73d4f75"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="0" y="89" width="164" height="53" uuid="dd6fd803-b624-452f-8422-f433a73d4f75"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="DejaVu Sans Mono" size="8"/>
 				</textElement>
 				<text><![CDATA[Semoga sehat selalu]]></text>
