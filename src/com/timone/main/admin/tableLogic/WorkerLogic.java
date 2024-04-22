@@ -40,9 +40,9 @@ public class WorkerLogic {
             while (rs.next()) {
                 Object[] row = {
                         rs.getString("nama"),
-                        rs.getString("email"),
                         rs.getString("username"),
                         rs.getString("password"),
+                        rs.getString("email"),
                         rs.getString("rfid")
                 };
                 model.addRow(row);
