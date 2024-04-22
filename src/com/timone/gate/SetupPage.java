@@ -319,66 +319,63 @@ public class SetupPage extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(SetupPage.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.dispose();
     }//GEN-LAST:event_createAccountActionPerformed
     
     private void focusSet(){
-        namaPemilik.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            username.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
-        }
-    });
-        
-        username.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            password.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
-        }
-    });
-        
-        password.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            rfid.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
-        }
-    });
-        
-        rfid.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            namaUsaha.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
-        }
-    });
-        
-        namaUsaha.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            teleponUsaha.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
-        }
-    });
-        
-        teleponUsaha.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            alamat.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
-        }
-    });
-        
-        alamat.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            
-            try {
-                InsertAbout();
-            } catch (SQLException ex) {
-                Logger.getLogger(SetupPage.class.getName()).log(Level.SEVERE, null, ex);
+            namaPemilik.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                username.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
             }
-            
-        }
-    });
-        
-        
+        });
+
+            username.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                password.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
+            }
+        });
+
+            password.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rfid.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
+            }
+        });
+
+            rfid.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                namaUsaha.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
+            }
+        });
+
+            namaUsaha.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                teleponUsaha.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
+            }
+        });
+
+            teleponUsaha.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                alamat.requestFocusInWindow(); // Memindahkan fokus ke JPasswordField
+            }
+        });
+
+            alamat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                try {
+                    InsertAbout();
+                } catch (SQLException ex) {
+                    Logger.getLogger(SetupPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }); 
     }
     
     private void InsertAbout() throws SQLException {
@@ -392,6 +389,13 @@ public class SetupPage extends javax.swing.JFrame {
         String passwordValue = new String(password.getPassword()); // Password sebaiknya diambil sebagai char array
         String rfidValue = new String(rfid.getPassword()); // Juga untuk kode akses
 
+        // Memeriksa apakah semua variabel kosong
+        if (namaPemilikValue.isEmpty() || namaUsahaValue.isEmpty() || teleponUsahaValue.isEmpty() ||
+                alamatValue.isEmpty() || usernameValue.isEmpty() || passwordValue.isEmpty() || rfidValue.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua kolom harus diisi!");
+            return; // Keluar dari metode jika ada variabel yang kosong
+        }
+
         // Mendapatkan koneksi ke database dari kelas DbConnection
         Connection conn = DbConnection.getConnection();
 
@@ -399,40 +403,6 @@ public class SetupPage extends javax.swing.JFrame {
             ResultSet resultSet = null; // Declare ResultSet here
 
             try {
-                // Memeriksa keberadaan username dan password yang sama
-                String checkQuery = "SELECT COUNT(*) FROM akun_karyawan WHERE username = ? AND password = ?";
-                PreparedStatement checkStatement = conn.prepareStatement(checkQuery);
-                checkStatement.setString(1, usernameValue);
-                checkStatement.setString(2, passwordValue);
-                resultSet = checkStatement.executeQuery();
-                resultSet.next();
-                int count = resultSet.getInt(1);
-                if (count > 0) {
-                    JOptionPane.showMessageDialog(null, "Username dan password sudah digunakan untuk karyawan. Harap gunakan yang lain.");
-                    username.setText("");
-                    password.setText("");
-                    username.requestFocusInWindow();
-                    username.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            password.requestFocusInWindow();
-                        }
-                    });
-                    password.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-
-                            try {
-                                InsertAbout();
-                            } catch (SQLException ex) {
-                                Logger.getLogger(SetupPage.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-
-                        }
-                    });
-                    return; // Keluar dari metode jika username dan password sudah ada
-                }
-
                 // Menyiapkan kueri SQL
                 String query = "INSERT INTO about (id_about, nama_pemilik, nama_usaha, no_telp_usaha, alamat, username, password, rfid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement statement = conn.prepareStatement(query);
@@ -453,6 +423,7 @@ public class SetupPage extends javax.swing.JFrame {
                     this.dispose();
                     new LoginPage().setVisible(true);  
                 }
+                
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengunggah ke database " + e.getMessage());
             } finally {
@@ -469,6 +440,7 @@ public class SetupPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Gagal terhubung ke database");
         }
     }
+
     
     public static String generateId() {
         String prefix = "ID";

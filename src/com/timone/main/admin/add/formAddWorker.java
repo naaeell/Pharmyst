@@ -82,7 +82,7 @@ public class FormAddWorker extends javax.swing.JFrame {
         jLabel1.setText("Nama Karyawan");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("Usrename");
+        jLabel3.setText("Username");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Password");

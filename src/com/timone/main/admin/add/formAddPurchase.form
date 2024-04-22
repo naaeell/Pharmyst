@@ -147,7 +147,7 @@
                                   <Component id="jTextField10" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" min="-2" pref="16" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jTextField5" min="-2" pref="32" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
@@ -336,7 +336,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Total Harga Pembelian"/>
+        <Property name="text" type="java.lang.String" value="Harga Pembelian"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField5">

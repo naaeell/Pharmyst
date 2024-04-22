@@ -16,6 +16,7 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.gate.LoginPage;
 import com.timone.main.admin.theme.ThemeSync;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -1152,7 +1153,14 @@ public class MainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton41ActionPerformed
 
     private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
+        // Cek apakah jendela sudah terbuka
+    if (!isWindowOpen) {
+        // Jika belum terbuka, tambahkan logika untuk membuka jendela di sini
         ThemeSync.addPurchaseThemeSync();
+        
+        // Set flag menjadi true untuk menandai bahwa jendela sudah terbuka
+        isWindowOpen = true;
+    }
     }//GEN-LAST:event_jButton35ActionPerformed
 
     private void jButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton40ActionPerformed
@@ -1280,5 +1288,5 @@ public class MainAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
-
+    private boolean isWindowOpen = false;
 }
