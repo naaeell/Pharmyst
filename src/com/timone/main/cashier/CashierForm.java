@@ -373,6 +373,7 @@ public class CashierForm extends javax.swing.JFrame {
 
         // Set jTextField3 menjadi defaultnya disabled
         jTextField3.setEnabled(false);
+        jButton1.setEnabled(false);
     }
     
     public void uploadData() throws SQLException {
@@ -715,6 +716,11 @@ public class CashierForm extends javax.swing.JFrame {
                 totalHarga += Double.parseDouble(model.getValueAt(i, 6).toString());
             }
             double change = amountPaid - totalHarga;
+            if (change < 0) {
+            jButton1.setEnabled(false);
+            } else {
+                jButton1.setEnabled(true);
+            }
             NumberFormat formatter = new DecimalFormat("#,###");
             String changeString = formatter.format(change);
             jLabel7.setText(String.format("Kembali    Rp %s", changeString));
@@ -728,6 +734,7 @@ public class CashierForm extends javax.swing.JFrame {
             NumberFormat formatter = new DecimalFormat("#,###");
             String totalRupiah = "Total    Rp " + formatter.format(totalHarga);
             jLabel7.setText(totalRupiah);
+            
         }
     }
 

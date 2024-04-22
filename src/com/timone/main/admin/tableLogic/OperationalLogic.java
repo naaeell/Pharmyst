@@ -26,7 +26,7 @@ public class OperationalLogic {
             Connection conn = DbConnection.getConnection();
 
             // Membuat statement SQL untuk mengambil data biaya
-            String sql = "SELECT nama_biaya, tanggal, deskripsi, total_biaya FROM operasional";
+            String sql = "SELECT nama_biaya, deskripsi, total_biaya FROM operasional";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -40,7 +40,6 @@ public class OperationalLogic {
             while (rs.next()) {
                 Object[] row = {
                         rs.getString("nama_biaya"),
-                        rs.getString("tanggal"),
                         rs.getString("deskripsi"),
                         rs.getInt("total_biaya")
                 };
