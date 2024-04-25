@@ -393,24 +393,30 @@ public class FormAddPurchase extends javax.swing.JFrame {
         }
 
         // Lanjutkan dengan menambahkan pembelian dan barang
-        insertPembelian();
         insertBarang();
+        insertPembelian();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
    
     private void addTextFilters() {
-        // Filter untuk JTextField yang tidak bisa input symbol
+        
+        // Filter untuk JTextField yang tidak bisa input symbol kecuali spasi
         JTextField[] noSymbolFields = {jTextField1, jTextField2, jTextField3, jTextField10};
         for (JTextField field : noSymbolFields) {
             ((AbstractDocument) field.getDocument()).setDocumentFilter(new DocumentFilter() {
                 @Override
                 public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                    if (text.matches("[^\\W_]*")) {
-                        super.replace(fb, offset, length, text, attrs);
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < text.length(); i++) {
+                        char c = text.charAt(i);
+                        if (Character.isLetterOrDigit(c) || Character.isWhitespace(c)) {
+                            sb.append(c);
+                        }
                     }
+                    super.replace(fb, offset, length, sb.toString(), attrs);
                 }
             });
         }
-
 
         // Filter untuk JTextField yang hanya bisa input angka
         JTextField[] numericFields = {jTextField4, jTextField5, jTextField6, jTextField7};

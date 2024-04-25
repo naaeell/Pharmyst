@@ -16,7 +16,6 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.gate.LoginPage;
 import com.timone.main.admin.theme.ThemeSync;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -31,8 +30,8 @@ public class MainAdmin extends javax.swing.JFrame {
         UIManager.put( "TextComponent.arc", 10 );
         initComponents();
         InventoryLogic.inventoryTable(jTable1, jTextField1);
-        SalesLogic.salesTable(jTable2);
-        PurchaseLogic.PurchaseTable(jTable3);
+        SalesLogic.salesTable(jTable2, jTextField2);
+        PurchaseLogic.PurchaseTable(jTable3, jTextField3);
         DistributorLogic.DistributorTable(jTable4);
         OperationalLogic.OperationTable(jTable6);
         WorkerLogic.WorkerTable(jTable5);
@@ -53,6 +52,23 @@ public class MainAdmin extends javax.swing.JFrame {
                 InventoryLogic.inventoryTable(jTable1, jTextField1);
             }
         });
+        jTextField2.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                SalesLogic.salesTable(jTable2, jTextField2);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                SalesLogic.salesTable(jTable2, jTextField2);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                SalesLogic.salesTable(jTable2, jTextField2);
+            }
+        });
+        
     }
 
     /**
@@ -439,6 +455,7 @@ public class MainAdmin extends javax.swing.JFrame {
         jTable3.setFocusable(false);
         jTable3.setRequestFocusEnabled(false);
         jTable3.setRowSelectionAllowed(false);
+        jTable3.setShowGrid(false);
         jTable3.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(jTable3);
 
@@ -1120,11 +1137,11 @@ public class MainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        SalesLogic.salesTable(jTable2);
+        SalesLogic.salesTable(jTable2, jTextField2);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
-        PurchaseLogic.PurchaseTable(jTable3);
+        refreshTable();
     }//GEN-LAST:event_jButton36ActionPerformed
 
     private void jButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton39ActionPerformed
@@ -1153,14 +1170,7 @@ public class MainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton41ActionPerformed
 
     private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
-        // Cek apakah jendela sudah terbuka
-    if (!isWindowOpen) {
-        // Jika belum terbuka, tambahkan logika untuk membuka jendela di sini
         ThemeSync.addPurchaseThemeSync();
-        
-        // Set flag menjadi true untuk menandai bahwa jendela sudah terbuka
-        isWindowOpen = true;
-    }
     }//GEN-LAST:event_jButton35ActionPerformed
 
     private void jButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton40ActionPerformed
@@ -1212,7 +1222,11 @@ public class MainAdmin extends javax.swing.JFrame {
         LoginPage.main(new String[]{});
         this.dispose();
     }//GEN-LAST:event_jButton75ActionPerformed
-
+    
+    public void refreshTable(){
+        PurchaseLogic.PurchaseTable(jTable3, jTextField3);
+    }
+    
     public static void main(String args[]) {
     FlatGitHubIJTheme.setup();
     java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1289,4 +1303,6 @@ public class MainAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
     private boolean isWindowOpen = false;
+    private boolean isThemeSyncVisible = false;
+
 }

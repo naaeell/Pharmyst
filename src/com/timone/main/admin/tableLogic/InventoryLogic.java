@@ -32,138 +32,157 @@ import javax.swing.table.DefaultTableModel;
 public class InventoryLogic {
 
     public static void inventoryTable(JTable jTable1, JTextField jTextField1) {
-    try {
+        try {
         // Mendapatkan koneksi ke database dari kelas DbConnection
-        Connection conn = DbConnection.getConnection();
+            Connection conn = DbConnection.getConnection();
 
-        // Membuat statement SQL tanpa logika status barang
-        String sql = "SELECT " +
-                     "    barang.kode_barang, " +
-                     "    barang.nama_barang, " +
-                     "    kategori_obat.nama_kategori, " +
-                     "    bentuk_obat.nama_bentuk_obat, " +
-                     "    barang.satuan_obat, " +
-                     "    barang.kadaluarsa, " +
-                     "    barang.kuantitas, " +
-                     "    barang.harga_pcs " +
-                     "FROM " +
-                     "    barang " +
-                     "INNER JOIN kategori_obat ON barang.kode_kategori_obat = kategori_obat.kode_kategori_obat " +
-                     "INNER JOIN bentuk_obat ON barang.kode_bentuk_obat = bentuk_obat.kode_bentuk_obat " +
-                     "WHERE " +
-                     "    barang.kode_barang LIKE ? OR " +
-                     "    barang.nama_barang LIKE ? OR " +
-                     "    kategori_obat.nama_kategori LIKE ? OR " +
-                     "    bentuk_obat.nama_bentuk_obat LIKE ? OR " +
-                     "    barang.satuan_obat LIKE ?";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        String searchQuery = "%" + jTextField1.getText() + "%";
-        for (int i = 1; i <= 5; i++) {
-            stmt.setString(i, searchQuery);
-        }
-        ResultSet rs = stmt.executeQuery();
+            String sql = "SELECT " +
+                 "    barang.kode_barang, " +
+                 "    barang.nama_barang, " +
+                 "    kategori_obat.nama_kategori, " +
+                 "    bentuk_obat.nama_bentuk_obat, " +
+                 "    barang.satuan_obat, " +
+                 "    barang.kadaluarsa, " +
+                 "    barang.kuantitas, " +
+                 "    barang.harga_pcs " +
+                 "FROM " +
+                 "    barang " +
+                 "INNER JOIN kategori_obat ON barang.kode_kategori_obat = kategori_obat.kode_kategori_obat " +
+                 "INNER JOIN bentuk_obat ON barang.kode_bentuk_obat = bentuk_obat.kode_bentuk_obat " +
+                 "WHERE " +
+                 "    LOWER(barang.kode_barang) LIKE ? OR " +
+                 "    LOWER(barang.nama_barang) LIKE ? OR " +
+                 "    LOWER(kategori_obat.nama_kategori) LIKE ? OR " +
+                 "    LOWER(bentuk_obat.nama_bentuk_obat) LIKE ? OR " +
+                 "    LOWER(barang.satuan_obat) LIKE ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+        String searchQuery = "%" + jTextField1.getText().toLowerCase() + "%"; // Mengubah ke huruf kecil
+                for (int i = 1; i <= 5; i++) {
+                    stmt.setString(i, searchQuery);
+                }
+            ResultSet rs = stmt.executeQuery();
+
 
         // Mendapatkan model tabel yang ada
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         // Menghapus semua baris yang sudah ada dari model tabel
-        model.setRowCount(0);
+            model.setRowCount(0);
 
         // Memproses hasil kueri
-        while (rs.next()) {
+                while (rs.next()) {
             // Menentukan status berdasarkan tanggal kadaluarsa
-            String status;
-            if (rs.getDate("kadaluarsa").before(new Date())) {
-                status = "Expired";
-            } else if (rs.getDate("kadaluarsa").before(addMonths(new Date(), 3))) {
-                status = "Mendekati Expired";
-            } else if (rs.getInt("kuantitas") <= 0) {
-                status = "Stok habis";
-            } else if (rs.getInt("kuantitas") <= 15) {
-                status = "Stok akan habis";
-            } else if (rs.getDate("kadaluarsa").before(addMonths(new Date(), 6))) {
-                status = "Expired dalam 6 bulan";
-            } else {
-                status = "Aman";
-            }
+                    String status;
+                    if (rs.getDate("kadaluarsa").before(new Date())) {
+                        status = "Expired";
+                    } else if (rs.getDate("kadaluarsa").before(addMonths(new Date(), 3))) {
+                        status = "Mendekati Expired";
+                    } else if (rs.getInt("kuantitas") <= 0) {
+                        status = "Stok habis";
+                    } else if (rs.getInt("kuantitas") <= 15) {
+                        status = "Stok akan habis";
+                    } else if (rs.getDate("kadaluarsa").before(addMonths(new Date(), 6))) {
+                        status = "Expired dalam 6 bulan";
+                    } else {
+                        status = "Aman";
+                    }
 
             // Format tanggal kadaluarsa
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-            String kadaluarsaFormatted = dateFormat.format(rs.getDate("kadaluarsa"));
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+                    String kadaluarsaFormatted = dateFormat.format(rs.getDate("kadaluarsa"));
 
-            Object[] row = {
-                    status,
-                    rs.getString("kode_barang"),
-                    rs.getString("nama_barang"),
-                    rs.getString("nama_kategori"),
-                    rs.getString("nama_bentuk_obat"),
-                    rs.getString("satuan_obat"),
-                    kadaluarsaFormatted,
-                    rs.getInt("kuantitas"),
-                    rs.getInt("harga_pcs")
-            };
-            model.addRow(row);
-        }
+                    Object[] row = {
+                            status,
+                            rs.getString("kode_barang"),
+                            rs.getString("nama_barang"),
+                            rs.getString("nama_kategori"),
+                            rs.getString("nama_bentuk_obat"),
+                            rs.getString("satuan_obat"),
+                            kadaluarsaFormatted,
+                            rs.getInt("kuantitas"),
+                            rs.getInt("harga_pcs")
+                    };
+                    model.addRow(row);
+                }
 
         // Setelah model tabel diisi ulang, panggil method setRowColor() untuk menerapkan render warna
-        setRowColor(jTable1);
+            setRowColor(jTable1);
 
         // Menutup koneksi
-        rs.close();
-        stmt.close();
-        conn.close();
-    } catch (SQLException e) {
-        e.printStackTrace();
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
     }
-    
-    jTable1.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            int r = jTable1.rowAtPoint(e.getPoint());
-            if (r >= 0 && r < jTable1.getRowCount()) {
-                jTable1.setRowSelectionInterval(r, r);
-            } else {
-                jTable1.clearSelection();
-            }
 
-            int rowIndex = jTable1.getSelectedRow();
-            if (rowIndex < 0)
-                return;
+        jTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                int r = jTable1.rowAtPoint(e.getPoint());
+                if (r >= 0 && r < jTable1.getRowCount()) {
+                    jTable1.setRowSelectionInterval(r, r);
+                } else {
+                    jTable1.clearSelection();
+                }
 
-            if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
-                JPopupMenu popup = new JPopupMenu();
+                int rowIndex = jTable1.getSelectedRow();
+                if (rowIndex < 0)
+                    return;
 
-                // Tambahkan opsi yang ingin Anda tampilkan di sini
-                JMenuItem option1 = new JMenuItem("Opsi 1");
-                JMenuItem option2 = new JMenuItem("Opsi 2");
+                if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
+                    JPopupMenu popup = new JPopupMenu();
 
-                // Tambahkan action listener untuk setiap opsi
-                option1.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
+                    // Tambahkan opsi yang ingin Anda tampilkan di sini
+                JMenuItem option1 = new JMenuItem("Tandai Stok Kosong");
+                JMenuItem option2 = new JMenuItem("Update Stok");
+                JMenuItem option3 = new JMenuItem("Hapus Barang");
+                JMenuItem option4 = new JMenuItem("Detail Barang");
+
+                    // Tambahkan action listener untuk setiap opsi
+                    option1.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
                         // Tindakan yang akan dilakukan ketika opsi 1 dipilih
                         System.out.println("Opsi 1 dipilih pada baris: " + rowIndex);
-                    }
-                });
+                                    }
+                    });
 
-                option2.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Tindakan yang akan dilakukan ketika opsi 2 dipilih
-                        System.out.println("Opsi 2 dipilih pada baris: " + rowIndex);
-                    }
-                });
+                    option2.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            // Tindakan yang akan dilakukan ketika opsi 2 dipilih
+                            System.out.println("Opsi 2 dipilih pada baris: " + rowIndex);
+                        }
+                    });
+                    
+                    option3.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            // Tindakan yang akan dilakukan ketika opsi 2 dipilih
+                            System.out.println("Opsi 3 dipilih pada baris: " + rowIndex);
+                        }
+                    });
+                    
+                    option4.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            // Tindakan yang akan dilakukan ketika opsi 2 dipilih
+                            System.out.println("Opsi 4 dipilih pada baris: " + rowIndex);
+                        }
+                    });
+                    
 
-                // Tambahkan opsi ke menu popup
-                popup.add(option1);
-                popup.add(option2);
+                    // Tambahkan opsi ke menu popup
+                    popup.add(option1);
+                    popup.add(option2);
+                    popup.add(option3);
+                    popup.add(option4);
 
-                // Tampilkan menu popup di posisi klik mouse
-                popup.show(e.getComponent(), e.getX(), e.getY());
+                    // Tampilkan menu popup di posisi klik mouse
+                    popup.show(e.getComponent(), e.getX(), e.getY());
+                }
             }
-        }
-    });
-}
+        });
+    }
 
-
+    
     // Method untuk menambah bulan pada tanggal (buat InventoryTable)
     public static Date addMonths(Date date, int months) {
         Calendar cal = Calendar.getInstance();

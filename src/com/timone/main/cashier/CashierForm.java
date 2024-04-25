@@ -261,6 +261,7 @@ public class CashierForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(CashierForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        jButton1.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -793,7 +794,6 @@ public class CashierForm extends javax.swing.JFrame {
             
         }
     }
-
 
     public static void main(String args[]) {
         FlatGitHubIJTheme.setup();
