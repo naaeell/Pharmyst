@@ -338,6 +338,7 @@ public class FormAddDistributor extends javax.swing.JFrame {
             // Menjalankan pernyataan SQL untuk menambahkan data
             statement.executeUpdate();
             System.out.println("Data distributor berhasil disimpan.");
+            dispose();
         } catch (SQLException e) {
             System.out.println("Terjadi kesalahan saat menyimpan data distributor: " + e.getMessage());
         } finally {

@@ -405,6 +405,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
             while (resultSet.next()) {
                 String distributorName = resultSet.getString("nama_distributor");
                 jComboBox1.addItem(distributorName);
+                 dispose();
             }
 
         } catch (SQLException e) {
