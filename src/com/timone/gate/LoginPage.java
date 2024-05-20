@@ -188,6 +188,7 @@ public class LoginPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Username atau Password salah!");
             jTextField1.setText("");
             jPasswordField1.setText("");
+            jTextField1.requestFocusInWindow();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage());
             e.printStackTrace();

@@ -10,6 +10,7 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DbConnection;
+import static com.timone.gate.SetupPage.generateId;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -510,17 +511,8 @@ public class FormAbout extends javax.swing.JFrame {
     }//GEN-LAST:event_alamatActionPerformed
 
     private void createAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountActionPerformed
-        try {
-            InsertAbout();
-        } catch (SQLException ex) {
-            Logger.getLogger(FormAbout.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.dispose();
+        
     }//GEN-LAST:event_createAccountActionPerformed
-
-    private void alamat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alamat1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_alamat1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
@@ -537,6 +529,10 @@ public class FormAbout extends javax.swing.JFrame {
              ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void alamat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alamat1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_alamat1ActionPerformed
     
     private void focusSet(){
         namaPemilik.addActionListener(new ActionListener() {
@@ -585,11 +581,6 @@ public class FormAbout extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             
-            try {
-                InsertAbout();
-            } catch (SQLException ex) {
-                Logger.getLogger(FormAbout.class.getName()).log(Level.SEVERE, null, ex);
-            }
             
         }
     });
@@ -597,92 +588,68 @@ public class FormAbout extends javax.swing.JFrame {
         
     }
     
-    private void InsertAbout() throws SQLException {
-    // Mengambil nilai dari field input
-    String namaPemilikValue = namaPemilik.getText();
-    String namaUsahaValue = namaUsaha.getText();
-    String teleponUsahaValue = teleponUsaha.getText();
-    String alamatValue = alamat.getText();
-    String usernameValue = username.getText();
-    String passwordValue = new String(password.getPassword()); // Password sebaiknya diambil sebagai char array
-    String rfidValue = new String(rfid.getPassword()); // Juga untuk kode akses
-
-    // Mendapatkan koneksi ke database dari kelas DbConnection
-    Connection conn = DbConnection.getConnection();
-
-    if (conn != null) {
-        ResultSet resultSet = null; // Declare ResultSet here
-
-        try {
-            // Memeriksa keberadaan username dan password yang sama
-            String checkQuery = "SELECT COUNT(*) FROM akun_karyawan WHERE username = ? AND password = ?";
-            PreparedStatement checkStatement = conn.prepareStatement(checkQuery);
-            checkStatement.setString(1, usernameValue);
-            checkStatement.setString(2, passwordValue);
-            resultSet = checkStatement.executeQuery();
-            resultSet.next();
-            int count = resultSet.getInt(1);
-            if (count > 0) {
-                JOptionPane.showMessageDialog(null, "Username dan password sudah digunakan untuk karyawan. Harap gunakan yang lain.");
-                username.setText("");
-                password.setText("");
-                username.requestFocusInWindow();
-                username.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        password.requestFocusInWindow();
-                    }
-                });
-                password.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        try {
-                            InsertAbout();
-                        } catch (SQLException ex) {
-                            Logger.getLogger(FormAbout.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                    }
-                });
-                return; // Keluar dari metode jika username dan password sudah ada
-            }
-
-            // Menyiapkan kueri SQL
-            String query = "INSERT INTO about (nama_pemilik, nama_usaha, no_telp_usaha, alamat, username, password, rfid) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = conn.prepareStatement(query);
-
-            // Mengisi nilai parameter kueri
-            statement.setString(1, namaPemilikValue);
-            statement.setString(2, namaUsahaValue);
-            statement.setString(3, teleponUsahaValue);
-            statement.setString(4, alamatValue);
-            statement.setString(5, usernameValue);
-            statement.setString(6, passwordValue);
-            statement.setString(7, rfidValue);
-
-            // Menjalankan kueri
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                this.dispose();
-                new LoginPage().setVisible(true);  
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengunggah ke database");
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close(); // Close ResultSet
-                }
-                conn.close(); // Tutup koneksi setelah selesai digunakan
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menutup koneksi");
-            }
+    private void updateAbout() throws SQLException{
+        // Mengambil nilai dari field input
+        String IdAbout = generateId();
+        String namaPemilikValue = namaPemilik.getText();
+        String namaUsahaValue = namaUsaha.getText();
+        String teleponUsahaValue = teleponUsaha.getText();
+        String alamatValue = alamat.getText();
+        String usernameValue = username.getText();
+        String passwordValue = new String(password.getPassword()); // Password sebaiknya diambil sebagai char array
+        String rfidValue = new String(rfid.getPassword()); // Juga untuk kode akses
+        
+        // Memeriksa apakah semua variabel kosong
+        if (namaPemilikValue.isEmpty() || namaUsahaValue.isEmpty() || teleponUsahaValue.isEmpty() ||
+                alamatValue.isEmpty() || usernameValue.isEmpty() || passwordValue.isEmpty() || rfidValue.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua kolom harus diisi!");
+            return; // Keluar dari metode jika ada variabel yang kosong
         }
-    } else {
-        JOptionPane.showMessageDialog(null, "Gagal terhubung ke database");
+        
+            // Mendapatkan koneksi ke database dari kelas DbConnection
+            Connection conn = DbConnection.getConnection();
+        
+        if (conn != null) {
+            ResultSet resultSet = null; // Declare ResultSet here
+
+            try {
+                // Menyiapkan kueri SQL
+                String query = "INSERT INTO about (id_about, nama_pemilik, nama_usaha, no_telp_usaha, alamat, username, password, rfid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement statement = conn.prepareStatement(query);
+
+                // Mengisi nilai parameter kueri
+                statement.setString(1, IdAbout);
+                statement.setString(2, namaPemilikValue);
+                statement.setString(3, namaUsahaValue);
+                statement.setString(4, teleponUsahaValue);
+                statement.setString(5, alamatValue);
+                statement.setString(6, usernameValue);
+                statement.setString(7, passwordValue);
+                statement.setString(8, rfidValue);
+
+                // Menjalankan kueri
+                int rowsInserted = statement.executeUpdate();
+                if (rowsInserted > 0) {
+                    this.dispose();
+                    new LoginPage().setVisible(true);  
+                }
+                
+                } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengunggah ke database " + e.getMessage());
+            } finally {
+                try {
+                    if (resultSet != null) {
+                        resultSet.close(); // Close ResultSet
+                    }
+                    conn.close(); // Tutup koneksi setelah selesai digunakan
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menutup koneksi");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Gagal terhubung ke database");
+        }
     }
-}
 
     
     /**

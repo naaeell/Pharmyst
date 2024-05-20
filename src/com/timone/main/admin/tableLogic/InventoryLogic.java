@@ -7,23 +7,25 @@ package com.timone.main.admin.tableLogic;
 import com.timone.connection.DbConnection;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JPopupMenu;
+import javax.swing.JMenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -63,11 +65,12 @@ public class InventoryLogic {
         }
         ResultSet rs = stmt.executeQuery();
 
-        // Mendapatkan model tabel yang ada
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-
         // Menghapus semua baris yang sudah ada dari model tabel
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
+
+        // List untuk menyimpan baris data
+        List<Object[]> rowDataList = new ArrayList<>();
 
         // Memproses hasil kueri
         while (rs.next()) {
@@ -102,6 +105,30 @@ public class InventoryLogic {
                     rs.getInt("kuantitas"),
                     rs.getInt("harga_pcs")
             };
+
+            // Tambahkan baris ke list
+            rowDataList.add(row);
+        }
+
+        // Urutkan list berdasarkan status
+        rowDataList.sort((row1, row2) -> {
+            String status1 = (String) row1[0];
+            String status2 = (String) row2[0];
+            if (status1.equals("Expired") && !status2.equals("Expired")) {
+                return -1;
+            } else if (!status1.equals("Expired") && status2.equals("Expired")) {
+                return 1;
+            } else if (status1.equals("Aman") && !status2.equals("Aman")) {
+                return 1;
+            } else if (!status1.equals("Aman") && status2.equals("Aman")) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+
+        // Tambahkan baris yang sudah diurutkan ke model tabel
+        for (Object[] row : rowDataList) {
             model.addRow(row);
         }
 
@@ -115,7 +142,7 @@ public class InventoryLogic {
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    
+
     jTable1.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseReleased(MouseEvent e) {
@@ -130,7 +157,7 @@ public class InventoryLogic {
             if (rowIndex < 0)
                 return;
 
-            if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
+            if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
                 JPopupMenu popup = new JPopupMenu();
 
                 // Tambahkan opsi yang ingin Anda tampilkan di sini
@@ -163,8 +190,7 @@ public class InventoryLogic {
     });
 }
 
-
-    // Method untuk menambah bulan pada tanggal (buat InventoryTable)
+    // Method untuk menambah bulan ke tanggal
     public static Date addMonths(Date date, int months) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);

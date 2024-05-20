@@ -14,8 +14,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 
 /**
@@ -35,6 +40,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
         ComboboxBentuk();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jTextField7.setEnabled(false);
+        addTextFilters();
     }
 
     /**
@@ -142,7 +148,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
         jLabel10.setText("Jumlah Pembelian");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel11.setText("Total Harga Pembelian");
+        jLabel11.setText("Harga Pembelian");
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -306,7 +312,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(38, 38, 38)
@@ -357,7 +363,6 @@ public class FormAddPurchase extends javax.swing.JFrame {
             jTextField6.setEnabled(true);
             jTextField7.setEnabled(false);
             jTextField7.setText("");
-            
         }
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
@@ -381,11 +386,53 @@ public class FormAddPurchase extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Periksa apakah semua variabel termasuk jDateChooser kosong
+        if (isFormEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua isian harus diisi terlebih dahulu.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return; // Keluar dari metode jika form kosong
+        }
+
+        // Lanjutkan dengan menambahkan pembelian dan barang
         insertBarang();
         insertPembelian();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
    
-   private void ComboboxPBF() {
+    private void addTextFilters() {
+        
+        // Filter untuk JTextField yang tidak bisa input symbol kecuali spasi
+        JTextField[] noSymbolFields = {jTextField1, jTextField2, jTextField3, jTextField10};
+        for (JTextField field : noSymbolFields) {
+            ((AbstractDocument) field.getDocument()).setDocumentFilter(new DocumentFilter() {
+                @Override
+                public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < text.length(); i++) {
+                        char c = text.charAt(i);
+                        if (Character.isLetterOrDigit(c) || Character.isWhitespace(c)) {
+                            sb.append(c);
+                        }
+                    }
+                    super.replace(fb, offset, length, sb.toString(), attrs);
+                }
+            });
+        }
+
+        // Filter untuk JTextField yang hanya bisa input angka
+        JTextField[] numericFields = {jTextField4, jTextField5, jTextField6, jTextField7};
+        for (JTextField field : numericFields) {
+            ((AbstractDocument) field.getDocument()).setDocumentFilter(new DocumentFilter() {
+                @Override
+                public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                    if (text.matches("[\\d]*")) {
+                        super.replace(fb, offset, length, text, attrs);
+                    }
+                }
+            });
+        }
+    }
+    
+    private void ComboboxPBF() {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -581,11 +628,35 @@ public class FormAddPurchase extends javax.swing.JFrame {
 
         return kodeBentuk;
     }
+    
+    // Fungsi untuk memeriksa apakah semua variabel form kosong
+    private boolean isFormEmpty() {
+        // Periksa jika jTextField1 kosong atau jDateChooser1 belum dipilih
+        if (jTextField1.getText().isEmpty() || jDateChooser1.getDate() == null) {
+            return true;
+        }
 
-    // Method untuk melakukan operasi insert ke tabel pembelian
+        // Periksa jika jComboBox1 belum dipilih
+        if (jComboBox1.getSelectedIndex() == -1) {
+            return true;
+        }
+
+        // Periksa jika jTextField2, jTextField4, jTextField5, dan jTextField6 kosong
+        if (jTextField2.getText().isEmpty() || jTextField4.getText().isEmpty() || jTextField5.getText().isEmpty() || jTextField6.getText().isEmpty()) {
+            return true;
+        }
+
+        // Periksa jika jCheckBox2 dipilih tetapi jTextField7 kosong
+        if (jCheckBox2.isSelected() && jTextField7.getText().isEmpty()) {
+            return true;
+        }
+
+        // Semua isian terisi
+        return false;
+    }
+    
     private void insertPembelian() {
         String kodePemesanan = jTextField1.getText();
-        // Mendapatkan tanggal pemesanan dan format ke dalam string yang sesuai
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String tanggalPemesanan = sdf.format(jDateChooser1.getDate());
         String kodeDistributor = getKodeDistributorFromComboBox(jComboBox1);
@@ -593,6 +664,25 @@ public class FormAddPurchase extends javax.swing.JFrame {
         String jumlahPembelian = jTextField4.getText();
         String hargaTotal = jTextField5.getText();
         String labaPcs = jTextField6.getText();
+
+        // Lakukan pembulatan harga total
+        int hargaTotalBulat = Math.round(Float.parseFloat(hargaTotal));
+
+        // Lakukan perhitungan laba
+        double laba = 0.0;
+        if (jCheckBox2.isSelected()) {
+            double harga = Double.parseDouble(hargaTotal);
+            double jumlah = Double.parseDouble(jumlahPembelian);
+
+            if (!jTextField7.getText().isEmpty()) {
+                double persen = Double.parseDouble(jTextField7.getText());
+                laba = (harga / jumlah) * (1 + (persen / 100));
+            } else {
+                laba = Double.parseDouble(labaPcs);
+            }
+        } else {
+            laba = Double.parseDouble(labaPcs);
+        }
 
         // Query untuk insert data ke tabel pembelian
         String query = "INSERT INTO pembelian (kode_pemesanan, tanggal_pemesanan, kode_distributor, kode_barang, jumlah_pembelian, harga_total, laba_pcs) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -606,8 +696,8 @@ public class FormAddPurchase extends javax.swing.JFrame {
             statement.setString(3, kodeDistributor);
             statement.setString(4, kodeBarang);
             statement.setString(5, jumlahPembelian);
-            statement.setString(6, hargaTotal);
-            statement.setString(7, labaPcs);
+            statement.setString(6, String.valueOf(hargaTotalBulat)); // Harga total setelah pembulatan
+            statement.setString(7, String.valueOf(laba)); // Laba yang sudah dihitung
 
             // Jalankan query
             statement.executeUpdate();
@@ -619,7 +709,6 @@ public class FormAddPurchase extends javax.swing.JFrame {
         }
     }
 
-    // Method untuk melakukan insert data ke tabel barang
     private void insertBarang() {
         // Ambil isian dari JTextField
         String kodeBarang = jTextField2.getText();
@@ -630,8 +719,20 @@ public class FormAddPurchase extends javax.swing.JFrame {
         String kodeKategori = getKodeKategoriFromComboBox(jComboBox3);
         String kodeBentuk = getKodeBentukFromComboBox(jComboBox4);
         String kuantitas = jTextField4.getText();
-        String hargaPcs = jTextField6.getText();
+        String hargaPcs;
 
+        if (jCheckBox2.isSelected()) {
+            // Hitung harga total jika checkbox dipilih
+            double hargaTotal = Double.parseDouble(jTextField5.getText());
+            double jumlah = Double.parseDouble(jTextField4.getText());
+            double persen = Double.parseDouble(jTextField7.getText());
+            double hargaPerPcs = (hargaTotal / jumlah) * (1 + (persen / 100));
+            hargaPcs = String.valueOf(hargaPerPcs);
+        } else {
+            // Ambil harga dari jTextField6 jika checkbox tidak dipilih
+            hargaPcs = jTextField6.getText();
+        }
+        
         // Query untuk insert data ke tabel barang
         String query = "INSERT INTO barang (kode_barang, nama_barang, satuan_obat, kadaluarsa, kode_kategori_obat, kode_bentuk_obat, kuantitas, harga_pcs) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -657,6 +758,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
             System.out.println("Gagal menambahkan data barang ke database: " + e.getMessage());
         }
     }
+
     
     /**
      * @param args the command line arguments

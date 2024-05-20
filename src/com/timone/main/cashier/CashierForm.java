@@ -8,6 +8,8 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DbConnection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.UIManager;
 import java.sql.Connection;
@@ -23,7 +25,10 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
@@ -43,11 +48,7 @@ import net.sf.jasperreports.engine.JasperPrintManager;
  * @author Fadel
  */
 public class CashierForm extends javax.swing.JFrame {
-    
-    
-
-    
-            
+      
     public CashierForm() {
         
         UIManager.put( "TextComponent.arc", 10 );
@@ -260,6 +261,7 @@ public class CashierForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(CashierForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        jButton1.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -321,11 +323,12 @@ public class CashierForm extends javax.swing.JFrame {
 
         // Menambahkan filter untuk jTextField1 agar hanya menerima huruf dan angka
         ((AbstractDocument) jTextField1.getDocument()).setDocumentFilter(new DocumentFilter() {
-            Pattern pattern = Pattern.compile("^[a-zA-Z0-9]*$");
+            Pattern pattern = Pattern.compile("^[a-zA-Z0-9 ]*$");
 
             @Override
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                String newText = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
+                String newText = fb.getDocument().getText(0, fb.getDocument().getLength());
+                newText = newText.substring(0, offset) + text + newText.substring(offset + length);
                 if (pattern.matcher(newText).matches()) {
                     super.replace(fb, offset, length, text, attrs);
                 }
@@ -534,8 +537,6 @@ public class CashierForm extends javax.swing.JFrame {
         System.out.println("Tabel print_invoice berhasil dikosongkan.");
     }
 
-
-
     private double getHargaPcsFromBarangTable(Connection conn, String kodeBarang) throws SQLException {
         double hargaPcs = 0.0;
         String query = "SELECT harga_pcs FROM barang WHERE kode_barang = ?";
@@ -573,8 +574,6 @@ public class CashierForm extends javax.swing.JFrame {
         return result;
     }
 
-
-    
     private double getLabaPcs(Connection conn, String kodeBarang) throws SQLException {
         double labaPcs = 0.0;
         String query = "SELECT laba_pcs FROM pembelian WHERE kode_barang = ?";
@@ -616,7 +615,6 @@ public class CashierForm extends javax.swing.JFrame {
         return sb.toString();
     }
 
-    //buat nampilin tanggal
     public static String getCurrentDateTime() {
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
@@ -625,17 +623,18 @@ public class CashierForm extends javax.swing.JFrame {
     
     private void formLogic() {
         // Mendapatkan nilai dari jTextField1
-        String kodeBarang = jTextField1.getText().trim();
+        String input = jTextField1.getText().trim();
 
-        if (kodeBarang.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Kode barang tidak boleh kosong");
+        if (input.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Kode atau nama barang tidak boleh kosong");
             return;
         }
 
         try (Connection conn = DbConnection.getConnection();
-             PreparedStatement pst = conn.prepareStatement("SELECT kode_barang, nama_barang, satuan_obat, harga_pcs, kuantitas, kadaluarsa FROM barang WHERE kode_barang = ?");
-        ) {
-            pst.setString(1, kodeBarang);
+             PreparedStatement pst = conn.prepareStatement("SELECT kode_barang, nama_barang, satuan_obat, harga_pcs, kuantitas, kadaluarsa FROM barang WHERE LOWER(kode_barang) = LOWER(?) OR LOWER(nama_barang) LIKE ?");
+            ) {
+            pst.setString(1, input);
+            pst.setString(2, "%" + input + "%");
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     int kuantitas = rs.getInt("kuantitas");
@@ -665,7 +664,7 @@ public class CashierForm extends javax.swing.JFrame {
                     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                     int rowIndex = -1;
                     for (int i = 0; i < model.getRowCount(); i++) {
-                        if (model.getValueAt(i, 1).equals(kodeBarang)) {
+                        if (model.getValueAt(i, 1).equals(rs.getString("kode_barang"))) {
                             rowIndex = i;
                             break;
                         }
@@ -684,7 +683,7 @@ public class CashierForm extends javax.swing.JFrame {
 
                     String totalHargaString = String.format("%.0f", totalHarga);
 
-                    Object[] row = {model.getRowCount() + 1, kodeBarang, rs.getString("nama_barang"), rs.getString("satuan_obat"), qty, hargaPcs, totalHargaString};
+                    Object[] row = {model.getRowCount() + 1, rs.getString("kode_barang"), rs.getString("nama_barang"), rs.getString("satuan_obat"), qty, hargaPcs, totalHargaString};
                     model.addRow(row);
 
                     double totalSemua = 0;
@@ -696,9 +695,68 @@ public class CashierForm extends javax.swing.JFrame {
                     String totalRupiah = "Total    Rp " + formatter.format(totalSemua);
                     jLabel7.setText(totalRupiah);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Kode barang tidak ditemukan");
+                    JOptionPane.showMessageDialog(null, "Barang tidak ditemukan");
                 }
             }
+            
+            jTable1.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    int r = jTable1.rowAtPoint(e.getPoint());
+                    if (r >= 0 && r < jTable1.getRowCount()) {
+                        jTable1.setRowSelectionInterval(r, r);
+                    } else {
+                        jTable1.clearSelection();
+                    }
+
+                    int rowIndex = jTable1.getSelectedRow();
+                    if (rowIndex < 0)
+                        return;
+
+                    if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
+                        JPopupMenu popup = new JPopupMenu();
+
+                        JMenuItem option1 = new JMenuItem("Hapus baris");
+                        JMenuItem option2 = new JMenuItem("Kosongkan semua");
+
+                        // Tambahkan action listener untuk opsi pertama
+                        option1.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                // Dapatkan indeks baris yang dipilih
+                                int rowIndex = jTable1.getSelectedRow();
+
+                                // Hapus baris yang dipilih dari JTable
+                                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                                double hargaBaris = Double.parseDouble(model.getValueAt(rowIndex, 6).toString());
+                                model.removeRow(rowIndex);
+
+                                // Update total harga dengan mengurangi harga baris yang dihapus
+                                double totalSemua = 0;
+                                for (int i = 0; i < model.getRowCount(); i++) {
+                                    totalSemua += Double.parseDouble(model.getValueAt(i, 6).toString());
+                                }
+                                NumberFormat formatter = new DecimalFormat("#,###");
+                                String totalRupiah = "Total    Rp " + formatter.format(totalSemua);
+                                jLabel7.setText(totalRupiah);
+                            }
+                        });
+
+                        option2.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                clearText();
+                            }
+                        });
+
+                        // Tambahkan opsi ke menu popup
+                        popup.add(option1);
+                        popup.add(option2);
+
+                        // Tampilkan menu popup di posisi klik mouse
+                        popup.show(e.getComponent(), e.getX(), e.getY());
+                    }
+                }
+            });
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan: " + ex.getMessage());
         } catch (NumberFormatException ex) {
@@ -706,7 +764,6 @@ public class CashierForm extends javax.swing.JFrame {
         }
     }
 
-    // Metode menghitung kembaalian
     private void calculateChange() {
         try {
             double amountPaid = Double.parseDouble(jTextField3.getText());
@@ -737,7 +794,6 @@ public class CashierForm extends javax.swing.JFrame {
             
         }
     }
-
 
     public static void main(String args[]) {
         FlatGitHubIJTheme.setup();

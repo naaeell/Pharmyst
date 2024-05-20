@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,38 +21,43 @@ import java.sql.Statement;
  */
 public class PurchaseLogic {
 
-    public static void PurchaseTable(JTable jTable3) {
+    public static void PurchaseTable(JTable jTable3, JTextField jTextField3) {
         try {
-            // Mendapatkan koneksi ke database dari kelas DbConnection
+            // Get connection to the database from DbConnection class
             Connection conn = DbConnection.getConnection();
 
-            // Membuat statement SQL untuk mengambil data pembelian
-            String sql = "SELECT " +
-                         "pembelian.kode_pemesanan, " +
-                         "pembelian.tanggal_pemesanan, " +
-                         "distributor.nama_distributor, " +
-                         "pembelian.kode_barang, " +
-                         "barang.nama_barang, " +
-                         "kategori_obat.nama_kategori, " +
-                         "bentuk_obat.nama_bentuk_obat, " +
-                         "barang.satuan_obat, " +
-                         "pembelian.jumlah_pembelian, " +
-                         "pembelian.harga_total " +
+            // Dynamically build the SQL query based on search criteria
+            String sql = "SELECT pembelian.kode_pemesanan, pembelian.tanggal_pemesanan, distributor.nama_distributor, " +
+                         "pembelian.kode_barang, barang.nama_barang, kategori_obat.nama_kategori, " +
+                         "bentuk_obat.nama_bentuk_obat, barang.satuan_obat, pembelian.jumlah_pembelian, pembelian.harga_total " +
                          "FROM pembelian " +
                          "INNER JOIN barang ON pembelian.kode_barang = barang.kode_barang " +
                          "INNER JOIN distributor ON pembelian.kode_distributor = distributor.kode_distributor " +
                          "INNER JOIN kategori_obat ON barang.kode_kategori_obat = kategori_obat.kode_kategori_obat " +
-                         "INNER JOIN bentuk_obat ON barang.kode_bentuk_obat = bentuk_obat.kode_bentuk_obat";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+                         "INNER JOIN bentuk_obat ON barang.kode_bentuk_obat = bentuk_obat.kode_bentuk_obat " +
+                         "WHERE LOWER(pembelian.kode_pemesanan) LIKE ? OR " +
+                         "LOWER(pembelian.tanggal_pemesanan) LIKE ? OR " +
+                         "LOWER(distributor.nama_distributor) LIKE ? OR " +
+                         "LOWER(pembelian.kode_barang) LIKE ? OR " +
+                         "LOWER(barang.nama_barang) LIKE ?";
 
-            // Mendapatkan model tabel yang ada
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            // Set search query parameters dynamically
+            String searchQuery = "%" + jTextField3.getText().toLowerCase() + "%";
+            for (int i = 1; i <= 5; i++) {
+                stmt.setString(i, searchQuery);
+            }
+
+            ResultSet rs = stmt.executeQuery();
+
+            // Get the table model
             DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
 
-            // Menghapus semua baris yang sudah ada dari model tabel
+            // Clear existing rows from the model
             model.setRowCount(0);
 
-            // Memproses hasil kueri dan menambahkannya ke model tabel
+            // Process query results and add them to the table model
             while (rs.next()) {
                 Object[] row = {
                         rs.getString("kode_pemesanan"),
@@ -68,13 +74,16 @@ public class PurchaseLogic {
                 model.addRow(row);
             }
 
-            // Menutup koneksi
+            // Close connections
             rs.close();
             stmt.close();
             conn.close();
         } catch (SQLException e) {
+            // Handle exceptions gracefully
             e.printStackTrace();
         }
+
+
 
         jTable3.addMouseListener(new MouseAdapter() {
             @Override

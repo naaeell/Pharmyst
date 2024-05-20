@@ -3,11 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/J.B%20Hakim/Kuliah/semester%202/project%20smester%202/project/Pharmyst/src/com/timone/main/admin/add/FormAddPurchase.java</file>
             <file>file:/D:/J.B%20Hakim/Kuliah/semester%202/project%20smester%202/project/Pharmyst/src/com/timone/main/admin/component/formReport.java</file>
             <file>file:/D:/J.B%20Hakim/Kuliah/semester%202/project%20smester%202/project/Pharmyst/src/com/timone/main/admin/component/formAbout.java</file>
             <file>file:/D:/J.B%20Hakim/Kuliah/semester%202/project%20smester%202/project/Pharmyst/src/com/timone/main/admin/MainAdmin.java</file>
             <file>file:/D:/J.B%20Hakim/Kuliah/semester%202/project%20smester%202/project/Pharmyst/src/com/timone/main/admin/add/FormAddOperational.java</file>
+=======
+            <file>file:/C:/KULIAH/semester%202/project/git%20pull/Pharmyst/src/com/timone/main/admin/tableLogic/PurchaseLogic.java</file>
+            <file>file:/C:/KULIAH/semester%202/project/git%20pull/Pharmyst/src/com/timone/main/admin/mainAdmin.java</file>
+            <file>file:/C:/KULIAH/semester%202/project/git%20pull/Pharmyst/src/com/timone/main/admin/tableLogic/InventoryLogic.java</file>
+            <file>file:/C:/KULIAH/semester%202/project/git%20pull/Pharmyst/src/com/timone/main/cashier/CashierForm.java</file>
+>>>>>>> 742214251d4c28d0b4e06720aba68a4be8227d2d
         </group>
     </open-files>
 </project-private>
