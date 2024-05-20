@@ -27,7 +27,6 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 /**
  *
  * @author Fadel

@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Fadel/Documents/pharmyst/src/com/timone/main/admin/MainAdmin.java</file>
-            <file>file:/C:/Users/Fadel/Documents/pharmyst/src/com/timone/print/component/Invoice.jrxml</file>
-            <file>file:/C:/Users/Fadel/Documents/pharmyst/src/com/timone/gate/RfidPage.java</file>
-            <file>file:/C:/Users/Fadel/Documents/pharmyst/src/com/timone/main/admin/add/FormAddPurchase.java</file>
-            <file>file:/C:/Users/Fadel/Documents/pharmyst/src/com/timone/main/cashier/CashierForm.java</file>
+            <file>file:/C:/KULIAH/semester%202/project/git%20pull/Pharmyst/src/com/timone/main/admin/tableLogic/PurchaseLogic.java</file>
+            <file>file:/C:/KULIAH/semester%202/project/git%20pull/Pharmyst/src/com/timone/main/admin/mainAdmin.java</file>
+            <file>file:/C:/KULIAH/semester%202/project/git%20pull/Pharmyst/src/com/timone/main/admin/tableLogic/InventoryLogic.java</file>
+            <file>file:/C:/KULIAH/semester%202/project/git%20pull/Pharmyst/src/com/timone/main/cashier/CashierForm.java</file>
         </group>
     </open-files>
 </project-private>
