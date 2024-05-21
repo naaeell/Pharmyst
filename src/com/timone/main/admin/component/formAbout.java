@@ -208,7 +208,7 @@ public class FormAbout extends javax.swing.JFrame {
 
         jLabel11.setText("memasukkan keyword ke dalam");
 
-        jLabel15.setText("kolom username dan password.");
+        jLabel15.setText("kolom password.");
 
         alamat1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

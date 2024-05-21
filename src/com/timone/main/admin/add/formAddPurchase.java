@@ -715,7 +715,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
         String namaBarang = jTextField10.getText();
         String satuanObat = jTextField3.getText();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String kadaluarsa = sdf.format(jDateChooser1.getDate());
+        String kadaluarsa = sdf.format(jDateChooser2.getDate());
         String kodeKategori = getKodeKategoriFromComboBox(jComboBox3);
         String kodeBentuk = getKodeBentukFromComboBox(jComboBox4);
         String kuantitas = jTextField4.getText();

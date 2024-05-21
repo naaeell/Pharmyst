@@ -9,6 +9,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTh
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DbConnection;
 import com.timone.main.admin.MainAdmin;
+import com.timone.main.admin.component.FormAbout;
 import com.timone.main.cashier.CashierForm;
 import javax.swing.UIManager;
 import java.awt.event.ActionEvent;
@@ -144,7 +145,7 @@ public class LoginPage extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
     
-    private void checkPassword(){
+    private void checkPassword() {
         String username = jTextField1.getText(); 
         String password = jPasswordField1.getText(); 
         String kodeUser = null; // Variabel untuk menyimpan kode_user
@@ -152,7 +153,8 @@ public class LoginPage extends javax.swing.JFrame {
 
         try (Connection conn = DbConnection.getConnection();
              PreparedStatement stmtAbout = conn.prepareStatement("SELECT * FROM about WHERE username=? AND password=?");
-             PreparedStatement stmtAkun = conn.prepareStatement("SELECT kode_user, nama FROM akun_karyawan WHERE username=? AND password=?")) {
+             PreparedStatement stmtAkun = conn.prepareStatement("SELECT kode_user, nama FROM akun_karyawan WHERE username=? AND password=?");
+             PreparedStatement stmtRecovery = conn.prepareStatement("SELECT * FROM about WHERE keyword_recovery=?")) {
 
             // Periksa tabel "about" untuk kredensial
             stmtAbout.setString(1, username);
@@ -180,6 +182,19 @@ public class LoginPage extends javax.swing.JFrame {
                     cashierForm.setVisible(true); // Pastikan CashierForm ditampilkan setelah semua pengaturan selesai
                     insertAbsensi(conn, kodeUser); // Masukkan log absensi menggunakan kode_user
                     this.dispose(); 
+                    return;
+                }
+            }
+
+            // Periksa tabel "about" untuk keyword_recovery
+            stmtRecovery.setString(1, password);
+            try (ResultSet rsRecovery = stmtRecovery.executeQuery()) {
+                if (rsRecovery.next()) {
+                    // Jika ditemukan di tabel "about" dengan keyword_recovery, buka FormAbout
+                    FormAbout formAbout = new FormAbout();
+                    formAbout.setLocationRelativeTo(null);
+                    formAbout.setVisible(true);
+                    this.dispose();
                     return;
                 }
             }

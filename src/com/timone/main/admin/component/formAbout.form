@@ -412,7 +412,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
       <Properties>
-        <Property name="text" type="java.lang.String" value="kolom username dan password."/>
+        <Property name="text" type="java.lang.String" value="kolom password."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="alamat1">

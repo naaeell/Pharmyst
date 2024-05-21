@@ -622,84 +622,91 @@ public class CashierForm extends javax.swing.JFrame {
     }
     
     private void formLogic() {
-        // Mendapatkan nilai dari jTextField1
-        String input = jTextField1.getText().trim();
+    // Mendapatkan nilai dari jTextField1
+    String input = jTextField1.getText().trim();
 
-        if (input.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Kode atau nama barang tidak boleh kosong");
-            return;
-        }
+    if (input.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Kode atau nama barang tidak boleh kosong");
+        return;
+    }
 
-        try (Connection conn = DbConnection.getConnection();
-             PreparedStatement pst = conn.prepareStatement("SELECT kode_barang, nama_barang, satuan_obat, harga_pcs, kuantitas, kadaluarsa FROM barang WHERE LOWER(kode_barang) = LOWER(?) OR LOWER(nama_barang) LIKE ?");
-            ) {
-            pst.setString(1, input);
-            pst.setString(2, "%" + input + "%");
-            try (ResultSet rs = pst.executeQuery()) {
-                if (rs.next()) {
-                    int kuantitas = rs.getInt("kuantitas");
-                    LocalDate tanggalKadaluarsa = rs.getDate("kadaluarsa").toLocalDate();
-                    LocalDate tanggalHariIni = LocalDate.now();
-                    LocalDate tanggalKadaluarsaMin3Bulan = tanggalHariIni.plusMonths(3);
+    try (Connection conn = DbConnection.getConnection();
+         PreparedStatement pst = conn.prepareStatement("SELECT kode_barang, nama_barang, satuan_obat, harga_pcs, kuantitas, kadaluarsa FROM barang WHERE LOWER(kode_barang) = LOWER(?) OR LOWER(nama_barang) LIKE ?")) {
+        pst.setString(1, input);
+        pst.setString(2, "%" + input + "%");
+        try (ResultSet rs = pst.executeQuery()) {
+            if (rs.next()) {
+                int kuantitas = rs.getInt("kuantitas");
+                LocalDate tanggalKadaluarsa = rs.getDate("kadaluarsa").toLocalDate();
+                LocalDate tanggalHariIni = LocalDate.now();
+                LocalDate tanggalKadaluarsaMin3Bulan = tanggalHariIni.plusMonths(3);
 
-                    if (kuantitas <= 0) {
-                        JOptionPane.showMessageDialog(null, "Stok barang habis");
+                if (kuantitas <= 0) {
+                    JOptionPane.showMessageDialog(null, "Stok barang habis");
+                    return;
+                }
+
+                if (tanggalKadaluarsa.isBefore(tanggalHariIni) || tanggalKadaluarsa.isBefore(tanggalKadaluarsaMin3Bulan)) {
+                    JOptionPane.showMessageDialog(null, "Barang tidak bisa dijual karena akan expired dalam 3 bulan");
+                    return;
+                }
+
+                int qty = jTextField2.getText().isEmpty() ? 1 : Integer.parseInt(jTextField2.getText());
+
+                if (qty == 0) {
+                    JOptionPane.showMessageDialog(null, "Kuantitas tidak boleh nol");
+                    return;
+                }
+
+                int hargaPcs = rs.getInt("harga_pcs");
+
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                int rowIndex = -1;
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    if (model.getValueAt(i, 1).equals(rs.getString("kode_barang"))) {
+                        rowIndex = i;
+                        break;
+                    }
+                }
+
+                if (rowIndex != -1) {
+                    int existingQty = (int) model.getValueAt(rowIndex, 4);
+                    int newQty = existingQty + qty;
+
+                    if (newQty > kuantitas) {
+                        JOptionPane.showMessageDialog(null, "Stok tidak mencukupi. Stok saat ini: " + kuantitas);
                         return;
                     }
 
-                    if (tanggalKadaluarsa.isBefore(tanggalHariIni) || tanggalKadaluarsa.isBefore(tanggalKadaluarsaMin3Bulan)) {
-                        JOptionPane.showMessageDialog(null, "Barang tidak bisa dijual karena akan expired dalam 3 bulan");
+                    model.setValueAt(newQty, rowIndex, 4);
+                    double totalHarga = hargaPcs * newQty;
+                    model.setValueAt(String.format("%.0f", totalHarga), rowIndex, 6);
+                } else {
+                    if (qty > kuantitas) {
+                        JOptionPane.showMessageDialog(null, "Stok tidak mencukupi. Stok saat ini: " + kuantitas);
                         return;
-                    }
-
-                    int qty = jTextField2.getText().isEmpty() ? 1 : Integer.parseInt(jTextField2.getText());
-
-                    if (qty == 0) {
-                        JOptionPane.showMessageDialog(null, "Kuantitas tidak boleh nol");
-                        return;
-                    }
-
-                    int hargaPcs = rs.getInt("harga_pcs");
-
-                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                    int rowIndex = -1;
-                    for (int i = 0; i < model.getRowCount(); i++) {
-                        if (model.getValueAt(i, 1).equals(rs.getString("kode_barang"))) {
-                            rowIndex = i;
-                            break;
-                        }
-                    }
-
-                    if (rowIndex != -1) {
-                        qty += (int) model.getValueAt(rowIndex, 4);
-                        model.removeRow(rowIndex);
                     }
 
                     double totalHarga = hargaPcs * qty;
 
-                    if (totalHarga < 0) {
-                        totalHarga = 0;
-                    }
-
-                    String totalHargaString = String.format("%.0f", totalHarga);
-
-                    Object[] row = {model.getRowCount() + 1, rs.getString("kode_barang"), rs.getString("nama_barang"), rs.getString("satuan_obat"), qty, hargaPcs, totalHargaString};
+                    Object[] row = {model.getRowCount() + 1, rs.getString("kode_barang"), rs.getString("nama_barang"), rs.getString("satuan_obat"), qty, hargaPcs, String.format("%.0f", totalHarga)};
                     model.addRow(row);
-
-                    double totalSemua = 0;
-                    for (int i = 0; i < model.getRowCount(); i++) {
-                        totalSemua += Double.parseDouble(model.getValueAt(i, 6).toString());
-                    }
-
-                    NumberFormat formatter = new DecimalFormat("#,###");
-                    String totalRupiah = "Total    Rp " + formatter.format(totalSemua);
-                    jLabel7.setText(totalRupiah);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Barang tidak ditemukan");
                 }
+
+                double totalSemua = 0;
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    totalSemua += Double.parseDouble(model.getValueAt(i, 6).toString());
+                }
+
+                NumberFormat formatter = new DecimalFormat("#,###");
+                String totalRupiah = "Total    Rp " + formatter.format(totalSemua);
+                jLabel7.setText(totalRupiah);
+            } else {
+                JOptionPane.showMessageDialog(null, "Barang tidak ditemukan");
             }
-            
-            jTable1.addMouseListener(new MouseAdapter() {
+        }
+    
+        jTable1.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     int r = jTable1.rowAtPoint(e.getPoint());
@@ -738,12 +745,14 @@ public class CashierForm extends javax.swing.JFrame {
                                 NumberFormat formatter = new DecimalFormat("#,###");
                                 String totalRupiah = "Total    Rp " + formatter.format(totalSemua);
                                 jLabel7.setText(totalRupiah);
+                                jTextField3.setText("");
                             }
                         });
 
                         option2.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
                                 clearText();
+                                jTextField3.setText("");
                             }
                         });
 
@@ -773,14 +782,21 @@ public class CashierForm extends javax.swing.JFrame {
                 totalHarga += Double.parseDouble(model.getValueAt(i, 6).toString());
             }
             double change = amountPaid - totalHarga;
+
+            NumberFormat formatter = new DecimalFormat("#,###");
+            String changeString = formatter.format(Math.abs(change));
+
             if (change < 0) {
-            jButton1.setEnabled(false);
+                jButton1.setEnabled(false);
+                jLabel7.setText(String.format("Kurang   -Rp %s", changeString));
+            } else if (change == 0) {
+                jButton1.setEnabled(true);
+                jLabel7.setText("Uang Pas");
             } else {
                 jButton1.setEnabled(true);
+                jLabel7.setText(String.format("Kembali    Rp %s", changeString));
             }
-            NumberFormat formatter = new DecimalFormat("#,###");
-            String changeString = formatter.format(change);
-            jLabel7.setText(String.format("Kembali    Rp %s", changeString));
+
         } catch (NumberFormatException ex) {
             // Handle non-numeric input
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -791,7 +807,6 @@ public class CashierForm extends javax.swing.JFrame {
             NumberFormat formatter = new DecimalFormat("#,###");
             String totalRupiah = "Total    Rp " + formatter.format(totalHarga);
             jLabel7.setText(totalRupiah);
-            
         }
     }
 
