@@ -22,13 +22,13 @@ import javax.swing.JOptionPane;
  *
  * @author Fadel
  */
-public class LoginPage extends javax.swing.JFrame {
+public class Recovery extends javax.swing.JFrame {
     
     
     /**
      * Creates new form LoginPage
      */
-    public LoginPage() {
+    public Recovery() {
         UIManager.put("TextComponent.arc", 10);
         initComponents();
         setLocationRelativeTo(null);
@@ -63,20 +63,19 @@ public class LoginPage extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setText("Login");
+        jLabel1.setText("Recovery");
 
         jTextField1.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Username");
         jTextField1.setDoubleBuffered(true);
         jTextField1.setFocusCycleRoot(true);
 
-        jButton1.setText("Login");
+        jButton1.setText("Simpan Perubahan");
         jButton1.setBorderPainted(false);
         jButton1.setDoubleBuffered(true);
         jButton1.setFocusPainted(false);
@@ -88,18 +87,10 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Password");
-
-        jButton2.setText("login dengan RFID");
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.setDoubleBuffered(true);
-        jButton2.setFocusPainted(false);
-        jButton2.setFocusable(false);
-        jButton2.setRequestFocusEnabled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jPasswordField1.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Password Baru");
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jPasswordField1ActionPerformed(evt);
             }
         });
 
@@ -113,8 +104,7 @@ public class LoginPage extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jTextField1)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPasswordField1))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -126,9 +116,7 @@ public class LoginPage extends javax.swing.JFrame {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(53, 53, 53)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(55, Short.MAX_VALUE))
         );
@@ -140,10 +128,9 @@ public class LoginPage extends javax.swing.JFrame {
         checkPassword();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        RfidPage.main(new String[]{});
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
     
     private void checkPassword() {
         String username = jTextField1.getText(); 
@@ -163,7 +150,7 @@ public class LoginPage extends javax.swing.JFrame {
                 if (rsAbout.next()) {
                     // Jika ditemukan di tabel "about", buka MainAdmin
                     MainAdmin.main(new String[]{});
-                    this.dispose(); 
+                    
                     return;
                 }
             }
@@ -181,7 +168,7 @@ public class LoginPage extends javax.swing.JFrame {
                     cashierForm.setLocationRelativeTo(null);
                     cashierForm.setVisible(true); // Pastikan CashierForm ditampilkan setelah semua pengaturan selesai
                     insertAbsensi(conn, kodeUser); // Masukkan log absensi menggunakan kode_user
-                    this.dispose(); 
+                    
                     return;
                 }
             }
@@ -191,10 +178,10 @@ public class LoginPage extends javax.swing.JFrame {
             try (ResultSet rsRecovery = stmtRecovery.executeQuery()) {
                 if (rsRecovery.next()) {
                     // Jika ditemukan di tabel "about" dengan keyword_recovery, buka FormAbout
-                    Recovery recovery = new Recovery();
-                    recovery.setLocationRelativeTo(null);
-                    recovery.setVisible(true);
-                    this.dispose();
+                    FormAbout formAbout = new FormAbout();
+                    formAbout.setLocationRelativeTo(null);
+                    formAbout.setVisible(true);
+                    
                     return;
                 }
             }
@@ -243,14 +230,13 @@ public class LoginPage extends javax.swing.JFrame {
         FlatGitHubIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginPage().setVisible(true);
+                new Recovery().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
