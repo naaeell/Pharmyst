@@ -190,14 +190,28 @@ public class LoginPage extends javax.swing.JFrame {
             stmtRecovery.setString(1, password);
             try (ResultSet rsRecovery = stmtRecovery.executeQuery()) {
                 if (rsRecovery.next()) {
-                    // Jika ditemukan di tabel "about" dengan keyword_recovery, buka FormAbout
-                    Recovery recovery = new Recovery();
-                    recovery.setLocationRelativeTo(null);
-                    recovery.setVisible(true);
-                    this.dispose();
+                    // Jika ditemukan di tabel "about" dengan keyword_recovery, munculkan JOptionPane
+                    String newPassword = JOptionPane.showInputDialog(this, "Masukkan password baru :", "Recovery Admin", JOptionPane.PLAIN_MESSAGE);
+                    if (newPassword != null && !newPassword.isEmpty()) {
+                        // Lakukan pembaruan password di database
+                        try (PreparedStatement stmtUpdatePassword = conn.prepareStatement("UPDATE about SET password = ? WHERE keyword_recovery = ?")) {
+                            stmtUpdatePassword.setString(1, newPassword);
+                            stmtUpdatePassword.setString(2, password);
+                            int rowsUpdated = stmtUpdatePassword.executeUpdate();
+                            if (rowsUpdated > 0) {
+                                // Beritahu pengguna bahwa password telah diubah
+                                JOptionPane.showMessageDialog(this, "Password admin telah berhasil diubah.");
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Gagal mengubah password.");
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Password tidak boleh kosong.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+                    }
                     return;
                 }
             }
+
 
             // Jika tidak ditemukan di kedua tabel, tampilkan pesan kesalahan
             JOptionPane.showMessageDialog(this, "Username atau Password salah!");

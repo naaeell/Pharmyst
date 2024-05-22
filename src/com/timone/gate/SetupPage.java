@@ -384,6 +384,8 @@ public class SetupPage extends javax.swing.JFrame {
         String usernameValue = username.getText();
         String passwordValue = new String(password.getPassword()); // Password sebaiknya diambil sebagai char array
         String rfidValue = new String(rfid.getPassword()); // Juga untuk kode akses
+        String keywordValue = JOptionPane.showInputDialog(this, "Masukkan keyword recovery:", "Keyword Recovery", JOptionPane.PLAIN_MESSAGE);
+        
 
         // Memeriksa apakah semua variabel kosong
         if (namaPemilikValue.isEmpty() || namaUsahaValue.isEmpty() || teleponUsahaValue.isEmpty() ||
@@ -400,7 +402,7 @@ public class SetupPage extends javax.swing.JFrame {
 
             try {
                 // Menyiapkan kueri SQL
-                String query = "INSERT INTO about (id_about, nama_pemilik, nama_usaha, no_telp_usaha, alamat, username, password, rfid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                String query = "INSERT INTO about (id_about, nama_pemilik, nama_usaha, no_telp_usaha, alamat, username, password, rfid, keyword_recovery) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement statement = conn.prepareStatement(query);
 
                 // Mengisi nilai parameter kueri
@@ -412,6 +414,7 @@ public class SetupPage extends javax.swing.JFrame {
                 statement.setString(6, usernameValue);
                 statement.setString(7, passwordValue);
                 statement.setString(8, rfidValue);
+                statement.setString(9, keywordValue);
 
                 // Menjalankan kueri
                 int rowsInserted = statement.executeUpdate();
