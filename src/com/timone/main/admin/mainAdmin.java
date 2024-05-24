@@ -441,7 +441,7 @@ public class MainAdmin extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Kode Pemesanan", "Tanggal Pemesanan", "Distributor", "Kode Barang", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Jumlah Pembelian", "Harga Total"
+                "Status Pemesanan", "Kode Pemesanan", "Tanggal Pemesanan", "Distributor", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Qty", "Harga"
             }
         ) {
             boolean[] canEdit = new boolean [] {

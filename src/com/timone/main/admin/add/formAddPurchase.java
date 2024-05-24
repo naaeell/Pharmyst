@@ -642,7 +642,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
         }
 
         // Periksa jika jTextField2, jTextField4, jTextField5, dan jTextField6 kosong
-        if (jTextField2.getText().isEmpty() || jTextField4.getText().isEmpty() || jTextField5.getText().isEmpty() || jTextField6.getText().isEmpty()) {
+        if (jTextField2.getText().isEmpty() || jTextField4.getText().isEmpty() || jTextField5.getText().isEmpty()) {
             return true;
         }
 
