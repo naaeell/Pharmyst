@@ -392,12 +392,51 @@ public class FormAddPurchase extends javax.swing.JFrame {
             return; // Keluar dari metode jika form kosong
         }
 
+        // Validasi laba per unit
+        if (!isLabaValid()) {
+            return; // Keluar dari metode jika laba tidak valid
+        }
+
         // Lanjutkan dengan menambahkan pembelian dan barang
         insertBarang();
         insertPembelian();
+        resetComponents();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-   
+
+    private boolean isLabaValid() {
+        String hargaTotal = jTextField5.getText();
+        String jumlahPembelian = jTextField4.getText();
+        String labaPcs = jTextField6.getText();
+
+        // Hitung minimum laba per unit
+        double hargaPerUnit = Double.parseDouble(hargaTotal) / Double.parseDouble(jumlahPembelian);
+
+        // Lakukan perhitungan laba
+        double laba = 0.0;
+        if (jCheckBox2.isSelected()) {
+            double harga = Double.parseDouble(hargaTotal);
+            double jumlah = Double.parseDouble(jumlahPembelian);
+
+            if (!jTextField7.getText().isEmpty()) {
+                double persen = Double.parseDouble(jTextField7.getText());
+                laba = (harga / jumlah) * (1 + (persen / 100));
+            } else {
+                laba = Double.parseDouble(labaPcs);
+            }
+        } else {
+            laba = Double.parseDouble(labaPcs);
+        }
+
+        // Pastikan laba tidak kurang dari harga per unit
+        if (laba < hargaPerUnit) {
+            JOptionPane.showMessageDialog(this, "Laba per unit tidak boleh lebih rendah dari harga beli per unit.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            return false; // Laba tidak valid
+        }
+
+        return true; // Laba valid
+    }
+    
     private void addTextFilters() {
         
         // Filter untuk JTextField yang tidak bisa input symbol kecuali spasi
@@ -641,7 +680,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
             return true;
         }
 
-        // Periksa jika jTextField2, jTextField4, jTextField5, dan jTextField6 kosong
+        // Periksa jika jTextField2, jTextField4, jTextField5
         if (jTextField2.getText().isEmpty() || jTextField4.getText().isEmpty() || jTextField5.getText().isEmpty()) {
             return true;
         }
@@ -656,6 +695,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
     }
     
     private void insertPembelian() {
+        
         String kodePemesanan = jTextField1.getText();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String tanggalPemesanan = sdf.format(jDateChooser1.getDate());
@@ -684,6 +724,13 @@ public class FormAddPurchase extends javax.swing.JFrame {
             laba = Double.parseDouble(labaPcs);
         }
 
+        // Pastikan laba tidak kurang dari harga per unit
+        double hargaPerUnit = Double.parseDouble(hargaTotal) / Double.parseDouble(jumlahPembelian);
+        if (laba < hargaPerUnit) {
+            JOptionPane.showMessageDialog(this, "Harga jual per item tidak boleh lebih rendah dari harga beli per item.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            return; // Hentikan proses jika laba lebih rendah dari harga per unit
+        }
+
         // Query untuk insert data ke tabel pembelian
         String query = "INSERT INTO pembelian (kode_pemesanan, tanggal_pemesanan, kode_distributor, kode_barang, jumlah_pembelian, harga_total, laba_pcs) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -702,10 +749,12 @@ public class FormAddPurchase extends javax.swing.JFrame {
             // Jalankan query
             statement.executeUpdate();
             System.out.println("Data pembelian berhasil ditambahkan ke database.");
+            JOptionPane.showMessageDialog(this, "Data pembelian berhasil ditambahkan ke database.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Gagal menambahkan data pembelian ke database: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Gagal menambahkan data pembelian ke database: " + e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -758,7 +807,31 @@ public class FormAddPurchase extends javax.swing.JFrame {
             System.out.println("Gagal menambahkan data barang ke database: " + e.getMessage());
         }
     }
-
+    
+    // Method untuk mereset semua komponen ke kondisi semula
+    public void resetComponents() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jTextField7.setText("");
+        jTextField10.setText("");
+        jTextField7.setEnabled(false);
+        jTextField6.setEnabled(true);
+        jTextField1.setEnabled(true);
+        jTextField2.setEnabled(true);
+        jCheckBox1.setSelected(false);
+        jCheckBox2.setSelected(false);
+        jCheckBox5.setSelected(false);
+        jComboBox1.setSelectedIndex(0); // Jika Anda memiliki item default lain, sesuaikan indeksnya
+        jComboBox3.setSelectedIndex(0);
+        jComboBox4.setSelectedIndex(0);
+        jDateChooser1.setDate(null);
+        jDateChooser2.setDate(null);
+    }
+    
     
     /**
      * @param args the command line arguments

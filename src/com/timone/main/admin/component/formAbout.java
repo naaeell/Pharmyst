@@ -7,7 +7,6 @@ package com.timone.main.admin.component;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.timone.gate.*;
 import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DbConnection;
 import static com.timone.gate.SetupPage.generateId;
@@ -20,10 +19,10 @@ import javax.swing.JFrame;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -32,13 +31,20 @@ import java.sql.ResultSet;
  */
 public class FormAbout extends javax.swing.JFrame {
 
+    private String IdAbout;
+
     /**
      * Creates new form formSetting
      */
     public FormAbout() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        focusSet();        
+        try {
+            updateAbout();
+        } catch (SQLException ex) {
+            Logger.getLogger(FormAbout.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        focusSet();
     }
 
     /**
@@ -588,68 +594,120 @@ public class FormAbout extends javax.swing.JFrame {
         
     }
     
-    private void updateAbout() throws SQLException{
-        // Mengambil nilai dari field input
-        String IdAbout = generateId();
-        String namaPemilikValue = namaPemilik.getText();
-        String namaUsahaValue = namaUsaha.getText();
-        String teleponUsahaValue = teleponUsaha.getText();
-        String alamatValue = alamat.getText();
-        String usernameValue = username.getText();
-        String passwordValue = new String(password.getPassword()); // Password sebaiknya diambil sebagai char array
-        String rfidValue = new String(rfid.getPassword()); // Juga untuk kode akses
-        
-        // Memeriksa apakah semua variabel kosong
-        if (namaPemilikValue.isEmpty() || namaUsahaValue.isEmpty() || teleponUsahaValue.isEmpty() ||
-                alamatValue.isEmpty() || usernameValue.isEmpty() || passwordValue.isEmpty() || rfidValue.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Semua kolom harus diisi!");
-            return; // Keluar dari metode jika ada variabel yang kosong
-        }
-        
+    private String getIdAboutFromDatabase() throws SQLException {
+       
+        Connection conn = null;
+        PreparedStatement selectStatement = null;
+        ResultSet resultSet = null;
+        String idAbout = null;
+
+        try {
             // Mendapatkan koneksi ke database dari kelas DbConnection
-            Connection conn = DbConnection.getConnection();
-        
-        if (conn != null) {
-            ResultSet resultSet = null; // Declare ResultSet here
+            conn = DbConnection.getConnection();
 
-            try {
-                // Menyiapkan kueri SQL
-                String query = "INSERT INTO about (id_about, nama_pemilik, nama_usaha, no_telp_usaha, alamat, username, password, rfid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement statement = conn.prepareStatement(query);
+            if (conn != null) {
+                // Menyiapkan kueri SQL untuk mengambil idAbout
+                String selectQuery = "SELECT id_about FROM about";
+                selectStatement = conn.prepareStatement(selectQuery);
+                resultSet = selectStatement.executeQuery();
 
-                // Mengisi nilai parameter kueri
-                statement.setString(1, IdAbout);
-                statement.setString(2, namaPemilikValue);
-                statement.setString(3, namaUsahaValue);
-                statement.setString(4, teleponUsahaValue);
-                statement.setString(5, alamatValue);
-                statement.setString(6, usernameValue);
-                statement.setString(7, passwordValue);
-                statement.setString(8, rfidValue);
-
-                // Menjalankan kueri
-                int rowsInserted = statement.executeUpdate();
-                if (rowsInserted > 0) {
-                    this.dispose();
-                    new LoginPage().setVisible(true);  
+                // Mengambil nilai idAbout jika tersedia
+                if (resultSet.next()) {
+                    idAbout = resultSet.getString("id_about");
                 }
-                
-                } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengunggah ke database " + e.getMessage());
-            } finally {
-                try {
-                    if (resultSet != null) {
-                        resultSet.close(); // Close ResultSet
-                    }
-                    conn.close(); // Tutup koneksi setelah selesai digunakan
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menutup koneksi");
-                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal terhubung ke database");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Gagal terhubung ke database");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengambil data dari database: " + e.getMessage());
+        } finally {
+            // Menutup semua sumber daya
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (selectStatement != null) {
+                    selectStatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menutup koneksi: " + e.getMessage());
+            }
+        }
+
+        return idAbout;
+    } 
+    
+    private void updateAbout() throws SQLException {
+        Connection conn = null;
+        PreparedStatement selectStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Mendapatkan koneksi ke database dari kelas DbConnection
+            conn = DbConnection.getConnection();
+
+            if (conn != null) {
+                // Mendapatkan idAbout dari database
+                String idAbout = getIdAboutFromDatabase();
+
+                if (idAbout != null) {
+                    // Menyiapkan kueri SQL untuk mengambil data about berdasarkan idAbout
+                    String selectQuery = "SELECT * FROM about WHERE id_about = ?";
+                    selectStatement = conn.prepareStatement(selectQuery);
+                    selectStatement.setString(1, idAbout);
+                    resultSet = selectStatement.executeQuery();
+
+                    // Jika data ditemukan, tampilkan
+                    if (resultSet.next()) {
+                        // Mendapatkan nilai dari hasil kueri
+                        String namaPemilikValue = resultSet.getString("nama_pemilik");
+                        String namaUsahaValue = resultSet.getString("nama_usaha");
+                        String teleponUsahaValue = resultSet.getString("no_telp_usaha");
+                        String alamatValue = resultSet.getString("alamat");
+                        String usernameValue = resultSet.getString("username");
+                        String passwordValue = resultSet.getString("password");
+                        String rfidValue = resultSet.getString("rfid");
+
+                        // Menampilkan data di field input atau di tempat yang sesuai
+                        namaPemilik.setText(namaPemilikValue);
+                        namaUsaha.setText(namaUsahaValue);
+                        teleponUsaha.setText(teleponUsahaValue);
+                        alamat.setText(alamatValue);
+                        username.setText(usernameValue);
+                        password.setText(passwordValue);
+                        rfid.setText(rfidValue);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Data tidak ditemukan");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "ID About tidak ditemukan");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal terhubung ke database");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengambil data dari database: " + e.getMessage());
+        } finally {
+            // Menutup semua sumber daya
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (selectStatement != null) {
+                    selectStatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menutup koneksi: " + e.getMessage());
+            }
         }
     }
+
 
     
     /**

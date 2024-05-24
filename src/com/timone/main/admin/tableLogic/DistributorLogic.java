@@ -5,30 +5,40 @@
 package com.timone.main.admin.tableLogic;
 import com.timone.connection.DbConnection;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author Fadel
  */
 public class DistributorLogic {
 
-    public static void DistributorTable(JTable jTable4) {
+    public static void DistributorTable(JTable jTable4, JTextField jTextField4) {
         try {
             // Mendapatkan koneksi ke database dari kelas DbConnection
             Connection conn = DbConnection.getConnection();
 
-            // Membuat statement SQL untuk mengambil data distributor
-            String sql = "SELECT kode_distributor, nama_distributor, alamat, kontak_utama, email, nomor_utama FROM distributor";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            // Membuat statement SQL untuk mengambil data distributor berdasarkan pencarian
+            String sql = "SELECT kode_distributor, nama_distributor, alamat, kontak_utama, email, nomor_utama FROM distributor " +
+                         "WHERE LOWER(nama_distributor) LIKE ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            // Set parameter pencarian secara dinamis
+            String searchQuery = "%" + jTextField4.getText().toLowerCase() + "%";
+            stmt.setString(1, searchQuery);
+
+            ResultSet rs = stmt.executeQuery();
 
             // Mendapatkan model tabel yang ada
             DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
@@ -49,7 +59,7 @@ public class DistributorLogic {
                 model.addRow(row);
             }
 
-            // Menutup koneksi
+            // Menutup koneksi dan statement
             rs.close();
             stmt.close();
             conn.close();

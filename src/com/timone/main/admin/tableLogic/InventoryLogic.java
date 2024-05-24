@@ -217,8 +217,15 @@ public class InventoryLogic {
                     
                     option3.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            // Tindakan yang akan dilakukan ketika opsi 2 dipilih
-                            System.out.println("Opsi 3 dipilih pada baris: " + rowIndex);
+                            int response = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus barang?, ini juga akan menghapus riwayat pembelian", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                            if (response == JOptionPane.YES_OPTION) {
+                                // Dapatkan kode_barang dari baris yang dipilih
+                                String kodeBarang = (String) jTable1.getValueAt(rowIndex, 1);
+                                // Panggil metode untuk menghapus barang dari database
+                                deleteBarang(kodeBarang);
+                                // Perbarui tampilan tabel setelah perubahan di database
+                                inventoryTable(jTable1, jTextField1);
+                            }
                         }
                     });
 
@@ -232,6 +239,21 @@ public class InventoryLogic {
                 }
             }
         });
+    }
+    
+    public static void deleteBarang(String kodeBarang) {
+        try {
+            Connection conn = DbConnection.getConnection();
+            String sqlDelete = "DELETE FROM barang WHERE kode_barang = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sqlDelete);
+            pstmt.setString(1, kodeBarang);
+            pstmt.executeUpdate();
+
+            pstmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     // Metode untuk memperbarui stok barang menjadi 0 di database

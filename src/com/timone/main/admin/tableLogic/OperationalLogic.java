@@ -5,30 +5,40 @@
 package com.timone.main.admin.tableLogic;
 import com.timone.connection.DbConnection;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author Fadel
  */
 public class OperationalLogic {
 
-    public static void OperationTable(JTable jTable6) {
+    public static void OperationTable(JTable jTable6, JTextField jTextField6) {
         try {
             // Mendapatkan koneksi ke database dari kelas DbConnection
             Connection conn = DbConnection.getConnection();
 
-            // Membuat statement SQL untuk mengambil data biaya
-            String sql = "SELECT nama_biaya, deskripsi, total_biaya FROM operasional";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            // Membuat statement SQL untuk mengambil data biaya dengan pencarian
+            String sql = "SELECT nama_biaya, deskripsi, total_biaya FROM operasional " +
+                         "WHERE LOWER(nama_biaya) LIKE ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            // Set parameter pencarian secara dinamis
+            String searchQuery = "%" + jTextField6.getText().toLowerCase() + "%";
+            stmt.setString(1, searchQuery);
+
+            ResultSet rs = stmt.executeQuery();
 
             // Mendapatkan model tabel yang ada
             DefaultTableModel model = (DefaultTableModel) jTable6.getModel();
@@ -46,7 +56,7 @@ public class OperationalLogic {
                 model.addRow(row);
             }
 
-            // Menutup koneksi
+            // Menutup koneksi dan statement
             rs.close();
             stmt.close();
             conn.close();

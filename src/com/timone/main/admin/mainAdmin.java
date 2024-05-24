@@ -32,9 +32,9 @@ public class MainAdmin extends javax.swing.JFrame {
         InventoryLogic.inventoryTable(jTable1, jTextField1);
         SalesLogic.salesTable(jTable2, jTextField2);
         PurchaseLogic.PurchaseTable(jTable3, jTextField3);
-        DistributorLogic.DistributorTable(jTable4);
-        OperationalLogic.OperationTable(jTable6);
-        WorkerLogic.WorkerTable(jTable5);
+        DistributorLogic.DistributorTable(jTable4, jTextField4);
+        OperationalLogic.OperationTable(jTable6, jTextField6);
+        WorkerLogic.WorkerTable(jTable5, jTextField5);
         AttendanceLogic.AbsenTable(jTable9);
         jTextField1.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -66,6 +66,70 @@ public class MainAdmin extends javax.swing.JFrame {
             @Override
             public void changedUpdate(DocumentEvent e) {
                 SalesLogic.salesTable(jTable2, jTextField2);
+            }
+        });
+        jTextField3.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                PurchaseLogic.PurchaseTable(jTable3, jTextField3);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                PurchaseLogic.PurchaseTable(jTable3, jTextField3);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                PurchaseLogic.PurchaseTable(jTable3, jTextField3);
+            }
+        });
+        jTextField4.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                DistributorLogic.DistributorTable(jTable4, jTextField4);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                DistributorLogic.DistributorTable(jTable4, jTextField4);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                DistributorLogic.DistributorTable(jTable4, jTextField4);
+            }
+        });
+        jTextField6.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                OperationalLogic.OperationTable(jTable6, jTextField6);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                OperationalLogic.OperationTable(jTable6, jTextField6);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                OperationalLogic.OperationTable(jTable6, jTextField6);
+            }
+        });
+        jTextField5.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                WorkerLogic.WorkerTable(jTable5, jTextField5);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                WorkerLogic.WorkerTable(jTable5, jTextField5);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                WorkerLogic.WorkerTable(jTable5, jTextField5);
             }
         });
         
@@ -441,7 +505,7 @@ public class MainAdmin extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Status Pemesanan", "Kode Pemesanan", "Tanggal Pemesanan", "Distributor", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Qty", "Harga"
+                "Status Pembelian", "Kode Pemesanan", "Tanggal Pemesanan", "Distributor", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Qty", "Harga"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1145,11 +1209,11 @@ public class MainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton36ActionPerformed
 
     private void jButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton39ActionPerformed
-        DistributorLogic.DistributorTable(jTable4);
+        DistributorLogic.DistributorTable(jTable4, jTextField4);
     }//GEN-LAST:event_jButton39ActionPerformed
 
     private void jButton46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton46ActionPerformed
-        WorkerLogic.WorkerTable(jTable5);
+        WorkerLogic.WorkerTable(jTable5, jTextField5);
         AttendanceLogic.AbsenTable(jTable9);
     }//GEN-LAST:event_jButton46ActionPerformed
 
@@ -1190,7 +1254,7 @@ public class MainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
-        OperationalLogic.OperationTable(jTable6);
+        OperationalLogic.OperationTable(jTable6, jTextField6);
     }//GEN-LAST:event_jButton42ActionPerformed
 
     private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed

@@ -14,7 +14,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 /**
  *
  * @author Fadel
@@ -40,7 +39,6 @@ public class PurchaseLogic {
                          "LOWER(distributor.nama_distributor) LIKE ? OR " +
                          "LOWER(pembelian.kode_barang) LIKE ? OR " +
                          "LOWER(barang.nama_barang) LIKE ?";
-
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             // Set search query parameters dynamically
@@ -82,6 +80,7 @@ public class PurchaseLogic {
             // Handle exceptions gracefully
             e.printStackTrace();
         }
+
 
 
 
