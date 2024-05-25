@@ -217,7 +217,7 @@ public class InventoryLogic {
                     
                     option3.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            int response = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus barang?, ini juga akan menghapus riwayat pembelian", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                            int response = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus barang? ini juga akan menghapus riwayat pembelian", "Konfirmasi", JOptionPane.YES_NO_OPTION);
                             if (response == JOptionPane.YES_OPTION) {
                                 // Dapatkan kode_barang dari baris yang dipilih
                                 String kodeBarang = (String) jTable1.getValueAt(rowIndex, 1);

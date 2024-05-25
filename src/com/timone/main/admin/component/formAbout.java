@@ -5,11 +5,9 @@
 package com.timone.main.admin.component;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import com.timone.gate.*;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DbConnection;
-import static com.timone.gate.SetupPage.generateId;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
