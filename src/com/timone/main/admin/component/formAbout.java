@@ -8,6 +8,8 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DbConnection;
+import com.timone.gate.LoginPage;
+import static com.timone.gate.SetupPage.generateId;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -38,7 +40,7 @@ public class FormAbout extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         try {
-            updateAbout();
+            viewAbout();
         } catch (SQLException ex) {
             Logger.getLogger(FormAbout.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -82,8 +84,7 @@ public class FormAbout extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        alamat1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        keyword = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -105,6 +106,7 @@ public class FormAbout extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton("<html><div style='text-align: left;'><a href=\"#\">disini.</a></div></html>");
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -187,7 +189,7 @@ public class FormAbout extends javax.swing.JFrame {
         jLabel16.setText("Data terkait usaha ini akan");
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel17.setText("digunakan untuk mencetak struk");
+        jLabel17.setText("ditampilkan ketika mencetak struk");
 
         createAccount.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         createAccount.setText("Simpan");
@@ -201,7 +203,7 @@ public class FormAbout extends javax.swing.JFrame {
         jLabel20.setText("transaksi dan menyusun laporan");
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel21.setText("keuangan.");
+        jLabel21.setText("keuangan. Pastikan data yang");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("Recovery Keyword");
@@ -214,14 +216,11 @@ public class FormAbout extends javax.swing.JFrame {
 
         jLabel15.setText("kolom password.");
 
-        alamat1.addActionListener(new java.awt.event.ActionListener() {
+        keyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alamat1ActionPerformed(evt);
+                keywordActionPerformed(evt);
             }
         });
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Set Keyword");
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -300,6 +299,9 @@ public class FormAbout extends javax.swing.JFrame {
 
         jLabel37.setText("meningkatkan kualitas aplikasi kami.");
 
+        jLabel38.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel38.setText("digunakan valid.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -334,15 +336,15 @@ public class FormAbout extends javax.swing.JFrame {
                             .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(createAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(alamat1)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(keyword)
+                            .addComponent(jLabel38, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(45, 45, 45)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
@@ -423,9 +425,9 @@ public class FormAbout extends javax.swing.JFrame {
                         .addComponent(jLabel20)
                         .addGap(0, 0, 0)
                         .addComponent(jLabel21)
-                        .addGap(12, 12, 12)
-                        .addComponent(createAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel38)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
@@ -436,9 +438,9 @@ public class FormAbout extends javax.swing.JFrame {
                         .addGap(0, 0, 0)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(alamat1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(keyword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(createAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -515,7 +517,11 @@ public class FormAbout extends javax.swing.JFrame {
     }//GEN-LAST:event_alamatActionPerformed
 
     private void createAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountActionPerformed
-        
+        try {
+            updateAbout();
+        } catch (SQLException ex) {
+            Logger.getLogger(FormAbout.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_createAccountActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -534,9 +540,9 @@ public class FormAbout extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void alamat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alamat1ActionPerformed
+    private void keywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keywordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_alamat1ActionPerformed
+    }//GEN-LAST:event_keywordActionPerformed
     
     private void focusSet(){
         namaPemilik.addActionListener(new ActionListener() {
@@ -588,12 +594,154 @@ public class FormAbout extends javax.swing.JFrame {
             
         }
     });
-        
-        
+  
+    }
+
+    private void viewAbout() throws SQLException {
+        Connection conn = null;
+        PreparedStatement selectStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Mendapatkan koneksi ke database dari kelas DbConnection
+            conn = DbConnection.getConnection();
+
+            if (conn != null) {
+                // Mendapatkan idAbout dari database
+                String idAbout = getIdAboutFromDatabase();
+
+                if (idAbout != null) {
+                    // Menyiapkan kueri SQL untuk mengambil data about berdasarkan idAbout
+                    String selectQuery = "SELECT * FROM about WHERE id_about = ?";
+                    selectStatement = conn.prepareStatement(selectQuery);
+                    selectStatement.setString(1, idAbout);
+                    resultSet = selectStatement.executeQuery();
+
+                    // Jika data ditemukan, tampilkan
+                    if (resultSet.next()) {
+                        // Mendapatkan nilai dari hasil kueri
+                        String namaPemilikValue = resultSet.getString("nama_pemilik");
+                        String namaUsahaValue = resultSet.getString("nama_usaha");
+                        String teleponUsahaValue = resultSet.getString("no_telp_usaha");
+                        String alamatValue = resultSet.getString("alamat");
+                        String usernameValue = resultSet.getString("username");
+                        String passwordValue = resultSet.getString("password");
+                        String rfidValue = resultSet.getString("rfid");
+                        String recoveryValue = resultSet.getString("keyword_recovery");
+
+                        // Menampilkan data di field input atau di tempat yang sesuai
+                        namaPemilik.setText(namaPemilikValue);
+                        namaUsaha.setText(namaUsahaValue);
+                        teleponUsaha.setText(teleponUsahaValue);
+                        alamat.setText(alamatValue);
+                        username.setText(usernameValue);
+                        password.setText(passwordValue);
+                        rfid.setText(rfidValue);
+                        keyword.setText(recoveryValue);
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Data tidak ditemukan");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "ID About tidak ditemukan");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal terhubung ke database");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengambil data dari database: " + e.getMessage());
+        } finally {
+            // Menutup semua sumber daya
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (selectStatement != null) {
+                    selectStatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menutup koneksi: " + e.getMessage());
+            }
+        }
     }
     
+    private void updateAbout() throws SQLException {
+        // Mendapatkan koneksi ke database dari kelas DbConnection
+        Connection conn = DbConnection.getConnection();
+
+        if (conn != null) {
+            ResultSet resultSet = null;
+
+            try {
+                // Mendapatkan idAbout dari database
+                String idAbout = getIdAboutFromDatabase();
+
+                if (idAbout != null) {
+                    // Mengambil nilai dari field input
+                    String namaPemilikValue = namaPemilik.getText();
+                    String namaUsahaValue = namaUsaha.getText();
+                    String teleponUsahaValue = teleponUsaha.getText();
+                    String alamatValue = alamat.getText();
+                    String usernameValue = username.getText();
+                    String passwordValue = new String(password.getPassword()); // Password sebaiknya diambil sebagai char array
+                    String rfidValue = new String(rfid.getPassword()); // Juga untuk kode akses
+                    String keywordValue = keyword.getText();
+
+                    // Memeriksa apakah semua variabel kosong
+                    if (namaPemilikValue.isEmpty() || namaUsahaValue.isEmpty() || teleponUsahaValue.isEmpty() ||
+                            alamatValue.isEmpty() || usernameValue.isEmpty() || passwordValue.isEmpty() || rfidValue.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Semua kolom harus diisi!");
+                        return; // Keluar dari metode jika ada variabel yang kosong
+                    }
+
+                    // Menyiapkan kueri SQL untuk memperbarui data
+                    String updateQuery = "UPDATE about SET nama_pemilik = ?, nama_usaha = ?, no_telp_usaha = ?, alamat = ?, username = ?, password = ?, rfid = ?, keyword_recovery = ? WHERE id_about = ?";
+                    PreparedStatement statement = conn.prepareStatement(updateQuery);
+
+                    // Mengisi nilai parameter kueri
+                    statement.setString(1, namaPemilikValue);
+                    statement.setString(2, namaUsahaValue);
+                    statement.setString(3, teleponUsahaValue);
+                    statement.setString(4, alamatValue);
+                    statement.setString(5, usernameValue);
+                    statement.setString(6, passwordValue);
+                    statement.setString(7, rfidValue);
+                    statement.setString(8, keywordValue);
+                    statement.setString(9, idAbout);
+
+                    // Menjalankan kueri
+                    int rowsUpdated = statement.executeUpdate();
+                    if (rowsUpdated > 0) {
+                        JOptionPane.showMessageDialog(null, "Data berhasil diperbarui!");
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Data tidak ditemukan atau tidak ada perubahan yang dilakukan.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "ID About tidak ditemukan");
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat memperbarui data di database: " + e.getMessage());
+            } finally {
+                // Menutup semua sumber daya
+                try {
+                    if (resultSet != null) {
+                        resultSet.close();
+                    }
+                    conn.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menutup koneksi: " + e.getMessage());
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Gagal terhubung ke database");
+        }
+    }
+
     private String getIdAboutFromDatabase() throws SQLException {
-       
         Connection conn = null;
         PreparedStatement selectStatement = null;
         ResultSet resultSet = null;
@@ -636,76 +784,7 @@ public class FormAbout extends javax.swing.JFrame {
         }
 
         return idAbout;
-    } 
-    
-    private void updateAbout() throws SQLException {
-        Connection conn = null;
-        PreparedStatement selectStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            // Mendapatkan koneksi ke database dari kelas DbConnection
-            conn = DbConnection.getConnection();
-
-            if (conn != null) {
-                // Mendapatkan idAbout dari database
-                String idAbout = getIdAboutFromDatabase();
-
-                if (idAbout != null) {
-                    // Menyiapkan kueri SQL untuk mengambil data about berdasarkan idAbout
-                    String selectQuery = "SELECT * FROM about WHERE id_about = ?";
-                    selectStatement = conn.prepareStatement(selectQuery);
-                    selectStatement.setString(1, idAbout);
-                    resultSet = selectStatement.executeQuery();
-
-                    // Jika data ditemukan, tampilkan
-                    if (resultSet.next()) {
-                        // Mendapatkan nilai dari hasil kueri
-                        String namaPemilikValue = resultSet.getString("nama_pemilik");
-                        String namaUsahaValue = resultSet.getString("nama_usaha");
-                        String teleponUsahaValue = resultSet.getString("no_telp_usaha");
-                        String alamatValue = resultSet.getString("alamat");
-                        String usernameValue = resultSet.getString("username");
-                        String passwordValue = resultSet.getString("password");
-                        String rfidValue = resultSet.getString("rfid");
-
-                        // Menampilkan data di field input atau di tempat yang sesuai
-                        namaPemilik.setText(namaPemilikValue);
-                        namaUsaha.setText(namaUsahaValue);
-                        teleponUsaha.setText(teleponUsahaValue);
-                        alamat.setText(alamatValue);
-                        username.setText(usernameValue);
-                        password.setText(passwordValue);
-                        rfid.setText(rfidValue);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Data tidak ditemukan");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "ID About tidak ditemukan");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Gagal terhubung ke database");
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengambil data dari database: " + e.getMessage());
-        } finally {
-            // Menutup semua sumber daya
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-                if (selectStatement != null) {
-                    selectStatement.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat menutup koneksi: " + e.getMessage());
-            }
-        }
     }
-
 
     
     /**
@@ -726,9 +805,7 @@ public class FormAbout extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField alamat;
-    private javax.swing.JTextField alamat1;
     private javax.swing.JButton createAccount;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -762,6 +839,7 @@ public class FormAbout extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -770,6 +848,7 @@ public class FormAbout extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField keyword;
     private javax.swing.JTextField namaPemilik;
     private javax.swing.JTextField namaUsaha;
     private javax.swing.JPasswordField password;

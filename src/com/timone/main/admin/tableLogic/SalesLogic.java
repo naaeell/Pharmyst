@@ -82,27 +82,41 @@ public class SalesLogic {
                     JPopupMenu popup = new JPopupMenu();
 
                     // Tambahkan opsi yang ingin Anda tampilkan di sini
-                    JMenuItem option1 = new JMenuItem("Opsi 1");
-                    JMenuItem option2 = new JMenuItem("Opsi 2");
+                    JMenuItem option1 = new JMenuItem("Hapus Penjualan");
 
                     // Tambahkan action listener untuk setiap opsi
                     option1.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            // Tindakan yang akan dilakukan ketika opsi 1 dipilih
-                            System.out.println("Opsi 1 dipilih pada baris: " + rowIndex);
-                        }
-                    });
+                            int rowIndex = jTable2.getSelectedRow();
+                            if (rowIndex < 0)
+                                return;
 
-                    option2.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            // Tindakan yang akan dilakukan ketika opsi 2 dipilih
-                            System.out.println("Opsi 2 dipilih pada baris: " + rowIndex);
+                            String kodePenjualan = jTable2.getValueAt(rowIndex, 0).toString(); // Ambil kode penjualan dari baris yang dipilih
+
+                            try {
+                                Connection conn = DbConnection.getConnection();
+                                String sql = "DELETE FROM penjualan WHERE kode_penjualan = ?";
+                                PreparedStatement stmt = conn.prepareStatement(sql);
+                                stmt.setString(1, kodePenjualan);
+                                int rowsAffected = stmt.executeUpdate();
+                                if (rowsAffected > 0) {
+                                    // Jika penghapusan berhasil, hapus juga baris dari tabel
+                                    DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+                                    model.removeRow(rowIndex);
+                                    System.out.println("Penjualan dengan kode " + kodePenjualan + " telah dihapus.");
+                                } else {
+                                    System.out.println("Gagal menghapus penjualan dengan kode " + kodePenjualan);
+                                }
+                                stmt.close();
+                                conn.close();
+                            } catch (SQLException ex) {
+                                ex.printStackTrace();
+                            }
                         }
                     });
 
                     // Tambahkan opsi ke menu popup
                     popup.add(option1);
-                    popup.add(option2);
 
                     // Tampilkan menu popup di posisi klik mouse
                     popup.show(e.getComponent(), e.getX(), e.getY());

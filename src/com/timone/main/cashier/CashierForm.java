@@ -168,6 +168,11 @@ public class CashierForm extends javax.swing.JFrame {
         jLabel10.setText("Bayar");
 
         jTextField3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         jButton31.setIcon(new FlatSVGIcon("com/timone/icon/svg/exit.svg", 1.3f));
         jButton31.setBorderPainted(false);
@@ -294,6 +299,10 @@ public class CashierForm extends javax.swing.JFrame {
         LoginPage.main(new String[]{});
         this.dispose();
     }//GEN-LAST:event_jButton31ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
     
     private void initEvent(){
         // Menambahkan ActionListener ke JTextField1
@@ -313,19 +322,6 @@ public class CashierForm extends javax.swing.JFrame {
                 jTextField2.setText("");
                 jTextField3.setText("");
                 jTextField1.requestFocusInWindow();
-            }
-        });
-
-        // Menambahkan ActionListener ke JTextField3
-        jTextField3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-                try {
-                    uploadData();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CashierForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
         });
 

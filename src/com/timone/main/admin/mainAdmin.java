@@ -499,17 +499,17 @@ public class MainAdmin extends javax.swing.JFrame {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Status Pembelian", "Kode Pemesanan", "Tanggal Pemesanan", "Distributor", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Qty", "Harga"
+                "Kode Pemesanan", "Tanggal Pemesanan", "Distributor", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Qty", "Harga"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

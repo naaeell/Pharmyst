@@ -61,7 +61,7 @@ public class PurchaseLogic {
                         rs.getString("kode_pemesanan"),
                         rs.getDate("tanggal_pemesanan"),
                         rs.getString("nama_distributor"),
-                        rs.getString("kode_barang"),
+                        //rs.getString("kode_barang"),
                         rs.getString("nama_barang"),
                         rs.getString("nama_kategori"),
                         rs.getString("nama_bentuk_obat"),
@@ -81,9 +81,6 @@ public class PurchaseLogic {
             e.printStackTrace();
         }
 
-
-
-
         jTable3.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -102,27 +99,33 @@ public class PurchaseLogic {
                     JPopupMenu popup = new JPopupMenu();
 
                     // Tambahkan opsi yang ingin Anda tampilkan di sini
-                    JMenuItem option1 = new JMenuItem("Opsi 1");
-                    JMenuItem option2 = new JMenuItem("Opsi 2");
+                    JMenuItem option1 = new JMenuItem("Hapus Pembelian");
 
                     // Tambahkan action listener untuk setiap opsi
                     option1.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            // Tindakan yang akan dilakukan ketika opsi 1 dipilih
-                            System.out.println("Opsi 1 dipilih pada baris: " + rowIndex);
-                        }
-                    });
-
-                    option2.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            // Tindakan yang akan dilakukan ketika opsi 2 dipilih
-                            System.out.println("Opsi 2 dipilih pada baris: " + rowIndex);
+                            int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus pembelian ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
+                            if (confirm == JOptionPane.YES_OPTION) {
+                                try {
+                                    String kodePemesanan = (String) jTable3.getValueAt(rowIndex, 0);
+                                    Connection conn = DbConnection.getConnection();
+                                    String deleteSql = "DELETE FROM pembelian WHERE kode_pemesanan = ?";
+                                    PreparedStatement deleteStmt = conn.prepareStatement(deleteSql);
+                                    deleteStmt.setString(1, kodePemesanan);
+                                    deleteStmt.executeUpdate();
+                                    deleteStmt.close();
+                                    conn.close();
+                                    // Refresh the table
+                                    PurchaseTable(jTable3, jTextField3);
+                                } catch (SQLException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
                         }
                     });
 
                     // Tambahkan opsi ke menu popup
                     popup.add(option1);
-                    popup.add(option2);
 
                     // Tampilkan menu popup di posisi klik mouse
                     popup.show(e.getComponent(), e.getX(), e.getY());
