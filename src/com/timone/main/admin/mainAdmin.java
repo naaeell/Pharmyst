@@ -14,11 +14,18 @@ import com.timone.main.admin.tableLogic.PurchaseLogic;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
+import com.timone.connection.DbConnection;
 import com.timone.gate.LoginPage;
 import com.timone.main.admin.theme.ThemeSync;
+import java.io.File;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 /**
  *
  * @author Fadel
@@ -1230,7 +1237,19 @@ public class MainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton38ActionPerformed
 
     private void jButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton41ActionPerformed
-        ThemeSync.reportThemeSync();
+       try {
+            Connection conn = DbConnection.getConnection();
+            File namaFile = new File("src/com/timone/print/component/laporan.jasper");
+            JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), null, conn);
+
+            // Cetak laporan langsung
+            JasperPrintManager.printReport(jp, false); // false berarti tidak menampilkan dialog pencetakan
+
+            // Optional: Tutup koneksi
+            conn.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error displaying report: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton41ActionPerformed
 
     private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed

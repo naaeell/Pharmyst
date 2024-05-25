@@ -562,12 +562,12 @@ public class CashierForm extends javax.swing.JFrame {
 
     private double getHargaPcsFromBarangTable(Connection conn, String kodeBarang) throws SQLException {
         double hargaPcs = 0.0;
-        String query = "SELECT harga_pcs FROM barang WHERE kode_barang = ?";
+        String query = "SELECT harga_jual FROM barang WHERE kode_barang = ?";
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setString(1, kodeBarang);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
-            hargaPcs = resultSet.getDouble("harga_pcs");
+            hargaPcs = resultSet.getDouble("harga_jual");
         }
         return hargaPcs;
     }
@@ -654,7 +654,7 @@ public class CashierForm extends javax.swing.JFrame {
     }
 
     try (Connection conn = DbConnection.getConnection();
-         PreparedStatement pst = conn.prepareStatement("SELECT kode_barang, nama_barang, satuan_obat, harga_pcs, kuantitas, kadaluarsa FROM barang WHERE LOWER(kode_barang) = LOWER(?) OR LOWER(nama_barang) LIKE ?")) {
+         PreparedStatement pst = conn.prepareStatement("SELECT kode_barang, nama_barang, satuan_obat, harga_jual, kuantitas, kadaluarsa FROM barang WHERE LOWER(kode_barang) = LOWER(?) OR LOWER(nama_barang) LIKE ?")) {
         pst.setString(1, input);
         pst.setString(2, "%" + input + "%");
         try (ResultSet rs = pst.executeQuery()) {
@@ -681,7 +681,7 @@ public class CashierForm extends javax.swing.JFrame {
                     return;
                 }
 
-                int hargaPcs = rs.getInt("harga_pcs");
+                int hargaPcs = rs.getInt("harga_jual");
 
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                 int rowIndex = -1;

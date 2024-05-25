@@ -11,7 +11,7 @@
     pi.kode_penjualan,
     pi.kode_barang,
     b.nama_barang,
-    b.harga_pcs,
+    b.harga_jual,
     pi.jumlah_terjual,
     pi.total_harga,
     pi.jumlah_harga,
@@ -47,7 +47,7 @@ JOIN
 	<field name="nama_barang" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="harga_pcs" class="java.lang.Integer">
+	<field name="harga_jual" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="jumlah_terjual" class="java.lang.Integer">
@@ -188,7 +188,7 @@ JOIN
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans Mono" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{harga_pcs}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{harga_jual}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -710,6 +710,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
 
         // Lakukan perhitungan laba
         double laba = 0.0;
+        
         if (jCheckBox2.isSelected()) {
             double harga = Double.parseDouble(hargaTotal);
             double jumlah = Double.parseDouble(jumlahPembelian);
@@ -723,9 +724,10 @@ public class FormAddPurchase extends javax.swing.JFrame {
         } else {
             laba = Double.parseDouble(labaPcs);
         }
-
-        // Pastikan laba tidak kurang dari harga per unit
+        
         double hargaPerUnit = Double.parseDouble(hargaTotal) / Double.parseDouble(jumlahPembelian);
+        double hargaLaba = laba - hargaPerUnit; 
+        // Pastikan laba tidak kurang dari harga per unit
         if (laba < hargaPerUnit) {
             JOptionPane.showMessageDialog(this, "Harga jual per item tidak boleh lebih rendah dari harga beli per item.", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             return; // Hentikan proses jika laba lebih rendah dari harga per unit
@@ -744,7 +746,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
             statement.setString(4, kodeBarang);
             statement.setString(5, jumlahPembelian);
             statement.setString(6, String.valueOf(hargaTotalBulat)); // Harga total setelah pembulatan
-            statement.setString(7, String.valueOf(laba)); // Laba yang sudah dihitung
+            statement.setString(7, String.valueOf(hargaLaba)); // Laba yang sudah dihitung
 
             // Jalankan query
             statement.executeUpdate();
@@ -763,27 +765,34 @@ public class FormAddPurchase extends javax.swing.JFrame {
         String kodeBarang = jTextField2.getText();
         String namaBarang = jTextField10.getText();
         String satuanObat = jTextField3.getText();
+        String jumlahPembelian = jTextField4.getText();
+        String hargaTotal = jTextField5.getText();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String kadaluarsa = sdf.format(jDateChooser2.getDate());
         String kodeKategori = getKodeKategoriFromComboBox(jComboBox3);
         String kodeBentuk = getKodeBentukFromComboBox(jComboBox4);
         String kuantitas = jTextField4.getText();
-        String hargaPcs;
+        String harga = jTextField6.getText();
+
+        double hargaJual = 0.0;
+        double hargaBeli = Double.parseDouble(hargaTotal) / Double.parseDouble(jumlahPembelian); // Harga beli
 
         if (jCheckBox2.isSelected()) {
-            // Hitung harga total jika checkbox dipilih
-            double hargaTotal = Double.parseDouble(jTextField5.getText());
-            double jumlah = Double.parseDouble(jTextField4.getText());
+            // Hitung harga jual berdasarkan persentase jika checkbox dipilih
+            double totalHarga = Double.parseDouble(hargaTotal);
+            double jumlah = Double.parseDouble(jumlahPembelian);
             double persen = Double.parseDouble(jTextField7.getText());
-            double hargaPerPcs = (hargaTotal / jumlah) * (1 + (persen / 100));
-            hargaPcs = String.valueOf(hargaPerPcs);
+            double hargaPerPcs = (totalHarga / jumlah) * (1 + (persen / 100));
+            hargaJual = hargaPerPcs;
         } else {
-            // Ambil harga dari jTextField6 jika checkbox tidak dipilih
-            hargaPcs = jTextField6.getText();
+            // Ambil harga jual dari jTextField6 jika checkbox tidak dipilih
+            hargaJual = Double.parseDouble(harga);
         }
-        
+
+        double laba = hargaJual - hargaBeli; // Laba
+
         // Query untuk insert data ke tabel barang
-        String query = "INSERT INTO barang (kode_barang, nama_barang, satuan_obat, kadaluarsa, kode_kategori_obat, kode_bentuk_obat, kuantitas, harga_pcs) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO barang (kode_barang, nama_barang, satuan_obat, kadaluarsa, kode_kategori_obat, kode_bentuk_obat, kuantitas, harga_jual, harga_beli, laba) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (java.sql.Connection connection = DbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -796,7 +805,9 @@ public class FormAddPurchase extends javax.swing.JFrame {
             statement.setString(5, kodeKategori);
             statement.setString(6, kodeBentuk);
             statement.setString(7, kuantitas);
-            statement.setString(8, hargaPcs);
+            statement.setDouble(8, hargaJual); // Menggunakan setDouble untuk harga jual
+            statement.setDouble(9, hargaBeli); // Menggunakan setDouble untuk harga beli
+            statement.setDouble(10, laba); // Menggunakan setDouble untuk laba
 
             // Jalankan query
             statement.executeUpdate();
