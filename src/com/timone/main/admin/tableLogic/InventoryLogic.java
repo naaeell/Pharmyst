@@ -278,7 +278,53 @@ public class InventoryLogic {
         try {
             Connection conn = DbConnection.getConnection();
 
-            // Hapus dari tabel barang
+            // Periksa apakah kode_barang ada di tabel barang
+            String sqlCheckBarang = "SELECT kode_barang FROM barang WHERE kode_barang = ?";
+            PreparedStatement pstmtCheckBarang = conn.prepareStatement(sqlCheckBarang);
+            pstmtCheckBarang.setString(1, kodeBarang);
+            ResultSet rsCheckBarang = pstmtCheckBarang.executeQuery();
+
+            if (!rsCheckBarang.next()) {
+                // Jika kode_barang tidak ditemukan, keluar dari metode
+                System.out.println("Kode barang tidak ditemukan.");
+                return;
+            }
+
+            // Cari semua kode_penjualan yang terkait dengan kode_barang di tabel detail_penjualan
+            String sqlSelectKodePenjualan = "SELECT kode_penjualan FROM detail_penjualan WHERE kode_barang = ?";
+            PreparedStatement pstmtSelectKodePenjualan = conn.prepareStatement(sqlSelectKodePenjualan);
+            pstmtSelectKodePenjualan.setString(1, kodeBarang);
+            ResultSet rsKodePenjualan = pstmtSelectKodePenjualan.executeQuery();
+
+            while (rsKodePenjualan.next()) {
+                String kodePenjualan = rsKodePenjualan.getString("kode_penjualan");
+
+                // Periksa apakah kode_penjualan memiliki lebih dari satu entri di detail_penjualan
+                String sqlCountKodePenjualan = "SELECT COUNT(*) AS count FROM detail_penjualan WHERE kode_penjualan = ?";
+                PreparedStatement pstmtCountKodePenjualan = conn.prepareStatement(sqlCountKodePenjualan);
+                pstmtCountKodePenjualan.setString(1, kodePenjualan);
+                ResultSet rsCountKodePenjualan = pstmtCountKodePenjualan.executeQuery();
+
+                if (rsCountKodePenjualan.next() && rsCountKodePenjualan.getInt("count") == 1) {
+                    // Jika hanya ada satu entri, hapus entri di tabel penjualan
+                    String sqlDeletePenjualan = "DELETE FROM penjualan WHERE kode_penjualan = ?";
+                    PreparedStatement pstmtDeletePenjualan = conn.prepareStatement(sqlDeletePenjualan);
+                    pstmtDeletePenjualan.setString(1, kodePenjualan);
+                    pstmtDeletePenjualan.executeUpdate();
+                    pstmtDeletePenjualan.close();
+                }
+                pstmtCountKodePenjualan.close();
+            }
+            pstmtSelectKodePenjualan.close();
+
+            // Hapus entri dari tabel detail_penjualan dengan kode_barang yang diberikan
+            String sqlDeleteDetailPenjualan = "DELETE FROM detail_penjualan WHERE kode_barang = ?";
+            PreparedStatement pstmtDeleteDetailPenjualan = conn.prepareStatement(sqlDeleteDetailPenjualan);
+            pstmtDeleteDetailPenjualan.setString(1, kodeBarang);
+            pstmtDeleteDetailPenjualan.executeUpdate();
+            pstmtDeleteDetailPenjualan.close();
+
+            // Hapus entri dari tabel barang dengan kode_barang yang diberikan
             String sqlDeleteBarang = "DELETE FROM barang WHERE kode_barang = ?";
             PreparedStatement pstmtDeleteBarang = conn.prepareStatement(sqlDeleteBarang);
             pstmtDeleteBarang.setString(1, kodeBarang);
