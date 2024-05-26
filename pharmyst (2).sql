@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 26, 2024 at 07:12 AM
+-- Generation Time: May 26, 2024 at 01:31 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -53,6 +53,7 @@ INSERT INTO `about` (`id_about`, `nama_pemilik`, `nama_usaha`, `no_telp_usaha`, 
 --
 
 CREATE TABLE `absensi` (
+  `id_absensi` int NOT NULL,
   `kode_user` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `tanggal_kehadiran` date NOT NULL,
   `waktu` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
@@ -62,12 +63,19 @@ CREATE TABLE `absensi` (
 -- Dumping data for table `absensi`
 --
 
-INSERT INTO `absensi` (`kode_user`, `tanggal_kehadiran`, `waktu`) VALUES
-('KRW0673916542', '2024-05-09', '08:46:57'),
-('KRW0673916542', '2024-05-21', '09:04:07'),
-('KRW0673916542', '2024-05-24', '18:38:10'),
-('KRW0673916542', '2024-05-25', '10:10:17'),
-('KRW0673916542', '2024-05-26', '06:48:34');
+INSERT INTO `absensi` (`id_absensi`, `kode_user`, `tanggal_kehadiran`, `waktu`) VALUES
+(128955979, 'KRW8149754629', '2024-05-26', '20:21:45'),
+(832521952, 'KRW8149754629', '2024-05-28', '20:22:01');
+
+--
+-- Triggers `absensi`
+--
+DELIMITER $$
+CREATE TRIGGER `after_absensi_delete` AFTER DELETE ON `absensi` FOR EACH ROW BEGIN
+    DELETE FROM akun_karyawan WHERE kode_user = OLD.kode_user;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -89,9 +97,7 @@ CREATE TABLE `akun_karyawan` (
 --
 
 INSERT INTO `akun_karyawan` (`kode_user`, `username`, `password`, `nama`, `email`, `rfid`) VALUES
-('KRW0673916542', 'sulthon', '12345', 'dik', 'dik@gmail', '123'),
-('KRW2079538894', 'Sdiko', '12345', 'diko', 'diko@yahoo.com', '12345'),
-('KRW9708901308', 'sulthon', '12345', 'dik', 'dik@gmail', '123');
+('KRW8149754629', '123', '123', 'apel', '123', '123');
 
 -- --------------------------------------------------------
 
@@ -112,6 +118,13 @@ CREATE TABLE `barang` (
   `kode_bentuk_obat` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `kode_kategori_obat` char(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `barang`
+--
+
+INSERT INTO `barang` (`kode_barang`, `nama_barang`, `satuan_obat`, `kadaluarsa`, `kuantitas`, `harga_jual`, `harga_beli`, `laba`, `jumlah_terjual`, `kode_bentuk_obat`, `kode_kategori_obat`) VALUES
+('asdfsadfsd', 'asdfsadfd', '67', '2025-05-09', 567, 1200, 1000, 200, 0, 'BTK2486297', 'KTR253614');
 
 --
 -- Triggers `barang`
@@ -221,12 +234,7 @@ CREATE TABLE `distributor` (
 --
 
 INSERT INTO `distributor` (`kode_distributor`, `nama_distributor`, `alamat`, `kontak_utama`, `nomor_utama`, `email`) VALUES
-('DB134679', 'PT. Antar Mitra Sembada', 'Pos Pengumben Raya No. 8 Kebon Jeruk Jakarta Barat 11560. DKI Jakarta - INDONESIA', 'Budi setiawan', '05310330', 'contacus@ams.co.id'),
-('DB215487', 'PT. Anugrah Argon Medika', 'Titan Center lantai 3, Jalan Boulevard Bintaro Blok B7/B1 No. 05, Bintaro Jaya Sektor 7 Tangerang 15424, Indonesia', 'Hadi setiadi', '081314691338', 'care@anugrah-argon.com'),
-('DB235689', 'PT. Anugerah Pharmindo Lestari', 'World Trade Center (WTC) 1 Building, 15th Floor, Jl. Jend. Sudirman Kav. 29 - 30, Jakarta 12920, Indonesia', 'Denny Fikri', '02121684084', 'didik.haryadi@aplcare.com'),
-('DB251436', 'PT. Bina San Prima', 'Jl. Tamansari No. 12 Bandung', 'Herman suherman', '0224207725', 'obd_secr@binasanprima.com'),
-('DB475869', 'PT. Distriversa Buanamas', 'Jl. Rawaterate I No.6, RW.9, Rw. Terate,\r\nKec. Cakung, Kota Jakarta Timur,\r\nDaerah Khusus Ibukota Jakarta 13920', 'Gibran hermawan', '02146829788', 'cs@tokodbm.com'),
-('DB6131638369', 'apapapaasd', 'asdasdad', 'asdasdasd', '234243324', 'asasdfasdfasf');
+('DB235689', 'PT. Anugerah Pharmindo Lestari', 'World Trade Center (WTC) 1 Building, 15th Floor, Jl. Jend. Sudirman Kav. 29 - 30, Jakarta 12920, Indonesia', 'Denny Fikri', '02121684084', 'didik.haryadi@aplcare.com');
 
 -- --------------------------------------------------------
 
@@ -306,9 +314,11 @@ CREATE TABLE `operasional` (
 --
 
 INSERT INTO `operasional` (`kode_operasional`, `nama_biaya`, `deskripsi`, `total_biaya`) VALUES
+('OP0876065573', 'alpukat', 'alpukat', 5000),
 ('OP1366758301', 'gaji diko', 'bayar gaji', 5000000),
+('OP4715164541', 'apel keju', 'asdasd', 90000),
 ('OP6193203410', 'listrik', 'pembayaran listrik', 30000),
-('OP8865447098', 'air', 'bayar air', 150000);
+('OP8865447098', 'assddd', 'bayar air', 150000);
 
 -- --------------------------------------------------------
 
@@ -325,6 +335,13 @@ CREATE TABLE `pembelian` (
   `harga_total` int NOT NULL,
   `laba_pcs` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `pembelian`
+--
+
+INSERT INTO `pembelian` (`kode_pemesanan`, `tanggal_pemesanan`, `kode_distributor`, `kode_barang`, `jumlah_pembelian`, `harga_total`, `laba_pcs`) VALUES
+('sadfasdfasdf234', '2024-05-23', 'DB235689', 'asdfsadfsd', 567, 567000, 200);
 
 -- --------------------------------------------------------
 
@@ -369,6 +386,7 @@ ALTER TABLE `about`
 -- Indexes for table `absensi`
 --
 ALTER TABLE `absensi`
+  ADD PRIMARY KEY (`id_absensi`),
   ADD KEY `kode_user` (`kode_user`);
 
 --
