@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.timone.main.admin.add;
+package com.timone.main.admin.component;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DbConnection;
@@ -10,6 +10,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import java.sql.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Fadel
@@ -214,7 +215,13 @@ public class FormAddOperational extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (isFormEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua isian harus diisi terlebih dahulu.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return; // Keluar dari metode jika form kosong
+        }
         insertOperasional();
+        this.dispose();
+        resetComponents();
     }//GEN-LAST:event_jButton1ActionPerformed
     
     // Metode untuk melakukan operasi insert ke database
@@ -260,17 +267,29 @@ public class FormAddOperational extends javax.swing.JFrame {
         return sb.toString();
     }
     
+    private boolean isFormEmpty() {
+        // Periksa jika jTextField1, jTextField2, jTextField3
+        // Semua isian terisi
+
+
+        return jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty();
+    }
+    
+    public void resetComponents() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         FlatGitHubIJTheme.setup();
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FormAddOperational form = new FormAddOperational();
-                form.setLocationRelativeTo(null); // Memposisikan jendela di tengah layar
-                form.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            FormAddOperational form = new FormAddOperational();
+            form.setLocationRelativeTo(null); // Memposisikan jendela di tengah layar
+            form.setVisible(true);
         });
     }
 

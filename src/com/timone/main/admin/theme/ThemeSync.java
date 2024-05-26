@@ -9,11 +9,10 @@ import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.main.admin.component.FormAbout;
-import com.timone.main.admin.component.FormReport;
-import com.timone.main.admin.add.FormAddDistributor;
-import com.timone.main.admin.add.FormAddOperational;
-import com.timone.main.admin.add.FormAddPurchase;
-import com.timone.main.admin.add.FormAddWorker;
+import com.timone.main.admin.component.FormAddDistributor;
+import com.timone.main.admin.component.FormAddOperational;
+import com.timone.main.admin.component.FormAddPurchase;
+import com.timone.main.admin.component.FormAddWorker;
 import java.awt.EventQueue;
 
 /**
@@ -21,20 +20,11 @@ import java.awt.EventQueue;
  * @author Fadel
  */
 public class ThemeSync {
-    private static FormReport report;
     private static FormAbout about;
     private static FormAddDistributor addDistributor;
     private static FormAddOperational addOperational;
     private static FormAddPurchase addPurchase;
     private static FormAddWorker addWorker;
-
-    public static void reportThemeSync() {
-        if (report == null) {
-            report = new FormReport();
-            report.setLocationRelativeTo(null);
-        }
-        report.setVisible(true);
-    }
 
     public static void aboutThemeSync() {
         if (about == null) {

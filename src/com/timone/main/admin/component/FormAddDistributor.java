@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.timone.main.admin.add;
+package com.timone.main.admin.component;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DbConnection;
@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -304,8 +305,13 @@ public class FormAddDistributor extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (isFormEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua isian harus diisi terlebih dahulu.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return; // Keluar dari metode jika form kosong
+        }
         try {
             insertDistributor();
+            resetComponents();
         } catch (SQLException ex) {
             Logger.getLogger(FormAddDistributor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -353,6 +359,17 @@ public class FormAddDistributor extends javax.swing.JFrame {
         }
     }
     
+    private boolean isFormEmpty() {
+
+        // Periksa jika jTextField2, jTextField4, jTextField5
+        if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty() || jTextField4.getText().isEmpty() || jTextField5.getText().isEmpty() || jTextField6.getText().isEmpty()) {
+            return true;
+        }
+
+        // Semua isian terisi
+        return false;
+    }
+    
     public static String generateDistributor() {
         String prefix = "DB";
         StringBuilder sb = new StringBuilder(prefix);
@@ -367,6 +384,17 @@ public class FormAddDistributor extends javax.swing.JFrame {
         return sb.toString();
     }
     
+    public void resetComponents() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jTextField1.setEnabled(true);
+        jCheckBox1.setSelected(false);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -410,11 +438,11 @@ public class FormAddDistributor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    public javax.swing.JTextField jTextField1;
+    public javax.swing.JTextField jTextField2;
+    public javax.swing.JTextField jTextField3;
+    public javax.swing.JTextField jTextField4;
+    public javax.swing.JTextField jTextField5;
+    public javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }

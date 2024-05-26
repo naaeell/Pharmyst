@@ -1148,7 +1148,7 @@ public class MainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        ThemeSync.reportThemeSync();
+        //report
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -1156,7 +1156,7 @@ public class MainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ThemeSync.reportThemeSync();
+        //report
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void opsi(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opsi
@@ -1233,15 +1233,15 @@ public class MainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton46ActionPerformed
 
     private void jButton45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton45ActionPerformed
-        ThemeSync.reportThemeSync();
+        //report
     }//GEN-LAST:event_jButton45ActionPerformed
 
     private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
-        ThemeSync.reportThemeSync();
+        //report
     }//GEN-LAST:event_jButton37ActionPerformed
 
     private void jButton38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton38ActionPerformed
-        ThemeSync.reportThemeSync();
+        //report
     }//GEN-LAST:event_jButton38ActionPerformed
 
     private void jButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton41ActionPerformed
