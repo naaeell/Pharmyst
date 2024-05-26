@@ -16,6 +16,7 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DbConnection;
 import com.timone.gate.LoginPage;
+import com.timone.main.admin.component.FormAddPurchase;
 import com.timone.main.admin.theme.ThemeSync;
 import java.io.File;
 import java.sql.Connection;
@@ -1261,7 +1262,11 @@ public class MainAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton41ActionPerformed
 
     private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
-        ThemeSync.addPurchaseThemeSync();
+
+        FormAddPurchase form = new FormAddPurchase();
+        form.setLocationRelativeTo(null);
+        form.setVisible(true);
+        
     }//GEN-LAST:event_jButton35ActionPerformed
 
     private void jButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton40ActionPerformed

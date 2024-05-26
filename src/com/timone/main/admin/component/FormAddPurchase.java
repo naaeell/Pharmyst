@@ -114,6 +114,11 @@ public class FormAddPurchase extends javax.swing.JFrame {
         jDateChooser1.setDateFormatString("d MMM y");
 
         jComboBox1.setMaximumRowCount(5);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("PBF/Distributor");
@@ -447,6 +452,10 @@ public class FormAddPurchase extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField10ActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     private boolean isLabaValid() {
         String hargaTotal = jTextField5.getText();
         String jumlahPembelian = jTextField4.getText();
@@ -514,7 +523,7 @@ public class FormAddPurchase extends javax.swing.JFrame {
         }
     }
     
-    private void ComboboxPBF() {
+    public void ComboboxPBF() {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;

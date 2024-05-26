@@ -5,7 +5,6 @@
 package com.timone.gate;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.timone.connection.DbConnection;
 import com.timone.main.admin.MainAdmin;
@@ -17,6 +16,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
@@ -200,14 +202,16 @@ public class RfidPage extends javax.swing.JFrame {
             }
         }
     }
-    private void insertAbsensi(Connection conn, String kodeUser) {
+    public void insertAbsensi(Connection conn, String kodeUser) throws SQLException {
         try {
-            // Periksa apakah entri absensi sudah ada untuk kode_user pada tanggal hari ini
+            // Generate unique absensi ID
+            String idAbsensi = generateUniqueAbsensiId(conn);
+
+            // Check if absensi entry already exists for the kode_user on today's date
             boolean isAlreadyLogged = false;
-            String checkAbsensiQuery = "SELECT COUNT(*) FROM absensi WHERE kode_user=? AND tanggal_kehadiran=?";
-            try (PreparedStatement stmtCheckAbsensi = conn.prepareStatement(checkAbsensiQuery)) {
+            try (PreparedStatement stmtCheckAbsensi = conn.prepareStatement("SELECT COUNT(*) FROM absensi WHERE kode_user=? AND tanggal_kehadiran=?")) {
                 stmtCheckAbsensi.setString(1, kodeUser);
-                stmtCheckAbsensi.setDate(2, java.sql.Date.valueOf(java.time.LocalDate.now()));
+                stmtCheckAbsensi.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
                 try (ResultSet rs = stmtCheckAbsensi.executeQuery()) {
                     if (rs.next()) {
                         int count = rs.getInt(1);
@@ -216,21 +220,42 @@ public class RfidPage extends javax.swing.JFrame {
                 }
             }
 
-            // Jika belum ada entri absensi untuk kode_user pada tanggal hari ini, sisipkan log absensi baru
+            // If absensi entry does not exist for the kode_user on today's date, insert a new absensi log
             if (!isAlreadyLogged) {
-                String insertAbsensiQuery = "INSERT INTO absensi (kode_user, tanggal_kehadiran, waktu) VALUES (?, ?, ?)";
-                try (PreparedStatement stmtInsertAbsensi = conn.prepareStatement(insertAbsensiQuery)) {
-                    stmtInsertAbsensi.setString(1, kodeUser);
-                    stmtInsertAbsensi.setDate(2, java.sql.Date.valueOf(java.time.LocalDate.now())); // Tanggal sekarang
-                    stmtInsertAbsensi.setTime(3, java.sql.Time.valueOf(java.time.LocalTime.now())); // Waktu sekarang
+                try (PreparedStatement stmtInsertAbsensi = conn.prepareStatement("INSERT INTO absensi (id_absensi, kode_user, tanggal_kehadiran, waktu) VALUES (?, ?, ?, ?)")) {
+                    stmtInsertAbsensi.setString(1, idAbsensi);
+                    stmtInsertAbsensi.setString(2, kodeUser);
+                    stmtInsertAbsensi.setDate(3, java.sql.Date.valueOf(LocalDate.now())); // Today's date
+                    stmtInsertAbsensi.setTime(4, java.sql.Time.valueOf(LocalTime.now())); // Current time
                     stmtInsertAbsensi.executeUpdate();
                 }
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menyisipkan log absensi.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e) {
+            // Handle any SQL exceptions
+            e.printStackTrace();
         }
     }
+    
+        // Metode untuk menghasilkan ID Absensi unik dengan panjang 10 angka
+        private String generateUniqueAbsensiId(Connection conn) throws SQLException {
+            Random random = new Random();
+            String idAbsensi;
+            boolean isUnique;
+
+            do {
+                idAbsensi = String.format("%010d", random.nextInt(1_000_000_000));
+
+                // Check if idAbsensi already exists in the database
+                try (PreparedStatement stmtCheckId = conn.prepareStatement("SELECT COUNT(*) FROM absensi WHERE id_absensi=?")) {
+                    stmtCheckId.setString(1, idAbsensi);
+                    try (ResultSet rs = stmtCheckId.executeQuery()) {
+                        isUnique = !rs.next() || rs.getInt(1) == 0;
+                    }
+                }
+            } while (!isUnique);
+
+            return idAbsensi;
+        }
 
     
     /**
