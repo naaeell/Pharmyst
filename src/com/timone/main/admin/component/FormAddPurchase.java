@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -189,6 +191,12 @@ public class FormAddPurchase extends javax.swing.JFrame {
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel21.setText("Nama Barang");
+
+        jTextField10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField10ActionPerformed(evt);
+            }
+        });
 
         jCheckBox5.setText("Generate kode barang");
         jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
@@ -386,23 +394,58 @@ public class FormAddPurchase extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Periksa apakah semua variabel termasuk jDateChooser kosong
-        if (isFormEmpty()) {
-            JOptionPane.showMessageDialog(this, "Semua isian harus diisi terlebih dahulu.", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return; // Keluar dari metode jika form kosong
-        }
+    // Periksa apakah semua variabel termasuk jDateChooser kosong
+    if (isFormEmpty()) {
+        JOptionPane.showMessageDialog(this, "Semua isian harus diisi terlebih dahulu.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return; // Keluar dari metode jika form kosong
+    }
 
-        // Validasi laba per unit
-        if (!isLabaValid()) {
-            return; // Keluar dari metode jika laba tidak valid
-        }
+    // Validasi tanggal kadaluarsa
+    Date selectedDate = jDateChooser2.getDate();
+    if (selectedDate != null) {
+        Calendar cal = Calendar.getInstance();
+        
+        // Tanggal 3 bulan dari sekarang
+        cal.add(Calendar.MONTH, 3);
+        Date threeMonthsLater = cal.getTime();
+        
+        // Tanggal 6 bulan dari sekarang
+        cal.add(Calendar.MONTH, 3);
+        Date sixMonthsLater = cal.getTime();
 
-        // Lanjutkan dengan menambahkan pembelian dan barang
-        insertBarang();
-        insertPembelian();
-        resetComponents();
-        this.dispose();
+        if (selectedDate.before(threeMonthsLater)) {
+            JOptionPane.showMessageDialog(this, "Expired obat dalam 3 bulan tidak dapat ditambahkan.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return; // Keluar dari metode jika tanggal kadaluarsa kurang dari 3 bulan
+        } else if (selectedDate.before(sixMonthsLater)) {
+            int response = JOptionPane.showConfirmDialog(this, 
+                "Obat akan expired dalam 6 bulan, Anda tetap dapat menjualnya selama sebelum kurang dari 3 bulan dari tanggal expired. Apakah Anda tetap ingin menjualnya?", 
+                "Konfirmasi", 
+                JOptionPane.YES_NO_OPTION, 
+                JOptionPane.WARNING_MESSAGE);
+            if (response != JOptionPane.YES_OPTION) {
+                return; // Keluar dari metode jika user memilih tidak
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Tanggal harus diisi.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return; // Keluar dari metode jika tanggal belum diisi
+    }
+
+    // Validasi laba per unit
+    if (!isLabaValid()) {
+        return; // Keluar dari metode jika laba tidak valid
+    }
+
+    // Lanjutkan dengan menambahkan pembelian dan barang
+    insertBarang();
+    insertPembelian();
+    resetComponents();
+    this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField10ActionPerformed
 
     private boolean isLabaValid() {
         String hargaTotal = jTextField5.getText();

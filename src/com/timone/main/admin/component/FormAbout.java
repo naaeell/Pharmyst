@@ -127,7 +127,7 @@ public class FormAbout extends javax.swing.JFrame {
         jLabel3.setText("dan detail pemilik.");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("Nama");
+        jLabel4.setText("Nama Pemilik");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Username");
@@ -316,7 +316,6 @@ public class FormAbout extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(rfid, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
@@ -326,7 +325,8 @@ public class FormAbout extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addComponent(namaUsaha)
                             .addComponent(teleponUsaha)
-                            .addComponent(namaPemilik))
+                            .addComponent(namaPemilik)
+                            .addComponent(jLabel4))
                         .addGap(45, 45, 45)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)

@@ -412,6 +412,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField10">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField10ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBox5">
       <Properties>

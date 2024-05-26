@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Fadel
@@ -278,12 +279,18 @@ public class FormAddWorker extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Periksa apakah semua variabel termasuk jDateChooser kosong
+        if (isFormEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua isian harus diisi terlebih dahulu.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return; // Keluar dari metode jika form kosong
+        }
         try {
             insertAkunKaryawan();
+            resetComponents();
         } catch (SQLException ex) {
             Logger.getLogger(FormAddWorker.class.getName()).log(Level.SEVERE, null, ex);
         }
-         dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
     
     public void insertAkunKaryawan() throws SQLException {
@@ -337,6 +344,30 @@ public class FormAddWorker extends javax.swing.JFrame {
             sb.append(digit);
         }
         return sb.toString();
+    }
+    
+    // Method untuk mereset semua komponen ke kondisi semula
+    public void resetComponents() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jPasswordField1.setText("");
+        jPasswordField2.setText("");
+    }
+    
+    private boolean isFormEmpty() {
+        // Periksa jika jTextField1 kosong atau jDateChooser1 belum dipilih
+        if (jPasswordField1.getText().isEmpty() || jPasswordField1.getText().isEmpty()) {
+            return true;
+        }
+
+        // Periksa jika jTextField2, jTextField4, jTextField5
+        if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty()) {
+            return true;
+        }
+
+        // Semua isian terisi
+        return false;
     }
     
     /**
