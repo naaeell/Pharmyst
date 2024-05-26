@@ -282,64 +282,81 @@ public class WorkerLogic {
                     });
 
                     option6.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        // Tindakan yang akan dilakukan ketika opsi 6 dipilih (Delete Karyawan)
-        System.out.println("Opsi 6 dipilih pada baris: " + rowIndex);
-        // Meminta konfirmasi pengguna sebelum menghapus
-        int option = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menghapus data karyawan ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
-        if (option == JOptionPane.YES_OPTION) {
-            try {
-                // Mendapatkan koneksi ke database dari kelas DbConnection
-                Connection conn = DbConnection.getConnection();
-                // Memulai transaksi
-                conn.setAutoCommit(false);
-                
-                // Membuat statement SQL untuk menghapus data absensi karyawan dari tabel absensi
-                String deleteAbsensiSQL = "DELETE FROM absensi WHERE kode_user = ?";
-                PreparedStatement stmtDeleteAbsensi = conn.prepareStatement(deleteAbsensiSQL);
-                // Set parameter pembaruan
-                stmtDeleteAbsensi.setString(1, (String) jTable5.getValueAt(rowIndex, 1));
-                // Eksekusi pernyataan untuk menghapus data absensi karyawan dari tabel absensi
-                int rowsDeletedAbsensi = stmtDeleteAbsensi.executeUpdate();
-                
-                // Jika data absensi karyawan berhasil dihapus, lanjutkan untuk menghapus data karyawan dari tabel akun_karyawan
-                if (rowsDeletedAbsensi > 0) {
-                    // Membuat statement SQL untuk menghapus data karyawan dari tabel akun_karyawan
-                    String deleteKaryawanSQL = "DELETE FROM akun_karyawan WHERE kode_user = ?";
-                    PreparedStatement stmtDeleteKaryawan = conn.prepareStatement(deleteKaryawanSQL);
-                    // Set parameter pembaruan
-                    stmtDeleteKaryawan.setString(1, (String) jTable5.getValueAt(rowIndex, 1));
-                    // Eksekusi pernyataan untuk menghapus data karyawan dari tabel akun_karyawan
-                    int rowsDeletedKaryawan = stmtDeleteKaryawan.executeUpdate();
-                    
-                    if (rowsDeletedKaryawan > 0) {
-                        System.out.println("Data karyawan dan absensi terkait berhasil dihapus.");
-                        // Commit transaksi
-                        conn.commit();
-                        // Memperbarui tampilan tabel jika diperlukan
-                        WorkerTable(jTable5, jTextField5);
-                    } else {
-                        System.out.println("Gagal menghapus data karyawan.");
-                        // Rollback transaksi jika penghapusan karyawan gagal
-                        conn.rollback();
-                    }
-                    // Menutup statement
-                    stmtDeleteKaryawan.close();
-                } else {
-                    System.out.println("Gagal menghapus data absensi karyawan.");
-                    // Rollback transaksi jika penghapusan absensi karyawan gagal
-                    conn.rollback();
-                }
-                // Menutup statement
-                stmtDeleteAbsensi.close();
-                conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-});
+                        public void actionPerformed(ActionEvent e) {
+                            // Tindakan yang akan dilakukan ketika opsi 6 dipilih (Delete Karyawan)
+                            System.out.println("Opsi 6 dipilih pada baris: " + rowIndex);
+                            // Meminta konfirmasi pengguna sebelum menghapus
+                            int option = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menghapus data karyawan ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
+                            if (option == JOptionPane.YES_OPTION) {
+                                try {
+                                    // Mendapatkan koneksi ke database dari kelas DbConnection
+                                    Connection conn = DbConnection.getConnection();
 
+                                    // Mendapatkan nilai username dari kolom kedua (indeks 1) dari jTable5
+                                    String username = (String) jTable5.getValueAt(rowIndex, 1); // Assuming the username is in column index 1
+
+                                    // Membuat statement SQL untuk mengambil kode_user dari tabel akun_karyawan berdasarkan username
+                                    String selectKodeUserSQL = "SELECT kode_user FROM akun_karyawan WHERE username = ?";
+                                    PreparedStatement stmtSelectKodeUser = conn.prepareStatement(selectKodeUserSQL);
+                                    // Set parameter username
+                                    stmtSelectKodeUser.setString(1, username);
+                                    // Eksekusi pernyataan untuk mengambil kode_user
+                                    ResultSet rs = stmtSelectKodeUser.executeQuery();
+
+                                    // Mendapatkan kode_user
+                                    String kodeUser = null;
+                                    if (rs.next()) {
+                                        kodeUser = rs.getString("kode_user");
+                                    }
+                                    rs.close();
+                                    stmtSelectKodeUser.close();
+
+                                    if (kodeUser != null) {
+                                        try {
+                                            // Membuat statement SQL untuk menghapus semua data absensi karyawan dengan kode_user yang sama dari tabel absensi
+                                            String deleteAbsensiSQL = "DELETE FROM absensi WHERE kode_user = ?";
+                                            PreparedStatement stmtDeleteAbsensi = conn.prepareStatement(deleteAbsensiSQL);
+                                            // Set parameter kode_user
+                                            stmtDeleteAbsensi.setString(1, kodeUser);
+                                            // Eksekusi pernyataan untuk menghapus data absensi karyawan dari tabel absensi
+                                            int rowsDeletedAbsensi = stmtDeleteAbsensi.executeUpdate();
+                                            // Menutup statement
+                                            stmtDeleteAbsensi.close();
+
+                                            if (rowsDeletedAbsensi > 0) {
+                                                System.out.println("Data absensi karyawan berhasil dihapus.");
+                                                // Sekarang hapus baris dari tabel akun_karyawan setelah entri terkait di tabel absensi telah dihapus
+                                                String deleteKaryawanSQL = "DELETE FROM akun_karyawan WHERE kode_user = ?";
+                                                PreparedStatement stmtDeleteKaryawan = conn.prepareStatement(deleteKaryawanSQL);
+                                                stmtDeleteKaryawan.setString(1, kodeUser);
+                                                int rowsDeletedKaryawan = stmtDeleteKaryawan.executeUpdate();
+                                                stmtDeleteKaryawan.close();
+
+                                                if (rowsDeletedKaryawan > 0) {
+                                                    System.out.println("Data karyawan berhasil dihapus.");
+                                                    // Memperbarui tampilan tabel jika diperlukan
+                                                    WorkerTable(jTable5, jTextField5);
+                                                } else {
+                                                    System.out.println("Gagal menghapus data karyawan.");
+                                                }
+                                            } else {
+                                                System.out.println("Tidak ada data absensi karyawan yang dihapus.");
+                                            }
+                                        } catch (SQLException ex) {
+                                            ex.printStackTrace();
+                                        }
+                                    } else {
+                                        System.out.println("Tidak dapat menemukan kode_user untuk username: " + username);
+                                    }
+
+
+                                    conn.close();
+                                } catch (SQLException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        }
+                    });
 
                     // Tambahkan opsi ke menu popup
                     popup.add(option1);
