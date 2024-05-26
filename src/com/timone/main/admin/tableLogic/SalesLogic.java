@@ -14,114 +14,52 @@ import java.sql.*;
  */
 public class SalesLogic {
     public static void salesTable(JTable jTable2, JTextField jTextField2) {
-    try {
-        // Mendapatkan koneksi ke database dari kelas DbConnection
-        Connection conn = DbConnection.getConnection();
+        try {
+            // Mendapatkan koneksi ke database dari kelas DbConnection
+            Connection conn = DbConnection.getConnection();
 
-        // Membuat statement SQL untuk mengambil data penjualan
-        String sql = "SELECT dp.kode_penjualan, p.tanggal_transaksi, k.username AS user, dp.kode_barang, b.nama_barang, dp.jumlah_terjual AS barang_terjual, dp.laba_pcs, dp.laba_total " +
-                "FROM detail_penjualan dp " +
-                "JOIN penjualan p ON dp.kode_penjualan = p.kode_penjualan " +
-                "JOIN barang b ON dp.kode_barang = b.kode_barang " +
-                "JOIN akun_karyawan k ON p.kode_user = k.kode_user " +
-                "WHERE dp.kode_penjualan LIKE ? OR p.tanggal_transaksi LIKE ? OR k.username LIKE ? OR dp.kode_barang LIKE ? OR b.nama_barang LIKE ?";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        String searchQuery = "%" + jTextField2.getText() + "%";
-        for (int i = 1; i <= 5; i++) {
-            stmt.setString(i, searchQuery);
-        }
-        ResultSet rs = stmt.executeQuery();
-
-        // Mendapatkan model tabel yang ada
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-
-        // Menghapus semua baris yang sudah ada dari model tabel
-        model.setRowCount(0);
-
-        // Memproses hasil kueri dan menambahkannya ke model tabel
-        while (rs.next()) {
-            Object[] row = {
-                    rs.getString("kode_penjualan"),
-                    rs.getDate("tanggal_transaksi"),
-                    rs.getString("user"),
-                    rs.getString("kode_barang"),
-                    rs.getString("nama_barang"),
-                    rs.getInt("barang_terjual"),
-                    rs.getInt("laba_pcs"),
-                    rs.getInt("laba_total")
-            };
-            model.addRow(row);
-        }
-
-        // Menutup koneksi dan sumber daya
-        rs.close();
-        stmt.close();
-        conn.close();
-    } catch (SQLException e) {
-        // Menangani eksepsi dengan mencetak jejaknya
-        e.printStackTrace();
-    }
-
-
-
-        jTable2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                int r = jTable2.rowAtPoint(e.getPoint());
-                if (r >= 0 && r < jTable2.getRowCount()) {
-                    jTable2.setRowSelectionInterval(r, r);
-                } else {
-                    jTable2.clearSelection();
-                }
-
-                int rowIndex = jTable2.getSelectedRow();
-                if (rowIndex < 0)
-                    return;
-
-                if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
-                    JPopupMenu popup = new JPopupMenu();
-
-                    // Tambahkan opsi yang ingin Anda tampilkan di sini
-                    JMenuItem option1 = new JMenuItem("Hapus Penjualan");
-
-                    // Tambahkan action listener untuk setiap opsi
-                    option1.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            int rowIndex = jTable2.getSelectedRow();
-                            if (rowIndex < 0)
-                                return;
-
-                            String kodePenjualan = jTable2.getValueAt(rowIndex, 0).toString(); // Ambil kode penjualan dari baris yang dipilih
-
-                            try {
-                                Connection conn = DbConnection.getConnection();
-                                String sql = "DELETE FROM penjualan WHERE kode_penjualan = ?";
-                                PreparedStatement stmt = conn.prepareStatement(sql);
-                                stmt.setString(1, kodePenjualan);
-                                int rowsAffected = stmt.executeUpdate();
-                                if (rowsAffected > 0) {
-                                    // Jika penghapusan berhasil, hapus juga baris dari tabel
-                                    DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-                                    model.removeRow(rowIndex);
-                                    System.out.println("Penjualan dengan kode " + kodePenjualan + " telah dihapus.");
-                                } else {
-                                    System.out.println("Gagal menghapus penjualan dengan kode " + kodePenjualan);
-                                }
-                                stmt.close();
-                                conn.close();
-                            } catch (SQLException ex) {
-                                ex.printStackTrace();
-                            }
-                        }
-                    });
-
-                    // Tambahkan opsi ke menu popup
-                    popup.add(option1);
-
-                    // Tampilkan menu popup di posisi klik mouse
-                    popup.show(e.getComponent(), e.getX(), e.getY());
-                }
+            // Membuat statement SQL untuk mengambil data penjualan
+            String sql = "SELECT dp.kode_penjualan, p.tanggal_transaksi, k.username AS user, dp.kode_barang, b.nama_barang, dp.jumlah_terjual AS barang_terjual, dp.laba_pcs, dp.laba_total " +
+                    "FROM detail_penjualan dp " +
+                    "JOIN penjualan p ON dp.kode_penjualan = p.kode_penjualan " +
+                    "JOIN barang b ON dp.kode_barang = b.kode_barang " +
+                    "JOIN akun_karyawan k ON p.kode_user = k.kode_user " +
+                    "WHERE dp.kode_penjualan LIKE ? OR p.tanggal_transaksi LIKE ? OR k.username LIKE ? OR dp.kode_barang LIKE ? OR b.nama_barang LIKE ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            String searchQuery = "%" + jTextField2.getText() + "%";
+            for (int i = 1; i <= 5; i++) {
+                stmt.setString(i, searchQuery);
             }
-        });
+            ResultSet rs = stmt.executeQuery();
+
+            // Mendapatkan model tabel yang ada
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+            // Menghapus semua baris yang sudah ada dari model tabel
+            model.setRowCount(0);
+
+            // Memproses hasil kueri dan menambahkannya ke model tabel
+            while (rs.next()) {
+                Object[] row = {
+                        rs.getString("kode_penjualan"),
+                        rs.getDate("tanggal_transaksi"),
+                        rs.getString("user"),
+                        rs.getString("kode_barang"),
+                        rs.getString("nama_barang"),
+                        rs.getInt("barang_terjual"),
+                        rs.getInt("laba_pcs"),
+                        rs.getInt("laba_total")
+                };
+                model.addRow(row);
+            }
+
+            // Menutup koneksi dan sumber daya
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            // Menangani eksepsi dengan mencetak jejaknya
+            e.printStackTrace();
+        }
     }
 }

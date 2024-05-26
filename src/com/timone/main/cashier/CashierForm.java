@@ -405,10 +405,10 @@ public class CashierForm extends javax.swing.JFrame {
     public void uploadData() throws SQLException {
         Connection conn = DbConnection.getConnection();
 
-        if (conn == null) {
-            System.out.println("Gagal mendapatkan koneksi.");
-            return;
-        }
+            if (conn == null) {
+                System.out.println("Gagal mendapatkan koneksi.");
+                return;
+            }
 
         try {
             String kodePenjualan = jLabel4.getText();
@@ -425,9 +425,9 @@ public class CashierForm extends javax.swing.JFrame {
             ResultSet resultSet = kodeUserStatement.executeQuery();
 
             String kodeUser = null;
-            if (resultSet.next()) {
-                kodeUser = resultSet.getString("kode_user");
-            }
+                    if (resultSet.next()) {
+                        kodeUser = resultSet.getString("kode_user");
+                    }
 
             if (kodeUser == null) {
                 System.out.println("Karyawan tidak ditemukan dalam database.");
@@ -436,21 +436,21 @@ public class CashierForm extends javax.swing.JFrame {
 
             String insertQuery = "INSERT INTO penjualan (kode_penjualan, tanggal_transaksi, kode_user) VALUES (?, ?, ?)";
             PreparedStatement insertStatement = conn.prepareStatement(insertQuery);
-            insertStatement.setString(1, kodePenjualan);
-            insertStatement.setDate(2, tanggalTransaksi);
-            insertStatement.setString(3, kodeUser);
+                insertStatement.setString(1, kodePenjualan);
+                insertStatement.setDate(2, tanggalTransaksi);
+                insertStatement.setString(3, kodeUser);
 
-            int rowsAffected = insertStatement.executeUpdate();
+                int rowsAffected = insertStatement.executeUpdate();
 
-            if (rowsAffected > 0) {
-                System.out.println("Data penjualan berhasil diunggah ke database.");
-                // Panggil metode untuk menyimpan detail penjualan
-                saveDetailToDatabase(conn, kodePenjualan);
-                // Panggil metode untuk menyimpan ke tabel print_invoice
-                uploadToPrintInvoice(conn, kodePenjualan);
-            } else {
-                System.out.println("Gagal mengunggah data penjualan ke database.");
-            }
+                if (rowsAffected > 0) {
+                    System.out.println("Data penjualan berhasil diunggah ke database.");
+                    // Panggil metode untuk menyimpan detail penjualan
+                    saveDetailToDatabase(conn, kodePenjualan);
+                    // Panggil metode untuk menyimpan ke tabel print_invoice
+                    uploadToPrintInvoice(conn, kodePenjualan);
+                } else {
+                    System.out.println("Gagal mengunggah data penjualan ke database.");
+                }
 
             conn.close();
 
@@ -463,9 +463,12 @@ public class CashierForm extends javax.swing.JFrame {
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
         try {
             double labaPcs; // Deklarasi variabel labaPcs
+            Random random = new Random(); // Buat instance Random untuk menghasilkan angka acak
+
             for (int i = 0; i < tableModel.getRowCount(); i++) {
                 String kodeBarang = (String) tableModel.getValueAt(i, 1);
                 int qty = (int) tableModel.getValueAt(i, 4);
+                String namaBarang = (String) tableModel.getValueAt(i, 2);
                 String hargaTotalStr = (String) tableModel.getValueAt(i, 6);
                 double hargaTotal = Double.parseDouble(hargaTotalStr);
 
@@ -475,15 +478,20 @@ public class CashierForm extends javax.swing.JFrame {
                 // Hitung laba_total
                 double labaTotal = qty * labaPcs;
 
+                // Generate kode_detail dengan angka acak 10 digit
+                String kodeDetail = String.format("%010d", random.nextInt(1000000000));
+
                 // Simpan ke tabel detail_penjualan
-                String query = "INSERT INTO detail_penjualan (kode_penjualan, kode_barang, jumlah_terjual, total_harga, laba_pcs, laba_total) VALUES (?, ?, ?, ?, ?, ?)";
+                String query = "INSERT INTO detail_penjualan (kode_detail, kode_penjualan, kode_barang, nama_barang, jumlah_terjual, total_harga, laba_pcs, laba_total) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement statement = conn.prepareStatement(query);
-                statement.setString(1, kodePenjualan);
-                statement.setString(2, kodeBarang);
-                statement.setInt(3, qty);
-                statement.setDouble(4, hargaTotal);
-                statement.setDouble(5, labaPcs);
-                statement.setDouble(6, labaTotal);
+                statement.setString(1, kodeDetail);
+                statement.setString(2, kodePenjualan);
+                statement.setString(3, kodeBarang);
+                statement.setString(4, namaBarang);
+                statement.setInt(5, qty);
+                statement.setDouble(6, hargaTotal);
+                statement.setDouble(7, labaPcs);
+                statement.setDouble(8, labaTotal);
                 statement.executeUpdate();
             }
             System.out.println("Data detail penjualan berhasil diunggah ke database.");
@@ -544,7 +552,7 @@ public class CashierForm extends javax.swing.JFrame {
             JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), null, conn);
 
             // Cetak laporan langsung
-            JasperPrintManager.printReport(jp, false); // false berarti tidak menampilkan dialog pencetakan
+            JasperPrintManager.printReport(jp, true); // false berarti tidak menampilkan dialog pencetakan
 
             // Optional: Tutup koneksi
             conn.close();

@@ -48,6 +48,7 @@ public class InventoryLogic {
                          "    barang.satuan_obat, " +
                          "    barang.kadaluarsa, " +
                          "    barang.kuantitas, " +
+                         "    barang.jumlah_terjual, " +
                          "    barang.harga_jual " +
                          "FROM " +
                          "    barang " +
@@ -104,6 +105,7 @@ public class InventoryLogic {
                         rs.getString("satuan_obat"),
                         kadaluarsaFormatted,
                         rs.getInt("kuantitas"),
+                        rs.getInt("jumlah_terjual"),
                         rs.getInt("harga_jual")
                 };
 
@@ -191,27 +193,13 @@ public class InventoryLogic {
                     JPopupMenu popup = new JPopupMenu();
 
                     // Tambahkan opsi yang ingin Anda tampilkan di sini
-                    JMenuItem option1 = new JMenuItem("Tandai Stok Kosong");
-                    JMenuItem option2 = new JMenuItem("Stock Opname");
-                    JMenuItem option3 = new JMenuItem("Update Harga Jual");
-                    JMenuItem option4 = new JMenuItem("Hapus Barang");
+                    JMenuItem option1 = new JMenuItem("Stock Opname");
+                    JMenuItem option2 = new JMenuItem("Update Harga Jual");
+                    JMenuItem option3 = new JMenuItem("Hapus Barang");
 
                     // Tambahkan action listener untuk setiap opsi
-                    option1.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            int response = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menandai stok kosong?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-                            if (response == JOptionPane.YES_OPTION) {
-                                // Dapatkan kode_barang dari baris yang dipilih
-                                String kodeBarang = (String) jTable1.getValueAt(rowIndex, 1);
-                                // Panggil metode untuk memperbarui stok di database
-                                updateStokKosong(kodeBarang);
-                                // Perbarui tampilan tabel setelah perubahan di database
-                                inventoryTable(jTable1, jTextField1);
-                            }
-                        }
-                    });
 
-                    option2.addActionListener(new ActionListener() {
+                    option1.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             int stokSaatIni = (int) jTable1.getValueAt(rowIndex, 7);
                             if (stokSaatIni == 0) {
@@ -245,9 +233,9 @@ public class InventoryLogic {
                         }
                     });
                     
-                    option3.addActionListener(new ActionListener() {
+                    option2.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            int response = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin mengupdate harga jual?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                            int response = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin memperbarui harga jual? Transaksi sebelumnya akan tetap menggunakan harga jual yang lama.", "Konfirmasi", JOptionPane.YES_NO_OPTION);
                             if (response == JOptionPane.YES_OPTION) {
                                 // Dapatkan kode_barang dari baris yang dipilih
                                 String kodeBarang = (String) jTable1.getValueAt(rowIndex, 1);
@@ -259,9 +247,10 @@ public class InventoryLogic {
                         }
                     });
                     
-                    option4.addActionListener(new ActionListener() {
+                    option3.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            int response = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus barang? ini juga akan menghapus riwayat pembelian", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                            String message = "Perhatian: Jika Anda menghapus data barang ini, riwayat pembelian dan penjualan juga akan terhapus. Anda tidak akan dapat membuat laporan terkait data barang yang sudah dihapus. Apakah Anda menyetujui?";
+                            int response = JOptionPane.showConfirmDialog(null, message, "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                             if (response == JOptionPane.YES_OPTION) {
                                 // Dapatkan kode_barang dari baris yang dipilih
                                 String kodeBarang = (String) jTable1.getValueAt(rowIndex, 1);
@@ -277,8 +266,7 @@ public class InventoryLogic {
                     popup.add(option1);
                     popup.add(option2);
                     popup.add(option3);
-                    popup.add(option4);
-
+                    
                     // Tampilkan menu popup di posisi klik mouse
                     popup.show(e.getComponent(), e.getX(), e.getY());
                 }
@@ -289,28 +277,46 @@ public class InventoryLogic {
     public static void deleteBarang(String kodeBarang) {
         try {
             Connection conn = DbConnection.getConnection();
-            String sqlDelete = "DELETE FROM barang WHERE kode_barang = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sqlDelete);
-            pstmt.setString(1, kodeBarang);
-            pstmt.executeUpdate();
 
-            pstmt.close();
+            // Hapus dari tabel barang
+            String sqlDeleteBarang = "DELETE FROM barang WHERE kode_barang = ?";
+            PreparedStatement pstmtDeleteBarang = conn.prepareStatement(sqlDeleteBarang);
+            pstmtDeleteBarang.setString(1, kodeBarang);
+            pstmtDeleteBarang.executeUpdate();
+            pstmtDeleteBarang.close();
+
+            // Hapus tabel print_invoice jika tidak kosong
+            deletePrintInvoice();
+
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
-    // Metode untuk memperbarui stok barang menjadi 0 di database
-    public static void updateStokKosong(String kodeBarang) {
+
+    public static void deletePrintInvoice() {
         try {
             Connection conn = DbConnection.getConnection();
-            String sqlUpdate = "UPDATE barang SET kuantitas = 0 WHERE kode_barang = ?";
-            PreparedStatement pstmt = conn.prepareStatement(sqlUpdate);
-            pstmt.setString(1, kodeBarang);
-            pstmt.executeUpdate();
 
-            pstmt.close();
+            // Periksa apakah tabel print_invoice memiliki entri
+            String sqlCheckPrintInvoice = "SELECT COUNT(*) FROM print_invoice";
+            PreparedStatement pstmtCheckPrintInvoice = conn.prepareStatement(sqlCheckPrintInvoice);
+            ResultSet rsPrintInvoice = pstmtCheckPrintInvoice.executeQuery();
+            rsPrintInvoice.next();
+            int printInvoiceRowCount = rsPrintInvoice.getInt(1);
+            pstmtCheckPrintInvoice.close();
+
+            if (printInvoiceRowCount > 0) {
+                // Jika tabel print_invoice memiliki entri, hapus mereka
+                String sqlDeletePrintInvoice = "DELETE FROM print_invoice";
+                PreparedStatement pstmtDeletePrintInvoice = conn.prepareStatement(sqlDeletePrintInvoice);
+                pstmtDeletePrintInvoice.executeUpdate();
+                pstmtDeletePrintInvoice.close();
+                System.out.println("Tabel print_invoice berhasil dikosongkan.");
+            } else {
+                System.out.println("Tidak ada entri dalam tabel print_invoice. Tidak perlu dihapus.");
+            }
+
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();

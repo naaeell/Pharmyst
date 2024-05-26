@@ -227,11 +227,11 @@ public class MainAdmin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Status", "Kode Barang", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Exp", "Stok", "Harga Jual (pcs)"
+                "Status", "Kode Barang", "Nama Barang", "Kategori", "Bentuk", "Satuan", "Exp", "Stok", "Terjual", "Harga Jual (pcs)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -269,9 +269,12 @@ public class MainAdmin extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(5).setMinWidth(90);
             jTable1.getColumnModel().getColumn(5).setPreferredWidth(90);
             jTable1.getColumnModel().getColumn(5).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(7).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(80);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(80);
+            jTable1.getColumnModel().getColumn(6).setMinWidth(120);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(120);
+            jTable1.getColumnModel().getColumn(6).setMaxWidth(120);
+            jTable1.getColumnModel().getColumn(9).setMinWidth(120);
+            jTable1.getColumnModel().getColumn(9).setPreferredWidth(120);
+            jTable1.getColumnModel().getColumn(9).setMaxWidth(120);
         }
 
         jTextField1.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Cari");
@@ -529,6 +532,11 @@ public class MainAdmin extends javax.swing.JFrame {
         jTable3.setShowGrid(false);
         jTable3.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(jTable3);
+        if (jTable3.getColumnModel().getColumnCount() > 0) {
+            jTable3.getColumnModel().getColumn(2).setMinWidth(180);
+            jTable3.getColumnModel().getColumn(2).setPreferredWidth(180);
+            jTable3.getColumnModel().getColumn(2).setMaxWidth(180);
+        }
 
         jTextField3.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Cari");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {

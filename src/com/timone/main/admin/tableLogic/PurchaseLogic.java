@@ -61,7 +61,6 @@ public class PurchaseLogic {
                         rs.getString("kode_pemesanan"),
                         rs.getDate("tanggal_pemesanan"),
                         rs.getString("nama_distributor"),
-                        //rs.getString("kode_barang"),
                         rs.getString("nama_barang"),
                         rs.getString("nama_kategori"),
                         rs.getString("nama_bentuk_obat"),
@@ -80,57 +79,5 @@ public class PurchaseLogic {
             // Handle exceptions gracefully
             e.printStackTrace();
         }
-
-        jTable3.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                int r = jTable3.rowAtPoint(e.getPoint());
-                if (r >= 0 && r < jTable3.getRowCount()) {
-                    jTable3.setRowSelectionInterval(r, r);
-                } else {
-                    jTable3.clearSelection();
-                }
-
-                int rowIndex = jTable3.getSelectedRow();
-                if (rowIndex < 0)
-                    return;
-
-                if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
-                    JPopupMenu popup = new JPopupMenu();
-
-                    // Tambahkan opsi yang ingin Anda tampilkan di sini
-                    JMenuItem option1 = new JMenuItem("Hapus Pembelian");
-
-                    // Tambahkan action listener untuk setiap opsi
-                    option1.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus pembelian ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
-                            if (confirm == JOptionPane.YES_OPTION) {
-                                try {
-                                    String kodePemesanan = (String) jTable3.getValueAt(rowIndex, 0);
-                                    Connection conn = DbConnection.getConnection();
-                                    String deleteSql = "DELETE FROM pembelian WHERE kode_pemesanan = ?";
-                                    PreparedStatement deleteStmt = conn.prepareStatement(deleteSql);
-                                    deleteStmt.setString(1, kodePemesanan);
-                                    deleteStmt.executeUpdate();
-                                    deleteStmt.close();
-                                    conn.close();
-                                    // Refresh the table
-                                    PurchaseTable(jTable3, jTextField3);
-                                } catch (SQLException ex) {
-                                    ex.printStackTrace();
-                                }
-                            }
-                        }
-                    });
-
-                    // Tambahkan opsi ke menu popup
-                    popup.add(option1);
-
-                    // Tampilkan menu popup di posisi klik mouse
-                    popup.show(e.getComponent(), e.getX(), e.getY());
-                }
-            }
-        });
     }
 }
